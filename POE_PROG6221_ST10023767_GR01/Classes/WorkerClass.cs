@@ -609,6 +609,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     }
                     else
                     {
+                        //If the users input an invalid number reask
                         valid = false;
                         clockTimerClass.ChangeToErrorColor();
                         Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
@@ -619,6 +620,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 else
                 {
+                    //If the users input an invalid number reask
                     valid = false;
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
