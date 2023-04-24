@@ -195,7 +195,6 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             string audioFilePath = Path.Combine("Songs", fileName);
 
             string currentDirectory = Directory.GetCurrentDirectory();
-            //Console.WriteLine("Current working directory: " + currentDirectory);
 
             if (!File.Exists(audioFilePath))
             {
