@@ -250,7 +250,7 @@ namespace POE_PROG6221_ST10023767_GR01
             {
                 // If the input is invalid, prompt the user to re-enter the ingredient quantity and change the console
                 // color to indicate an error
-                if (validate.Validate_String(userInput) == false)
+                if (!validate.Validate_String(userInput) || validate.Validate_Float(userInput))
                 {
                     valid = false;
                     clockTimerClass.ChangeToErrorColor();
@@ -260,7 +260,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 else
                 {
-                    quantity = Math.Round((validate.Convert_Text_To_Corresponding_Numerical_Value(userInput)),2);
+                    quantity = Math.Round(validate.Convert_Text_To_Corresponding_Numerical_Value(userInput), 2);
                     if (quantity == -9999)
                     {
                         valid = false;
