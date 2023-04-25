@@ -239,7 +239,7 @@ namespace POE_PROG6221_ST10023767_GR01
             // Initialize variables
             bool valid;
             string userInput;
-            double quantity;
+            double quantity = -9999;
 
             // Prompt the user to enter the ingredient quantity as text
             Console.Write("Please enter the ingredient quantity as text (e.g. 'one'): \t");
@@ -248,10 +248,9 @@ namespace POE_PROG6221_ST10023767_GR01
             // Validate the user's input
             do
             {
-                quantity = validate.Convert_Text_To_Corresponding_Numerical_Value(userInput);
                 // If the input is invalid, prompt the user to re-enter the ingredient quantity and change the console
                 // color to indicate an error
-                if (quantity.Equals(0))////--------------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<change to other value like -1000
+                if (validate.Validate_String(userInput) == false)
                 {
                     valid = false;
                     clockTimerClass.ChangeToErrorColor();
@@ -261,7 +260,19 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 else
                 {
-                    valid = true;
+                    quantity = Math.Round((validate.Convert_Text_To_Corresponding_Numerical_Value(userInput)),2);
+                    if (quantity == -9999)
+                    {
+                        valid = false;
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.Write("\r\nPlease re-enter the ingredient quantity as text (e.g. 'one'): \t");
+                        userInput = Console.ReadLine();
+                        clockTimerClass.ChangeBack();
+                    }
+                    else
+                    {
+                        valid = true;
+                    }
                 }
             } while (valid == false);
 

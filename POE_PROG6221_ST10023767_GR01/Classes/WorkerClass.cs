@@ -392,7 +392,7 @@ namespace POE_PROG6221_ST10023767_GR01
                             for (int i = 0; i < arrayLength; i++)
                             {
                                 // update the unit of measure for each ingredient based on the new quantity
-                                arrIngredientClasses[i].Quantity *= (double)factor;
+                                arrIngredientClasses[i].Quantity =  Math.Round((arrIngredientClasses[i].Quantity * (double)factor), 2);
 
                                 for (int j = 0; j < 2; j++)
                                 {
@@ -405,7 +405,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                         case "teaspoons":
                                             if (arrIngredientClasses[i].Quantity >= 3)
                                             {
-                                                arrIngredientClasses[i].Quantity /= 3;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity / 3), 2);
                                                 if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
                                                 {
                                                     arrIngredientClasses[i].Unit = "tablespoon";
@@ -428,7 +428,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                             }
                                             else
                                             {
-                                                arrIngredientClasses[i].Quantity *= 3;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 3), 2);
                                                 arrIngredientClasses[i].Unit = "teaspoons";
                                             }
                                             continue;
@@ -442,7 +442,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                         case "tablespoons":
                                             if (arrIngredientClasses[i].Quantity >= 16)
                                             {
-                                                arrIngredientClasses[i].Quantity /= 16;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity / 16),2);
                                                 if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
                                                 {
                                                     arrIngredientClasses[i].Unit = "cup";
@@ -470,7 +470,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                             }
                                             else
                                             {
-                                                arrIngredientClasses[i].Quantity *= 3;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 3), 2);
                                                 arrIngredientClasses[i].Unit = "teaspoons";
                                             }
                                             continue;
@@ -483,7 +483,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                         case "ounces":
                                             if (arrIngredientClasses[i].Quantity >= 16)
                                             {
-                                                arrIngredientClasses[i].Quantity /= 16;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity / 16), 2);
                                                 arrIngredientClasses[i].Unit = "pounds";
 
                                             }
@@ -500,7 +500,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                             }
                                             else
                                             {
-                                                arrIngredientClasses[i].Quantity *= 16;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 16), 2);
                                                 arrIngredientClasses[i].Unit = "ounces";
                                             }
                                             continue;
@@ -523,7 +523,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                             }
                                             else
                                             {
-                                                arrIngredientClasses[i].Quantity *= 16;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 16), 2);
                                                 arrIngredientClasses[i].Unit = "ounces";
                                             }
                                             continue;
@@ -535,7 +535,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                         case "cups":
                                             if (arrIngredientClasses[i].Quantity >= 16)
                                             {
-                                                arrIngredientClasses[i].Quantity /= 16;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity / 16), 2);
                                                 arrIngredientClasses[i].Unit = "gallons";
                                             }
                                             else if (arrIngredientClasses[i].Quantity >= (double)0.25)
@@ -551,7 +551,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                             }
                                             else
                                             {
-                                                arrIngredientClasses[i].Quantity *= 48;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 48), 2);
                                                 arrIngredientClasses[i].Unit = "teaspoons";
                                             }
                                             continue;
@@ -575,7 +575,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                             }
                                             else
                                             {
-                                                arrIngredientClasses[i].Quantity *= 16;
+                                                arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 16), 2);
                                                 arrIngredientClasses[i].Unit = "cups";
                                             }
                                             continue;
