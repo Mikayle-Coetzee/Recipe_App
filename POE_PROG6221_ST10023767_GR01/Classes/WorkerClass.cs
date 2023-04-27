@@ -716,13 +716,14 @@ namespace POE_PROG6221_ST10023767_GR01
             Console.Write(message);
             userInput = Console.ReadLine();
             clockTimerClass.ChangeBack();
-            do
+
+            while (validate.Validate_Yes_Or_No(userInput) == false)
             {
                 clockTimerClass.ChangeToErrorColor();
                 Console.Write(message);
                 userInput = Console.ReadLine();
                 clockTimerClass.ChangeBack();
-            } while (validate.Validate_Yes_Or_No(userInput) == false);
+            }
 
             return userInput;
         }
