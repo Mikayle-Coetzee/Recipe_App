@@ -63,7 +63,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>boolean True if the input is a yes or no, false otherwise.</returns>
         public bool Validate_Yes_Or_No(string userInput)
         {
-            bool valid = false;
+            bool valid;
             if (Validate_String(userInput) == true)
             {
                 if ((userInput.Trim().ToUpper().Equals("YES")) || (userInput.Trim().ToUpper().Equals("NO")))
@@ -117,8 +117,8 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>boolean True if the input is a valid integer, false otherwise.</returns>
         public bool Validate_Integer(string userInput)
         {
-            bool valid = false;
-            int number = 0;
+            bool valid ;
+            int number;
 
             try
             {
