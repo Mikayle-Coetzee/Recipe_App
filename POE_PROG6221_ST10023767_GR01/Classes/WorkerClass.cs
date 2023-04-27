@@ -78,9 +78,9 @@ namespace POE_PROG6221_ST10023767_GR01
         public const string FAREWELL = "We appreciate you using our application. Have a great day!";
 
         /// <summary>
-        /// Instantiates a new instance of the Validation class from the ValidationClassLibrary class library
-        /// The Validation class can now be used to perform validation tasks throughout the rest of your code.
-        /// </summary>
+        /// Instantiates a new instance of the Validation class. The Validation class
+        /// can now be used to perform validation tasks throughout the rest of your code.
+        /// /// </summary>
         public Validation validate = new Validation();
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
