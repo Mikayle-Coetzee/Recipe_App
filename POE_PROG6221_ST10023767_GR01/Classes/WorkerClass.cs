@@ -273,7 +273,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     {
                         if (newInput.Trim().ToUpper().Equals("NO"))
                         {
-                            Console.WriteLine("The request to enter a new recipe has been canceled.");
+                            Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
                             PrintRecipe(clockTimerClass);
                         }
                         else
@@ -652,7 +652,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
                 if (userInput.Trim().ToUpper().Equals("NO"))
                 {
-                    PrintQuitMessage(clockTimerClass);
+                    Application(clockTimerClass);
                 }
                 else
                 {
@@ -712,15 +712,18 @@ namespace POE_PROG6221_ST10023767_GR01
             // Initialize variable
             string userInput;
 
+            clockTimerClass.ChangeBackColor(ConsoleColor.White);
+            clockTimerClass.ChangeForeColor(ConsoleColor.Black);
+            Console.Write(message);
+            userInput = Console.ReadLine();
+            clockTimerClass.ChangeBack();
             do
             {
-                clockTimerClass.ChangeBackColor(ConsoleColor.White);
-                clockTimerClass.ChangeForeColor(ConsoleColor.Black);
+                clockTimerClass.ChangeToErrorColor();
                 Console.Write(message);
-                clockTimerClass.ChangeBack();
-
                 userInput = Console.ReadLine();
-            } while (!string.Equals(userInput.Trim().ToUpper(), "YES") && !string.Equals(userInput.Trim().ToUpper(), "NO"));
+                clockTimerClass.ChangeBack();
+            } while (validate.Validate_Yes_Or_No(userInput) == false);
 
             return userInput;
         }
@@ -751,6 +754,8 @@ namespace POE_PROG6221_ST10023767_GR01
             Console.WriteLine("\r\n"+ FAREWELL);
             string farewell = "farewell";
             DisplayBlock(farewell);
+            clockTimerClass.ChangeBack();
+            Console.WriteLine();
             Console.ReadLine();
             Environment.Exit(0);
         }
