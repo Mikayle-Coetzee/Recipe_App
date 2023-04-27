@@ -320,10 +320,6 @@ namespace POE_PROG6221_ST10023767_GR01
                 { 100, "hundred" } 
             };
 
-            // Define words that indicate a negative value
-            string[] minusWords = { "minus", "negative" };
-
-
             string half = "and a half";
             string result = string.Empty;
 
