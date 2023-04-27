@@ -338,16 +338,26 @@ namespace POE_PROG6221_ST10023767_GR01
             string input = Convert.ToString(userInput);
             int decimalNumber;
             // convert number to string and split by decimal point
-            if (input.Contains(","))
+
+            if (input.Contains("."))
             {
-                string[] parts = input.Split(',');
+                string[] parts = input.Split('.');
                 wholeNumber = int.Parse(parts[0]);
                 decimalNumber = int.Parse(parts[1]);
             }
             else
             {
-                wholeNumber = Convert.ToInt32(userInput);
-                decimalNumber = 0;
+                if (input.Contains(","))
+                {
+                    string[] parts = input.Split(',');
+                    wholeNumber = int.Parse(parts[0]);
+                    decimalNumber = int.Parse(parts[1]);
+                }
+                else
+                {
+                    wholeNumber = Convert.ToInt32(userInput);
+                    decimalNumber = 0;
+                }
             }
 
             // convert whole number to text words
@@ -447,15 +457,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>boolean True if the input is a valid unit of measurement, false otherwise</returns>
         public bool Validate_Unit_Of_Measurement(string userInput)
         {
-            bool valid = false;
-            if(Enum.IsDefined(typeof(Measurements), userInput) == true)
-            {
-                valid = true;
-            }
-            else
-            {
-                valid = false;
-            }
+            bool valid = Enum.IsDefined(typeof(Measurements), userInput);
             return valid;
         }
     }
