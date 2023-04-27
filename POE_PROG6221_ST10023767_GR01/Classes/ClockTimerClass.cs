@@ -11,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
-using ValidationClassLibrary;
 
 namespace POE_PROG6221_ST10023767_GR01
 {
