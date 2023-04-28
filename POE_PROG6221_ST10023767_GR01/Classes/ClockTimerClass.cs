@@ -213,12 +213,12 @@ namespace POE_PROG6221_ST10023767_GR01
         {
             if (this.selectedForeColor == ConsoleColor.White)
             {
-                this.ChangeBackColor(ConsoleColor.DarkRed);
+                this.ChangeBackColor(ConsoleColor.Red);
                 this.ChangeForeColor(this.selectedForeColor);
             }
             else
             {
-                ChangeBackColor(ConsoleColor.Red);
+                this.ChangeBackColor(ConsoleColor.DarkRed);
                 this.ChangeForeColor(this.selectedForeColor);
             }
         }
