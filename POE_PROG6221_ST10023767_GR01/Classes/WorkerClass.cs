@@ -186,13 +186,24 @@ namespace POE_PROG6221_ST10023767_GR01
             if (length == "welcome")
             {
                 Console.SetCursorPosition(WELCOME.Length, 0);
+                Console.Write(new string(' ', 60));
             }
             else
             {
-                int endLine = (Console.CursorTop) -1;
-                Console.SetCursorPosition(FAREWELL.Length, endLine);
+                if (length == "farewell")
+                {
+                    int endLine = (Console.CursorTop) - 1;
+                    Console.SetCursorPosition(FAREWELL.Length, endLine);
+                    Console.Write(new string(' ', 60));
+                }
+                else
+                {
+                    int endLine = (Console.CursorTop) - 1;
+                    Console.SetCursorPosition(length.Length, endLine);
+                    Console.Write(new string(' ', 100));
+                }
+                
             }
-            Console.Write(new string(' ', 60));
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -202,10 +213,15 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
         public void PrintIngredients(ClockTimerClass clockTimerClass)
         {
-            Console.Write("\r\n");
+            Console.WriteLine();
             DisplayLine();
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+            string recipe = "Recipe:";
+            Console.WriteLine();
+            Console.WriteLine(recipe);
+            DisplayBlock(recipe);
+            Console.WriteLine();
             Console.WriteLine("\r\nIngredients:\r\n");
             Console.WriteLine($"{"Quantities",-16} \t {"Units",-16} \t {"Names"}\n");
             clockTimerClass.ChangeBack();

@@ -219,7 +219,7 @@ namespace POE_PROG6221_ST10023767_GR01
             else
             {
                 this.ChangeBackColor(ConsoleColor.DarkRed);
-                this.ChangeForeColor(this.selectedForeColor);
+                this.ChangeForeColor(ConsoleColor.White);
             }
         }
 
