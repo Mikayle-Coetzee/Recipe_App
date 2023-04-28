@@ -280,15 +280,17 @@ namespace POE_PROG6221_ST10023767_GR01
                     break;
                 case 3:
                     clockTimerClass.ChangeToErrorColor();
-                    Console.Write("\r\nDo you still want to proceed with clearing your recipe," +
-                                    "\r\nconsidering that this action is irreversible? (Yes/No):");
+                    Console.Write("\r\nDo you still want to proceed with clearing your recipe,considering " +
+                                    "\r\nthat this action is irreversible? (Yes/No):");
                     string newInput = Console.ReadLine();
                     clockTimerClass.ChangeBack();
                     if (validate.Validate_Yes_Or_No(newInput) == true)
                     {
                         if (newInput.Trim().ToUpper().Equals("NO"))
                         {
+                            clockTimerClass.ChangeToErrorColor();
                             Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
+                            clockTimerClass.ChangeBack();
                             PrintRecipe(clockTimerClass);
                         }
                         else

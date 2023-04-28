@@ -266,7 +266,7 @@ namespace POE_PROG6221_ST10023767_GR01
             // Validate the user's input
             if (userChoice == 1)
             {
-                clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+                clockTimerClass.ChangeBackColor(clockTimerClass.selectedColor);
                 clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
                 Console.Write("\r\nPlease enter the ingredient quantity as text (e.g. 'one'): \t");
                 userInput = Console.ReadLine();
@@ -304,7 +304,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
             else
             {
-                clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+                clockTimerClass.ChangeBackColor(clockTimerClass.selectedColor);
                 clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
                 Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical number (e.g. 1): \t");
                 userInput = Console.ReadLine();
