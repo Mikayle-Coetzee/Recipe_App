@@ -213,11 +213,13 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
         public void PrintIngredients(ClockTimerClass clockTimerClass)
         {
+            // Initialize variable
+            string recipe = "Recipe:";
+
             Console.WriteLine();
             DisplayLine();
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            string recipe = "Recipe:";
             Console.WriteLine();
             Console.WriteLine(recipe);
             DisplayBlock(recipe);
@@ -295,6 +297,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         }
                         else
                         {
+                            //Clearing the arrays
                             Array.Clear(arrIngredientClasses, 0, arrIngredientClasses.Length);
                             Array.Clear(arrOriginalQuantities, 0, arrOriginalQuantities.Length);
                             Array.Clear(arrOriginalUnits, 0, arrOriginalUnits.Length);

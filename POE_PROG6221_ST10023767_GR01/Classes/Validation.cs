@@ -63,7 +63,9 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>boolean True if the input is a yes or no, false otherwise.</returns>
         public bool Validate_Yes_Or_No(string userInput)
         {
+            // Initialize variable
             bool valid;
+
             if (Validate_String(userInput) == true)
             {
                 if ((userInput.Trim().ToUpper().Equals("YES")) || (userInput.Trim().ToUpper().Equals("NO")))
@@ -92,7 +94,9 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>boolean True if the input is a valid string, false otherwise.</returns>
         public bool Validate_String(string userInput)
         {
+            // Initialize variable
             bool valid = false;
+
             try
             {
                 if ((!userInput.Equals(string.Empty)) && (!userInput.Equals(null)))
@@ -102,7 +106,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Line 29: " + ex.Message);//////please re-enter message 
+                Console.WriteLine("Line 109: " + ex.Message);
                 valid = false;
             }
             return valid;
@@ -117,6 +121,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>boolean True if the input is a valid integer, false otherwise.</returns>
         public bool Validate_Integer(string userInput)
         {
+            // Initialize variable
             bool valid ;
             int number;
 
@@ -129,7 +134,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Line 53: " + ex.Message);
+                Console.WriteLine("Line 137: " + ex.Message);
                 valid = false;//maby not needed 
             }
             finally
@@ -150,8 +155,10 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>boolean True if the input is a valid float, false otherwise.</returns>
         public bool Validate_Float(string userInput)
         {
+            // Initialize variable
             bool valid = false;
             float number = 0;
+
             try
             {
                 if (float.TryParse(userInput, out number) == true)
@@ -161,7 +168,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Line 76: " + ex.Message);
+                Console.WriteLine("Line 171: " + ex.Message);
                 valid = false;
             }
             finally
@@ -179,7 +186,12 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>The numerical number</returns>
         public double Convert_Text_To_Corresponding_Numerical_Value(string userInput)
         {
-            double number = 0.0f ;
+            // Initialize variable
+            double number = 0.0f, currentResult = 0.0f;
+            int result = 0, bigMultiplierValue = 1, wholeNumber = 0, decimalNumber = 0 ;
+            string decimalValue = string.Empty; 
+            bool bigMultiplierIsActive = false, valid = false;
+            bool minusFlag = false, halfFlag = false, decimalFlag = false;
 
             // Define the big scales numbers, e.g. "hundred" is 100, "thousand" is 1000, etc.
             var bigscales = new Dictionary<string, int>() 
@@ -200,17 +212,6 @@ namespace POE_PROG6221_ST10023767_GR01
             // Convert all words to lowercase for proper matching
             var lowercase = userInput.ToLower();
             var inputwords = lowercase.Split(splitchars, StringSplitOptions.RemoveEmptyEntries);
-
-            // Initialize variables
-            int result = 0;
-            double currentResult = 0;
-            string decimalValue = string.Empty; 
-            int bigMultiplierValue = 1;
-            bool bigMultiplierIsActive = false;
-            bool minusFlag = false, halfFlag = false, decimalFlag = false;
-            bool valid = false;
-            int wholeNumber = 0 ; 
-            int decimalNumber = 0 ;
 
             try
             {
@@ -313,8 +314,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                 decimalFlag = true;
                                 valid = true;
                             }
-                        }
-                        
+                        } 
                     }
                 }
 
@@ -362,6 +362,12 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>The string number</returns>
         public string Convert_Numerical_Value_To_Corresponding_Text(double userInput)
         {
+            // Initialize variable
+            string half = "and a half";
+            string result = string.Empty;
+            int wholeNumber;
+            int decimalNumber;
+
             // Define the big scales we'll be using, e.g. 100 is "hundred" , 1000 is "thousand", etc.
             var largeValueToText = new Dictionary<int, string>() 
             {
@@ -371,9 +377,6 @@ namespace POE_PROG6221_ST10023767_GR01
                 { 100, "hundred" } 
             };
 
-            string half = "and a half";
-            string result = string.Empty;
-
             // check if number is negative
             if (userInput < 0)
             {
@@ -381,11 +384,9 @@ namespace POE_PROG6221_ST10023767_GR01
                 userInput *= -1;
             }
 
-            int wholeNumber;
             string input = Convert.ToString(userInput);
-            int decimalNumber;
+            
             // convert number to string and split by decimal point
-
             if (input.Contains("."))
             {
                 string[] parts = input.Split('.');

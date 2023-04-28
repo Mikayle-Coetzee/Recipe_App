@@ -78,7 +78,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 catch (FormatException e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Line 81: " + e.Message);
                 }
 
                 // If the input is valid, convert it to an integer and return the value

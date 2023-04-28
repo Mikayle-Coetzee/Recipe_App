@@ -118,7 +118,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 catch (FormatException e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Line 121: " + e.Message);
                 }
 
                 if (valid == true)
@@ -239,8 +239,8 @@ namespace POE_PROG6221_ST10023767_GR01
             bool valid;
             string userInput;
             double quantity = -9999;
-
             int userChoice;
+
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.Write("\r\nPlease select an option by entering its corresponding number: ");

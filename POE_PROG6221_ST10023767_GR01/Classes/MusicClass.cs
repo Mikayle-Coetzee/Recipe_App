@@ -50,7 +50,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             
             clockTimerClass.ChangeColor();
 
-            // Continue executing the code in the main thread
+            // Continue executing the code
             WorkerClass worker = new WorkerClass(clockTimerClass);
             worker.Application(clockTimerClass);
         }

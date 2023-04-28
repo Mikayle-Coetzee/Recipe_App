@@ -104,6 +104,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         public void ChangeColor()
         {
+            // Initialize variable
             int selection = GetValidSelection();
 
             if (selection == 1)
