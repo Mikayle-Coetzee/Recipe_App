@@ -56,6 +56,11 @@ namespace POE_PROG6221_ST10023767_GR01
         public ConsoleColor selectedColor;
 
         /// <summary>
+        /// Holds the selected background color for the text
+        /// </summary>
+        public ConsoleColor selectedTextBackgroundColor;
+
+        /// <summary>
         /// Instantiates a new instance of the Validation class. The Validation class
         /// can now be used to perform validation tasks throughout the rest of your code.
         /// </summary>
@@ -105,12 +110,14 @@ namespace POE_PROG6221_ST10023767_GR01
             {
                 this.selectedColor = arrAvailableColorsDark[RandomNumberMe.Next(arrAvailableColorsDark.Length)];
                 this.selectedForeColor = ConsoleColor.White;
+                this.selectedTextBackgroundColor = ConsoleColor.Black;
                 ChangeForeColor(selectedForeColor);
             }
             else
             {
                 this.selectedColor = arrAvailableColorsLight[RandomNumberMe.Next(arrAvailableColorsLight.Length)];
                 this.selectedForeColor = ConsoleColor.Black;
+                this.selectedTextBackgroundColor = ConsoleColor.White;
                 ChangeForeColor(selectedForeColor);
             }
 
@@ -204,8 +211,16 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         public void ChangeToErrorColor()
         {
-            this.ChangeBackColor(ConsoleColor.White);
-            this.ChangeForeColor(ConsoleColor.Red);
+            if (this.selectedForeColor == ConsoleColor.White)
+            {
+                this.ChangeBackColor(ConsoleColor.DarkRed);
+                this.ChangeForeColor(this.selectedForeColor);
+            }
+            else
+            {
+                ChangeBackColor(ConsoleColor.Red);
+                this.ChangeForeColor(this.selectedForeColor);
+            }
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//

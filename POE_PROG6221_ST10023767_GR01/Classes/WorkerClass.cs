@@ -101,8 +101,8 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
         public void WelcomeMessage(ClockTimerClass clockTimerClass)
         {
-            clockTimerClass.ChangeBackColor(ConsoleColor.Black);
-            clockTimerClass.ChangeForeColor(ConsoleColor.White);
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             string welcome = "welcome"; 
             Console.Write(WELCOME);
 
@@ -138,8 +138,8 @@ namespace POE_PROG6221_ST10023767_GR01
             {
                 var ingredient = new IngredientClass();
 
-                clockTimerClass.ChangeBackColor(ConsoleColor.White);
-                clockTimerClass.ChangeForeColor(ConsoleColor.Black);
+                clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+                clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
 
                 Console.WriteLine($"\r\nPlease provide the details for ingredient #{i + 1}:");
 
@@ -204,8 +204,8 @@ namespace POE_PROG6221_ST10023767_GR01
         {
             Console.Write("\r\n");
             DisplayLine();
-            clockTimerClass.ChangeBackColor(ConsoleColor.White);
-            clockTimerClass.ChangeForeColor(ConsoleColor.DarkMagenta);
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\nIngredients:\r\n");
             Console.WriteLine($"{"Quantities",-16} \t {"Units",-16} \t {"Names"}\n");
             clockTimerClass.ChangeBack();
@@ -242,8 +242,8 @@ namespace POE_PROG6221_ST10023767_GR01
             string userInput = string.Empty;
             int userChoice = 0;
 
-            clockTimerClass.ChangeBackColor(ConsoleColor.White);
-            clockTimerClass.ChangeForeColor(ConsoleColor.Black);
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.Write("\r\nPlease select an option by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
             Console.Write("\r\n1. Print Recipe \r\n2. Scale Quantities \r\n3. Clear Recipe \r\n4. Quit \n>");
@@ -351,11 +351,11 @@ namespace POE_PROG6221_ST10023767_GR01
             double factor = 0.0f;
             string userInput = string.Empty; 
             bool valid = false; 
-            int number = 0; 
+            int number = 0;
 
             // change the console colors
-            clockTimerClass.ChangeBackColor(ConsoleColor.White);
-            clockTimerClass.ChangeForeColor(ConsoleColor.Black);
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
 
             // prompt the user for the scaling factor they want to use
             Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
@@ -679,8 +679,8 @@ namespace POE_PROG6221_ST10023767_GR01
             string userInput;
             int userChoice;
 
-            clockTimerClass.ChangeBackColor(ConsoleColor.White);
-            clockTimerClass.ChangeForeColor(ConsoleColor.Black);
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.Write("\r\nPlease select an option by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
             Console.Write("\r\n1. Enter a new Recipe \r\n2. Quit \r\n>");
@@ -711,8 +711,8 @@ namespace POE_PROG6221_ST10023767_GR01
             // Initialize variable
             string userInput;
 
-            clockTimerClass.ChangeBackColor(ConsoleColor.White);
-            clockTimerClass.ChangeForeColor(ConsoleColor.Black);
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.Write(message);
             userInput = Console.ReadLine();
             clockTimerClass.ChangeBack();
@@ -749,8 +749,8 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
         private void PrintQuitMessage(ClockTimerClass clockTimerClass)
         {
-            clockTimerClass.ChangeBackColor(ConsoleColor.Black);
-            clockTimerClass.ChangeForeColor(ConsoleColor.White);
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\n"+ FAREWELL);
             string farewell = "farewell";
             DisplayBlock(farewell);
@@ -782,8 +782,8 @@ namespace POE_PROG6221_ST10023767_GR01
             {
                 var step = new StepClass();
 
-                clockTimerClass.ChangeBackColor(ConsoleColor.White);
-                clockTimerClass.ChangeForeColor(ConsoleColor.Black);
+                clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+                clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
                 Console.Write($"\r\nPlease provide the description for step #{i + 1}: ");
                 clockTimerClass.ChangeBack();
                 Console.Write($"\r\nStep {i + 1}: ");
@@ -814,8 +814,8 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
         public void PrintSteps(ClockTimerClass clockTimerClass)
         {
-            clockTimerClass.ChangeBackColor(ConsoleColor.White);
-            clockTimerClass.ChangeForeColor(ConsoleColor.DarkMagenta);
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\nSteps:\r\n");
             clockTimerClass.ChangeBack();
             StepReport();
