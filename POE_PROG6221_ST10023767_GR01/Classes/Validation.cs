@@ -179,9 +179,9 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>The numerical number</returns>
         public double Convert_Text_To_Corresponding_Numerical_Value(string userInput)
         {
-            double number ;
+            double number = 0.0f ;
 
-            // Define the big scales we'll be using, e.g. "hundred" is 100, "thousand" is 1000, etc.
+            // Define the big scales numbers, e.g. "hundred" is 100, "thousand" is 1000, etc.
             var bigscales = new Dictionary<string, int>() 
             {
                 { "hundred", 100 },
@@ -203,11 +203,14 @@ namespace POE_PROG6221_ST10023767_GR01
 
             // Initialize variables
             int result = 0;
-            int currentResult = 0;
+            double currentResult = 0;
+            string decimalValue = string.Empty; 
             int bigMultiplierValue = 1;
             bool bigMultiplierIsActive = false;
-            bool minusFlag = false, halfFlag = false;
+            bool minusFlag = false, halfFlag = false, decimalFlag = false;
             bool valid = false;
+            int wholeNumber = 0 ; 
+            int decimalNumber = 0 ;
 
             try
             {
@@ -226,7 +229,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         // and disable the big multiplier until next time
                         if (bigMultiplierIsActive)
                         {
-                            result += currentResult * bigMultiplierValue;
+                            result += (int)currentResult * bigMultiplierValue;
                             currentResult = 0;
                             bigMultiplierValue = 1; // reset the multiplier value
                             bigMultiplierIsActive = false; // turn it off until next time
@@ -241,18 +244,45 @@ namespace POE_PROG6221_ST10023767_GR01
                         int n;
                         if ((n = Array.IndexOf(ones, curword) + 1) > 0)
                         {
-                            currentResult += n;
-                            valid = true;
+                            if (decimalFlag == false)
+                            {
+                                currentResult += n;
+                                valid = true;
+                            }
+                            else
+                            {
+                                wholeNumber = (int)currentResult;
+                                decimalNumber += n;
+                                valid = true;
+                            }
                         }
                         else if ((n = Array.IndexOf(teens, curword) + 1) > 0)
                         {
-                            currentResult += n + 10;
-                            valid = true;
+                            if (decimalFlag == false)
+                            {
+                                currentResult += n + 10;
+                                valid = true;
+                            }
+                            else
+                            {
+                                wholeNumber = (int)currentResult;
+                                decimalNumber += n;
+                                valid = true;
+                            }
                         }
                         else if ((n = Array.IndexOf(tens, curword) + 1) > 0)
                         {
-                            currentResult += n * 10;
-                            valid = true;
+                            if (decimalFlag == false)
+                            {
+                                currentResult += n * 10;
+                                valid = true;
+                            }
+                            else
+                            {
+                                wholeNumber = (int)currentResult;
+                                decimalNumber += n;
+                                valid = true;
+                            }
                         }
                         // Allow for negative words (like "minus") 
                         else if (minusWords.Contains(curword))
@@ -270,21 +300,42 @@ namespace POE_PROG6221_ST10023767_GR01
                             halfFlag = true;
                             valid = true;
                         }
+                        // Allow for decimal values 
+                        if (curword == "point")
+                        {
+                            decimalFlag = true;
+                            valid = true;
+                        }
+                        else
+                        {
+                            if (curword == "comma") 
+                            {
+                                decimalFlag = true;
+                                valid = true;
+                            }
+                        }
                         
                     }
                 }
 
                 // Combine the results and the big multiplier value to get the final number
-                if (valid == true)
+                if ((valid == true)&&(decimalFlag == false))
                 {
                     number = result + currentResult * bigMultiplierValue;
                 }
                 else
                 {
-                    number = -9999;
+                    if ((valid == true) && (decimalFlag == true))
+                    {
+                        decimalValue = wholeNumber + "," + decimalNumber;
+                        number = float.Parse(decimalValue);
+                    }
+                    else
+                    {
+                        number = -9999;
+                    }
                 }
                 
-
                 // If a minus word was found, make the number negative
                 if (minusFlag)
                     number *= -1;
@@ -296,7 +347,7 @@ namespace POE_PROG6221_ST10023767_GR01
             catch (Exception ex)
             {
                 // If an exception occurred, print the error message and set the number to 0
-                Console.WriteLine("Line 213: " + ex.Message);
+                Console.WriteLine("Line 350: " + ex.Message);
                 number = -9999;
             }
 
