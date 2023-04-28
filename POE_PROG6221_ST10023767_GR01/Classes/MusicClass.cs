@@ -105,40 +105,40 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                 switch (userInput)
                 {
                     case "1":
-                        audio = "Bon Jovi - It's My Life [Lyrics].mp3";
+                        audio = "Bon Jovi_It is My Life.mp3";
                         break;
                     case "2":
-                        audio = "Bryan Adams - Summer of 69 (Classic Version).mp3";
+                        audio = "Bryan Adams_Summer of 69.mp3";
                         break;
                     case "3":
-                        audio = "Cat Stevens - Morning Has Broken.mp3";
+                        audio = "Cat Stevens_Morning Has Broken.mp3";
                         break;
                     case "4":
-                        audio = "Demi Lee Moore - Coat Of Many Colors.mp3";
+                        audio = "Demi Lee Moore_Coat Of Many Colors.mp3";
                         break;
                     case "5":
-                        audio = "Dire Straits - Walk Of Life (Lyric Video).mp3";
+                        audio = "Dire Straits_Walk Of Life.mp3";
                         break;
                     case "6":
-                        audio = "Kenny Loggins - Footloose (Audio).mp3";
+                        audio = "Kenny Loggins_Footloose.mp3";
                         break;
                     case "7":
-                        audio = "Nightbirde – It’s Okay (Lyrics).mp3";
+                        audio = "Nightbirde_It is Okay.mp3";
                         break;
                     case "8":
-                        audio = "Old Hippie- Bellamy Brothers- Lyrics.mp3";
+                        audio = "Old Hippie_Bellamy Brothers.mp3";
                         break;
                     case "9":
-                        audio = "The Bellamy Brothers - We Dared The Lightning (1995).mp3";
+                        audio = "The Bellamy Brothers_We Dared The Lightning.mp3";
                         break;
                     case "10":
-                        audio = "Smokie - Living next door to Alice (Lyrics).mp3";
+                        audio = "Smokie_Living next door to Alice.mp3";
                         break;
                     case "11":
-                        audio = "The Greatest - Sia (Cover) _ Madilyn Paige.mp3";
+                        audio = "The Greatest_Sia_Madilyn Paige.mp3";
                         break;
                     case "12":
-                        audio = "Through The Years - Kenny Rogers -Piano Cover.mp3";
+                        audio = "Through The Years_Kenny Rogers_Piano Cover.mp3";
                         break;
                     case "13":
                         audio = null;
