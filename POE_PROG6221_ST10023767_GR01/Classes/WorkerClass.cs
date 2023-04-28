@@ -286,26 +286,34 @@ namespace POE_PROG6221_ST10023767_GR01
                                     "\r\nthat this action is irreversible? (Yes/No):");
                     string newInput = Console.ReadLine();
                     clockTimerClass.ChangeBack();
-                    if (validate.Validate_Yes_Or_No(newInput) == true)
-                    {
-                        if (newInput.Trim().ToUpper().Equals("NO"))
-                        {
-                            clockTimerClass.ChangeToErrorColor();
-                            Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
-                            clockTimerClass.ChangeBack();
-                            PrintRecipe(clockTimerClass);
-                        }
-                        else
-                        {
-                            //Clearing the arrays
-                            Array.Clear(arrIngredientClasses, 0, arrIngredientClasses.Length);
-                            Array.Clear(arrOriginalQuantities, 0, arrOriginalQuantities.Length);
-                            Array.Clear(arrOriginalUnits, 0, arrOriginalUnits.Length);
-                            Array.Clear(arrSteps, 0, arrSteps.Length);
-                            Application(clockTimerClass);
 
-                            PrintRecipe(clockTimerClass);
-                        }
+                    while (validate.Validate_Yes_Or_No(newInput) == false)
+                    {
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.Write("\r\nDo you still want to proceed with clearing your recipe,considering " +
+                                        "\r\nthat this action is irreversible? (Yes/No):");
+                        newInput = Console.ReadLine();
+                        clockTimerClass.ChangeBack();
+
+                    }
+
+                    if (newInput.Trim().ToUpper().Equals("NO"))
+                    {
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
+                        clockTimerClass.ChangeBack();
+                        PrintRecipe(clockTimerClass);
+                    }
+                    else
+                    {
+                        //Clearing the arrays
+                        Array.Clear(arrIngredientClasses, 0, arrIngredientClasses.Length);
+                        Array.Clear(arrOriginalQuantities, 0, arrOriginalQuantities.Length);
+                        Array.Clear(arrOriginalUnits, 0, arrOriginalUnits.Length);
+                        Array.Clear(arrSteps, 0, arrSteps.Length);
+                        Application(clockTimerClass);
+
+                        PrintRecipe(clockTimerClass);
                     }
                     break;
                 case 4:
