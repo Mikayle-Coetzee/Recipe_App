@@ -266,7 +266,7 @@ namespace POE_PROG6221_ST10023767_GR01
                             else
                             {
                                 wholeNumber = (int)currentResult;
-                                decimalNumber += n;
+                                decimalNumber += n + 10;
                                 valid = true;
                             }
                         }
@@ -280,7 +280,7 @@ namespace POE_PROG6221_ST10023767_GR01
                             else
                             {
                                 wholeNumber = (int)currentResult;
-                                decimalNumber += n;
+                                decimalNumber += n * 10;
                                 valid = true;
                             }
                         }
