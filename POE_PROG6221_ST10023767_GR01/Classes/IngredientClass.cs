@@ -240,27 +240,43 @@ namespace POE_PROG6221_ST10023767_GR01
             string userInput;
             double quantity = -9999;
 
-            // Prompt the user to enter the ingredient quantity as text
-            Console.Write("Please enter the ingredient quantity as text (e.g. 'one'): \t");
+            int userChoice;
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+            Console.Write("\r\nPlease select an option by entering its corresponding number: ");
+            clockTimerClass.ChangeBack();
+            Console.Write("\r\n1. Enter the ingredient quantity as text (e.g. 'one')" +
+                "\r\n2. Enter the ingredient quantity as a numerical number (e.g. 1)\r\n>");
             userInput = Console.ReadLine();
 
-            // Validate the user's input
-            do
+            while (!int.TryParse(userInput, out userChoice) || userChoice < 1 || userChoice > 2)
             {
-                // If the input is invalid, prompt the user to re-enter the ingredient quantity and change the console
-                // color to indicate an error
-                if (!validate.Validate_String(userInput) || validate.Validate_Float(userInput))
+                clockTimerClass.ChangeToErrorColor();
+                Console.Write("\r\nPlease select an option by entering its corresponding number: ");
+                clockTimerClass.ChangeBack();
+                Console.Write("\r\n1. Enter the ingredient quantity as text (e.g. 'one')" +
+                    "\r\n2. Enter the ingredient quantity as a numerical number (e.g. 1)\r\n>");
+                userInput = Console.ReadLine();
+            }
+
+            //// Prompt the user to enter the ingredient quantity as text
+            //Console.Write("Please enter the ingredient quantity as text (e.g. 'one'): \t");
+            //userInput = Console.ReadLine();
+
+            // Validate the user's input
+            if (userChoice == 1)
+            {
+                clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+                clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+                Console.Write("\r\nPlease enter the ingredient quantity as text (e.g. 'one'): \t");
+                userInput = Console.ReadLine();
+                clockTimerClass.ChangeBack();
+                do
                 {
-                    valid = false;
-                    clockTimerClass.ChangeToErrorColor();
-                    Console.Write("\r\nPlease re-enter the ingredient quantity as text (e.g. 'one'): \t");
-                    userInput = Console.ReadLine();
-                    clockTimerClass.ChangeBack();
-                }
-                else
-                {
-                    quantity = Math.Round(validate.Convert_Text_To_Corresponding_Numerical_Value(userInput), 2);
-                    if (quantity == -9999)
+
+                    // If the input is invalid, prompt the user to re-enter the ingredient quantity and change the console
+                    // color to indicate an error
+                    if (!validate.Validate_String(userInput) || validate.Validate_Float(userInput))
                     {
                         valid = false;
                         clockTimerClass.ChangeToErrorColor();
@@ -270,11 +286,62 @@ namespace POE_PROG6221_ST10023767_GR01
                     }
                     else
                     {
-                        valid = true;
+                        quantity = Math.Round(validate.Convert_Text_To_Corresponding_Numerical_Value(userInput), 2);
+                        if (quantity == -9999)
+                        {
+                            valid = false;
+                            clockTimerClass.ChangeToErrorColor();
+                            Console.Write("\r\nPlease re-enter the ingredient quantity as text (e.g. 'one'): \t");
+                            userInput = Console.ReadLine();
+                            clockTimerClass.ChangeBack();
+                        }
+                        else
+                        {
+                            valid = true;
+                        }
                     }
-                }
-            } while (valid == false);
+                } while (valid == false);
+            }
+            else
+            {
+                clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+                clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+                Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical number (e.g. 1): \t");
+                userInput = Console.ReadLine();
+                clockTimerClass.ChangeBack();
+                do
+                {
 
+
+                    // If the input is invalid, prompt the user to re-enter the ingredient quantity and change the console
+                    // color to indicate an error
+                    if (!validate.Validate_String(userInput) || !validate.Validate_Float(userInput))
+                    {
+                        valid = false;
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical number (e.g. 1): \t");
+                        userInput = Console.ReadLine();
+                        clockTimerClass.ChangeBack();
+                    }
+                    else
+                    {
+
+                        quantity = Math.Round(Convert.ToDouble(userInput), 2);
+                        if (quantity == -9999)
+                        {
+                            valid = false;
+                            clockTimerClass.ChangeToErrorColor();
+                            Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical number (e.g. 1): \t");
+                            userInput = Console.ReadLine();
+                            clockTimerClass.ChangeBack();
+                        }
+                        else
+                        {
+                            valid = true;
+                        }
+                    }
+                } while (valid == false);
+            }
             // Return the numerical value of the entered ingredient quantity
             return quantity;
         }
