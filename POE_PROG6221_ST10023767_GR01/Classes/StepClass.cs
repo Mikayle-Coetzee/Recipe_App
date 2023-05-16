@@ -56,7 +56,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method prompts the user to enter a whole number representing the number of steps, validates the input, 
         /// and returns the value as an integer.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <returns>An integer value representing the number of steps entered by the user</returns>
         public int GetNumOfSteps(ClockTimerClass clockTimerClass)
         {
@@ -96,6 +96,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
             } while (valid == false);
 
+            //return the number of steps 
             return number;
         }
 
@@ -105,7 +106,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method prompts the user to enter a number of steps and a step description, creates a new StepClass 
         /// object with those values, and returns it.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <returns>A new StepClass object with the entered step and number of steps</returns>
         public StepClass GetStepData(ClockTimerClass clockTimerClass)
         {

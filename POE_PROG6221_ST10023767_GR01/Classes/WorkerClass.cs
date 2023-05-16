@@ -176,9 +176,10 @@ namespace POE_PROG6221_ST10023767_GR01
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method is used to display a block of white spaces on the console at a specific position.
-        /// If the argument "length" is equal to "welcome", it sets the cursor position to the end of the welcome message.
-        /// Otherwise, it calculates the end line of the console output and sets the cursor position to the beginning of 
-        /// the "BYE" message, then displays a block of 60 white spaces to overwrite any previous text in that line.
+        /// If the argument "length" is equal to "welcome", it sets the cursor position to the end of the welcome 
+        /// message. Otherwise, it calculates the end line of the console output and sets the cursor position to 
+        /// the beginning of the "BYE" message, then displays a block of 60 white spaces to overwrite any previous
+        /// text in that line.
         /// </summary>
         /// <param name="length"></param>
         public void DisplayBlock(string length)
@@ -210,7 +211,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Method prints a report of all the ingredients in the recipe.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         public void PrintIngredients(ClockTimerClass clockTimerClass)
         {
             // Initialize variable
@@ -253,7 +254,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// console color and prompt the user for input. If the user chooses to clear the recipe, the method clears
         /// the recipe using the Array.Clear method and then calls the Application method to restart the program.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         public void PrintRecipe(ClockTimerClass clockTimerClass)
         {
             // Initialize variables
@@ -333,7 +334,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         /// <param name="userInput"></param>
         /// <param name="validate"></param>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <returns></returns>
         private int GetValidUserChoice(string userInput, Validation validate, ClockTimerClass clockTimerClass)
         {
@@ -343,7 +344,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             do
             {
-                if (validate.Validate_Integer(userInput) == true)
+                if (validate.Validate_Integer(userInput))
                 {
                     number = Convert.ToInt32(userInput);
                     if ((number > 0) && (number < 5))
@@ -373,7 +374,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// The method uses a loop to iterate through the list of ingredients and a switch statement to determine how
         /// to adjust each ingredient's unit based on its current unit and quantity.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         public void ScaleQuantities(ClockTimerClass clockTimerClass)
         {
             // Initialize variables
@@ -401,7 +402,7 @@ namespace POE_PROG6221_ST10023767_GR01
             // validate the user's input
             do
             {
-                if ((validate.Validate_Integer(userInput) == true))
+                if (validate.Validate_Integer(userInput))
                 {
                     // if the user's input is valid, convert it to an integer
                     number = Convert.ToInt32(userInput);
@@ -619,8 +620,8 @@ namespace POE_PROG6221_ST10023767_GR01
                         {
                             if (number == 4)
                             {
-                                //If the value of number is equal to 4, then the program will reset the Quantity and Unit values
-                                //in the array of objects arrIngredientClasses to their original values.
+                                //If the value of number is equal to 4, then the program will reset the Quantity
+                                //and Unit values in the array of objects arrIngredientClasses to their original values.
                                 for (int k = 0; k < arrayLength; k++)
                                 {
                                     arrIngredientClasses[k].Quantity = arrOriginalQuantities[k];
@@ -640,7 +641,8 @@ namespace POE_PROG6221_ST10023767_GR01
                         //If the users input an invalid number reask
                         valid = false;
                         clockTimerClass.ChangeToErrorColor();
-                        Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
+                        Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to " +
+                            "indicate the desired factor: ");
                         clockTimerClass.ChangeBack();
                         Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
                         userInput = Console.ReadLine();
@@ -651,7 +653,8 @@ namespace POE_PROG6221_ST10023767_GR01
                     //If the users input an invalid number reask
                     valid = false;
                     clockTimerClass.ChangeToErrorColor();
-                    Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
+                    Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to" +
+                        " indicate the desired factor: ");
                     clockTimerClass.ChangeBack();
                     Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
                     userInput = Console.ReadLine();
@@ -662,13 +665,14 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method is the main entry point for the recipe application. It prompts the user to select between two options:
-        /// enter a new recipe or quit. If the user chooses to enter a recipe, it asks for confirmation and then calls 
-        /// the WriteRecipeToArrays method to write the recipe information to arrays. It then calls the PrintRecipe method
-        /// to display the recipe information to the console. If the user chooses to quit, it calls the PrintQuitMessage 
-        /// method to display a quit message. The ClockTimerClass parameter is used to change the color of the console output.
+        /// Method is the main entry point for the recipe application. It prompts the user to select between two 
+        /// options: enter a new recipe or quit. If the user chooses to enter a recipe, it asks for confirmation 
+        /// and then calls the WriteRecipeToArrays method to write the recipe information to arrays. It then calls
+        /// the PrintRecipe method to display the recipe information to the console. If the user chooses to quit,
+        /// it calls the PrintQuitMessage method to display a quit message. The ClockTimerClass parameter is used 
+        /// to change the color of the console output.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         public void Application(ClockTimerClass clockTimerClass)
         {
             // Get the valid user choice from the user using the GetValidUserChoice method
@@ -676,7 +680,8 @@ namespace POE_PROG6221_ST10023767_GR01
 
             if (userChoice == 1)
             {
-                string userInput = GetValidYesOrNoInput(clockTimerClass, "\r\nDo you want to enter a recipe? (Yes or No): ");
+                string userInput = GetValidYesOrNoInput(clockTimerClass, "\r\nDo you want to enter a recipe? " +
+                    "(Yes or No): ");
 
                 if (userInput.Trim().ToUpper().Equals("NO"))
                 {
@@ -700,7 +705,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// the user's choice. If the user enters an invalid input, displays an error message and prompts 
         /// again until a valid input is received, It returns the user's choice as an integer.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <returns>The integer value of the users choice</returns>
         private int GetValidUserChoice(ClockTimerClass clockTimerClass)
         {
@@ -732,7 +737,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method prompts the user with a message and validates their input to ensure they enter either "Yes" or "No". 
         /// It returns the user's input as a string
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <param name="message"></param>
         /// <returns>The string value of the users input that must be yes or no</returns>
         private string GetValidYesOrNoInput(ClockTimerClass clockTimerClass, string message)
@@ -762,7 +767,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method writes the recipe ingredients and steps entered by the user to their arrays. It is called 
         /// within the application flow when the user chooses to enter a new recipe.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         private void WriteRecipeToArrays(ClockTimerClass clockTimerClass)
         {
             WriteIngredientsToArrays(clockTimerClass);
@@ -775,7 +780,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// DisplayBlock() method to display a horizontal line. After printing the message, the console 
         /// color is reset to its previous state and waits for user input.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         private void PrintQuitMessage(ClockTimerClass clockTimerClass)
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
@@ -796,7 +801,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// the Validation class to ensure that the input is not empty or null. The method also takes an 
         /// instance of the ClockTimerClass to change the console colors during the input process.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         public void WriteStepsToArray(ClockTimerClass clockTimerClass)
         {
             // Initialize variables
@@ -840,7 +845,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Prints a report of the steps
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         public void PrintSteps(ClockTimerClass clockTimerClass)
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);

@@ -212,15 +212,16 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         public void ChangeToErrorColor()
         {
-            if (this.selectedForeColor == ConsoleColor.White)
+            switch (selectedForeColor)
             {
-                this.ChangeBackColor(ConsoleColor.Red);
-                this.ChangeForeColor(this.selectedForeColor);
-            }
-            else
-            {
-                this.ChangeBackColor(ConsoleColor.DarkRed);
-                this.ChangeForeColor(ConsoleColor.White);
+                case ConsoleColor.White:
+                    ChangeBackColor(ConsoleColor.Red);
+                    ChangeForeColor(selectedForeColor);
+                    break;
+                default:
+                    ChangeBackColor(ConsoleColor.DarkRed);
+                    ChangeForeColor(ConsoleColor.White);
+                    break;
             }
         }
 

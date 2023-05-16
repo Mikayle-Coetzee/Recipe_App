@@ -70,12 +70,13 @@ namespace POE_PROG6221_ST10023767_GR01
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// PART 2
-        /// This method prompts the user to enter ingredient data and returns an IngredientClass object with the data entered.
-        /// The method first calls GetNumOfIngredients to get the number of ingredients to be entered. It then calls 
-        /// GetIngredientName, GetIngredientQuantity, and GetIngredientUnit to get the name, quantity, and unit of each
-        /// ingredient respectively. It creates and returns a new IngredientClass object with the data entered.
+        /// This method prompts the user to enter ingredient data and returns an IngredientClass object with the 
+        /// data entered. The method first calls GetNumOfIngredients to get the number of ingredients to be 
+        /// entered. It then calls GetIngredientName, GetIngredientQuantity, and GetIngredientUnit to get the 
+        /// name, quantity, and unit of each ingredient respectively. It creates and returns a new IngredientClass
+        /// object with the data entered.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <returns>a new IngredientClass object with the data entered</returns>
         public IngredientClass GetIngredientData(ClockTimerClass clockTimerClass)
         {
@@ -96,7 +97,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// is not valid, it prompts the user to re-enter the number of ingredients. The method continues to loop
         /// until a valid input is received. The method then returns the valid number of ingredients as an integer.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <returns>The valid number of ingredients as an integer</returns>
         public int GetNumOfIngredients(ClockTimerClass clockTimerClass)
         {
@@ -145,7 +146,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method prompts the user to enter a text string representing the name of an ingredient, 
         /// validates the input to ensure it is a valid string, and returns the input as a string.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <returns>The string representing the entered ingredient name</returns>
         public String GetIngredientName(ClockTimerClass clockTimerClass)
         {
@@ -187,7 +188,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method prompts the user to enter an ingredient unit as text (e.g. "cup") and validates the input to
         /// ensure it is a valid string and a valid unit of measurement. It returns the validated unit as a string.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <returns>The string representing the entered ingredient unit</returns>
         public String GetIngredientUnit(ClockTimerClass clockTimerClass)
         {
@@ -231,7 +232,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method prompts the user to enter an ingredient quantity as text (e.g. "one") and converts it to 
         /// a numerical value.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
         /// <returns>The numerical value of the entered ingredient quantity.</returns>
         public double GetIngredientQuantity(ClockTimerClass clockTimerClass)
         {
@@ -274,8 +275,8 @@ namespace POE_PROG6221_ST10023767_GR01
                 do
                 {
 
-                    // If the input is invalid, prompt the user to re-enter the ingredient quantity and change the console
-                    // color to indicate an error
+                    // If the input is invalid, prompt the user to re-enter the ingredient quantity and change the
+                    // console color to indicate an error
                     if (!validate.Validate_String(userInput) || validate.Validate_Float(userInput))
                     {
                         valid = false;
@@ -313,13 +314,14 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
 
 
-                    // If the input is invalid, prompt the user to re-enter the ingredient quantity and change the console
-                    // color to indicate an error
+                    // If the input is invalid, prompt the user to re-enter the ingredient quantity and change
+                    // the console color to indicate an error
                     if (!validate.Validate_String(userInput) || !validate.Validate_Float(userInput))
                     {
                         valid = false;
                         clockTimerClass.ChangeToErrorColor();
-                        Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical number (e.g. 1): \t");
+                        Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical number " +
+                            "(e.g. 1): \t");
                         userInput = Console.ReadLine();
                         clockTimerClass.ChangeBack();
                     }
@@ -331,7 +333,8 @@ namespace POE_PROG6221_ST10023767_GR01
                         {
                             valid = false;
                             clockTimerClass.ChangeToErrorColor();
-                            Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical number (e.g. 1): \t");
+                            Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical " +
+                                "number (e.g. 1): \t");
                             userInput = Console.ReadLine();
                             clockTimerClass.ChangeBack();
                         }
@@ -342,6 +345,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     }
                 } while (valid == false);
             }
+
             // Return the numerical value of the entered ingredient quantity
             return quantity;
         }

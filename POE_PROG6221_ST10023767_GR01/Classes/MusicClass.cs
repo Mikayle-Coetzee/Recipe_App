@@ -37,7 +37,8 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method plays the given audio file in a new thread and updates the console color using the ClockTimerClass.
+        /// Method plays the given audio file in a new thread and updates the console color using the
+        /// ClockTimerClass.
         /// </summary>
         /// <param name="Audio"></param>
         private void Play(string Audio)
@@ -62,7 +63,8 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// It validates the user's input and ensures that only valid numbers are accepted. 
         /// If an invalid number is entered, it prompts the user to re-enter a valid number.
         /// Once a valid number is entered, the corresponding song is played using the "Play()" method.
-        /// The method also sets the console color and size, and starts the timer using the "ClockTimerClass" object.
+        /// The method also sets the console color and size, and starts the timer using the "ClockTimerClass" 
+        /// object.
         /// </summary>
         public void AudioOptions()
         {
@@ -145,7 +147,8 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                         break;
                     default:
                         clockTimerClass.ChangeToErrorColor();
-                        Console.WriteLine("\r\nPlease re-select a song to play by entering its corresponding number: ");
+                        Console.WriteLine("\r\nPlease re-select a song to play by entering its corresponding " +
+                            "number: ");
                         clockTimerClass.ChangeBackColor(ConsoleColor.Black);
                         clockTimerClass.ChangeForeColor(ConsoleColor.White);
                         Console.Write("1.  Bon Jovi - It's My Life\r\n2.  Bryan Adams - Summer of 69\r\n" +

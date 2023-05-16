@@ -28,21 +28,23 @@ namespace POE_PROG6221_ST10023767_GR01
         }
 
         /// <summary>
-        /// Private string array is used to convert numeric quantities into their word form for better user readability. Each 
-        /// element represents a word form of a single-digit number, from "one" to "nine".
+        /// Private string array is used to convert numeric quantities into their word form for better user 
+        /// readability. Each element represents a word form of a single-digit number, from "one" to "nine".
         /// </summary>
         private readonly string[] ones = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
         /// <summary>
-        /// Private string array stores the English names of numbers between 11 and 19 that have unique names and do not follow the
-        /// standard pattern of adding "-teen" to the end of the ones place value.
+        /// Private string array stores the English names of numbers between 11 and 19 that have unique names 
+        /// and do not follow the standard pattern of adding "-teen" to the end of the ones place value.
         /// </summary>
-        private readonly string[] teens = { "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+        private readonly string[] teens = { "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+            "seventeen", "eighteen", "nineteen" };
 
         /// <summary>
         /// Private string array stores the English names for the numbers 10, 20, 30, ..., 90.
         /// </summary>
-        private readonly string[] tens = { "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+        private readonly string[] tens = { "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy",
+            "eighty", "ninety" };
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -55,9 +57,9 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// This method is used to validate user input that should be "yes" or "no". It first checks whether the user 
-        /// input is a valid string using the Validate_String method. Then it checks whether the input is either 
-        /// "yes" or "no", ignoring any leading/trailing spaces and case sensitivity.
+        /// This method is used to validate user input that should be "yes" or "no". It first checks whether the 
+        /// user input is a valid string using the Validate_String method. Then it checks whether the input is
+        /// either "yes" or "no", ignoring any leading/trailing spaces and case sensitivity.
         /// </summary>
         /// <param name="userInput">The user input string to be validated.</param>
         /// <returns>boolean True if the input is a yes or no, false otherwise.</returns>
@@ -106,7 +108,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Line 109: " + ex.Message);
+                Console.WriteLine("Line 111: " + ex.Message);
                 valid = false;
             }
             return valid;
@@ -134,7 +136,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Line 137: " + ex.Message);
+                Console.WriteLine("Line 139: " + ex.Message);
                 valid = false;//maby not needed 
             }
             finally
@@ -146,10 +148,10 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// This method validates if a user input can be parsed as a float number. It returns true if the input can be
-        /// successfully parsed, false otherwise. It also catches any exception that may arise during the parsing process 
-        /// and outputs an error message to the console. The method uses the float.TryParse method to parse the input 
-        /// as a float number.
+        /// This method validates if a user input can be parsed as a float number. It returns true if the input 
+        /// can be successfully parsed, false otherwise. It also catches any exception that may arise during the
+        /// parsing process and outputs an error message to the console. The method uses the float.TryParse 
+        /// method to parse the input as a float number.
         /// </summary>
         /// <param name="userInput">The user input string to be validated.</param>
         /// <returns>boolean True if the input is a valid float, false otherwise.</returns>
@@ -168,7 +170,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Line 171: " + ex.Message);
+                Console.WriteLine("Line 173: " + ex.Message);
                 valid = false;
             }
             finally
@@ -347,7 +349,7 @@ namespace POE_PROG6221_ST10023767_GR01
             catch (Exception ex)
             {
                 // If an exception occurred, print the error message and set the number to 0
-                Console.WriteLine("Line 350: " + ex.Message);
+                Console.WriteLine("Line 352: " + ex.Message);
                 number = -9999;
             }
 
@@ -421,7 +423,8 @@ namespace POE_PROG6221_ST10023767_GR01
                     {
                         int quotient = (int)(wholeNumber / scale);
                         wholeNumber %= (int)scale;
-                        result += Convert_Numerical_Value_To_Corresponding_Text(quotient) + " " + largeValueToText[scale];
+                        result += Convert_Numerical_Value_To_Corresponding_Text(quotient) + " " + 
+                            largeValueToText[scale];
                         if (wholeNumber > 0)
                         {
                             result += " ";
@@ -498,8 +501,8 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// This method validates if a user input is a valid unit of measurement type. It returns true if the input is
-        /// found in the enum, false otherwise. 
+        /// This method validates if a user input is a valid unit of measurement type. It returns true if the 
+        /// input is found in the enum, false otherwise. 
         /// </summary>
         /// <param name="userInput">The user input string to be validated.</param>
         /// <returns>boolean True if the input is a valid unit of measurement, false otherwise</returns>
