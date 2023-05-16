@@ -65,3 +65,17 @@ To use this application, follow these steps:
 9. If you entered the number for 'Clear Recipe', you will be asked to comfirm with entering yes or no. 
 - you will then have a option to enter a new recipe or quit. 
 10. If you entered the number for 'Quit', the application will close. 
+
+## Enhancements and Key Focus Areas in my Part 1 Submission
+
+I achieved a perfect score of 100% for Part 1 of the programming assignment. While I did not receive specific feedback from my lecturer, I approached this task with a strong commitment to ongoing improvement. I would like to highlight the key areas I focused on during my review process.
+
+Firstly, I dedicated time to enhance the efficiency of my code by adjusting some algorithms and data structures. I analysed the complexity of my code and made appropriate adjustments to ensure optimal performance.
+
+Secondly, I conducted additional testing to ensure that all my error handling mechanisms can handle unexpected situations and that it provides meaningful error messages to the user.
+
+Thirdly, I revisited my code's structure, ensuring that I followed best programming practices and the principles we discussed in class. I paid close attention to naming conventions, ensuring clarity and consistency throughout my code. 
+
+Lastly, I improved and expanded a few comments in my code, carefully selecting better words for improved readability.
+
+I believe that these enhancements have made my Part 1 submission even stronger, demonstrating my dedication to delivering high-quality work.
