@@ -2,7 +2,7 @@
 // Mikayle Coetzee
 // ST10023767
 // PROG6221 POE 2023
-// Part 1 
+// Part 1 and 2 
 #endregion
 
 using System;
