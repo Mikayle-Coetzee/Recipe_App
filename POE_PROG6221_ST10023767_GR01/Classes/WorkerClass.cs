@@ -24,12 +24,12 @@ namespace POE_PROG6221_ST10023767_GR01
         /// information about the ingredients in the recipe.
         /// </summary>
         private IngredientClass ingredientClass = new IngredientClass();
-        
+
         /// <summary>
         /// Initializes a private instance of the StepClass used to manage and store cooking instructions.
         /// </summary>
         private StepClass stepClass = new StepClass();
-        
+
         /// <summary>
         /// Holds the number of ingredients 
         /// </summary>
@@ -107,7 +107,7 @@ namespace POE_PROG6221_ST10023767_GR01
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            string welcome = "welcome"; 
+            string welcome = "welcome";
             Console.Write(WELCOME);
 
             DisplayBlock(welcome);
@@ -152,7 +152,9 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     Name = ingredientClass.GetIngredientName(clockTimerClass),
                     Quantity = ingredientClass.GetIngredientQuantity(clockTimerClass),
-                    Unit = ingredientClass.GetIngredientUnit(clockTimerClass)
+                    Unit = ingredientClass.GetIngredientUnit(clockTimerClass),
+                    IngredientCalories = ingredientClass.GetIngredientCalories(clockTimerClass),
+                    FoodGroup = ingredientClass.GetFoodGroup(clockTimerClass)
                 };
 
                 IngredientList.Add(newIngredient);
@@ -207,7 +209,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     Console.SetCursorPosition(length.Length, endLine);
                     Console.Write(new string(' ', 100));
                 }
-                
+
             }
         }
 
@@ -671,7 +673,7 @@ namespace POE_PROG6221_ST10023767_GR01
             // Retrieve and display the recipe names in alphabetical order
             List<string> recipeNames = GetRecipeNames();
             List<List<string>> stepCollections = GetStepCollections();
-            List<List<(string, double, string)>> ingredientCollections = GetIngredientCollections();
+            List<List<(string, double, string, double, string)>> ingredientCollections = GetIngredientCollections();
 
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
@@ -723,7 +725,9 @@ namespace POE_PROG6221_ST10023767_GR01
                                         ingredientCollections[recipeIndex][i] = (
                                             ingredientCollections[recipeIndex][i].Item1,
                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 * factor), 2),
-                                            ingredientCollections[recipeIndex][i].Item3
+                                            ingredientCollections[recipeIndex][i].Item3,
+                                            ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5
                                         );
 
                                         for (int j = 0; j < 2; j++)
@@ -738,23 +742,28 @@ namespace POE_PROG6221_ST10023767_GR01
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 / 3), 2),
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "tablespoon" : "tablespoons"
-                                                        );
+                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
+
                                                     }
                                                     else if (ingredientCollections[recipeIndex][i].Item2 >= (double)0.5)
                                                     {
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "teaspoon" : "teaspoons"
-                                                        );
+                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "teaspoon" : "teaspoons",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     else
                                                     {
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 * 3), 2),
-                                                            "teaspoons"
+                                                            "teaspoons",
+                                                            ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5
                                                         );
                                                     }
                                                     continue;
@@ -767,32 +776,36 @@ namespace POE_PROG6221_ST10023767_GR01
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 / 16), 2),
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "cup" : "cups"
-                                                        );
+                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "cup" : "cups",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     else if (ingredientCollections[recipeIndex][i].Item2 >= 3)
                                                     {
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             ingredientCollections[recipeIndex][i].Item2,
-                                                            "tablespoons"
-                                                        );
+                                                            "tablespoons",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     else if (ingredientCollections[recipeIndex][i].Item2 >= (double)0.5)
                                                     {
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "tablespoon" : "tablespoons"
-                                                        );
+                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     else
                                                     {
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 * 3), 2),
-                                                            "teaspoons"
-                                                        );
+                                                            "teaspoons",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     continue;
 
@@ -804,24 +817,27 @@ namespace POE_PROG6221_ST10023767_GR01
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 / 16), 2),
-                                                            "pounds"
-                                                        );
+                                                            "pounds",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     else if (ingredientCollections[recipeIndex][i].Item2 >= (double)0.5)
                                                     {
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "ounce" : "ounces"
-                                                        );
+                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "ounce" : "ounces",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     else
                                                     {
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 * 16), 2),
-                                                            "ounces"
-                                                        );
+                                                            "ounces",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     continue;
 
@@ -833,16 +849,18 @@ namespace POE_PROG6221_ST10023767_GR01
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "pound" : "pounds"
-                                                        );
+                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "pound" : "pounds",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     else
                                                     {
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 * 16), 2),
-                                                            "ounces"
-                                                        );
+                                                            "ounces",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     continue;
 
@@ -853,15 +871,18 @@ namespace POE_PROG6221_ST10023767_GR01
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 / 16), 2),
-                                                            "gallons"
-                                                        );
+                                                            "gallons",
+                                                        ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5);
                                                     }
                                                     else if (ingredientCollections[recipeIndex][i].Item2 >= (double)0.25)
                                                     {
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "cup" : "cups"
+                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "cup" : "cups",
+                                                            ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5
                                                         );
                                                     }
                                                     else
@@ -869,7 +890,9 @@ namespace POE_PROG6221_ST10023767_GR01
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 * 48), 2),
-                                                            "teaspoons"
+                                                            "teaspoons",
+                                                            ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5
                                                         );
                                                     }
                                                     continue;
@@ -882,7 +905,9 @@ namespace POE_PROG6221_ST10023767_GR01
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "gallon" : "gallons"
+                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "gallon" : "gallons",
+                                                            ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5
                                                         );
                                                     }
                                                     else
@@ -890,7 +915,9 @@ namespace POE_PROG6221_ST10023767_GR01
                                                         ingredientCollections[recipeIndex][i] = (
                                                             ingredientCollections[recipeIndex][i].Item1,
                                                             Math.Round((ingredientCollections[recipeIndex][i].Item2 * 16), 2),
-                                                            "cups"
+                                                            "cups",
+                                                            ingredientCollections[recipeIndex][i].Item4,
+                                            ingredientCollections[recipeIndex][i].Item5
                                                         );
                                                     }
                                                     continue;
@@ -936,7 +963,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     string selectedRecipeName = sortedRecipeNames[recipeIndex];
                     RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
                     List<string> steps = stepCollections[recipeIndex];
-                    List<(string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
+                    List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
 
                     // Display the selected recipe
                     Console.WriteLine($"Recipe: {selectedRecipe.RecipeName}");
@@ -948,8 +975,10 @@ namespace POE_PROG6221_ST10023767_GR01
                         string quantity = validate.Convert_Numerical_Value_To_Corresponding_Text(ingredientTuples[i].Item2);
                         string unit = " " + ingredientTuples[i].Item3;
                         string name = " " + ingredientTuples[i].Item1;
+                        string foodgroup = " " + selectedRecipe.IngredientListIn[i].FoodGroup;
+                        string calories = " " + Convert.ToString(selectedRecipe.IngredientListIn[i].IngredientCalories);
 
-                        Console.WriteLine($"{quantity,-16}\t{unit,-16}\t{name}");
+                        Console.WriteLine($"{quantity,-16}\t{unit,-16}\t{name,-16}\t{foodgroup,-16}\t{calories}");
                     }
 
                     PrintSteps(clockTimerClass);
@@ -1094,7 +1123,7 @@ namespace POE_PROG6221_ST10023767_GR01
             //WriteStepsToArray(clockTimerClass);
             recipeNames = new List<string>();
             stepCollections = new List<List<string>>();
-            ingredientCollections = new List<List<(string, double, string)>>();
+            ingredientCollections = new List<List<(string, double, string, double, string)>>();
 
             string userInput = GetValidYesOrNoInput(clockTimerClass, "\r\nDo you want to enter a recipe? " +
                     "(Yes or No): ");
@@ -1111,7 +1140,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     userInput = GetValidYesOrNoInput(clockTimerClass, "\r\nDo you want to enter a recipe? " +
                        "(Yes or No): ");
                 }
-            } while (userInput.Trim().ToUpper().Equals("YES")); 
+            } while (userInput.Trim().ToUpper().Equals("YES"));
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -1125,7 +1154,7 @@ namespace POE_PROG6221_ST10023767_GR01
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            Console.WriteLine("\r\n"+ FAREWELL);
+            Console.WriteLine("\r\n" + FAREWELL);
             string farewell = "farewell";
             DisplayBlock(farewell);
             clockTimerClass.ChangeBack();
@@ -1201,7 +1230,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         private List<string> recipeNames { get; set; }
         private List<List<string>> stepCollections { get; set; }
-        private List<List<(string, double, string)>> ingredientCollections { get; set; }
+        private List<List<(string, double, string, double, string)>> ingredientCollections { get; set; }
 
         private List<RecipeClass> RecipeList = new List<RecipeClass>();
 
@@ -1215,12 +1244,12 @@ namespace POE_PROG6221_ST10023767_GR01
             return stepCollections;
         }
 
-        public List<List<(string, double, string)>> GetIngredientCollections()
+        public List<List<(string, double, string, double, string)>> GetIngredientCollections()
         {
             return ingredientCollections;
         }
 
-        public void StoreRecipes(List<List<string>> stepCollections, List<List<(string, double, string)>> ingredientCollections)
+        public void StoreRecipes(List<List<string>> stepCollections, List<List<(string, double, string, double, string)>> ingredientCollections)
         {
             // Retrieve the generic collection from the WorkerClass
             List<string> recipeNames = GetRecipeNames();
@@ -1238,7 +1267,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 if (i < stepCollections.Count && i < ingredientCollections.Count)
                 {
                     List<string> steps = stepCollections[i];
-                    List<(string, double, string)> ingredientTuples = ingredientCollections[i];
+                    List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[i];
 
                     // Add steps to the recipe
                     foreach (string step in steps)
@@ -1249,12 +1278,14 @@ namespace POE_PROG6221_ST10023767_GR01
                     }
 
                     // Add ingredients to the recipe
-                    foreach ((string name, double quantity, string unit) in ingredientTuples)
+                    foreach ((string name, double quantity, string unit, double calories, string foodgroup) in ingredientTuples)
                     {
                         IngredientClass ingredientObj = new IngredientClass();
                         ingredientObj.Name = name;
                         ingredientObj.Quantity = quantity;
                         ingredientObj.Unit = unit;
+                        ingredientObj.IngredientCalories = calories;
+                        ingredientObj.FoodGroup = foodgroup;
                         recipe.IngredientListIn.Add(ingredientObj);
                     }
                 }
@@ -1276,15 +1307,15 @@ namespace POE_PROG6221_ST10023767_GR01
             // Write the steps and ingredients to the arrays
             WriteIngredientsToArrays(clockTimerClass);
             WriteStepsToArray(clockTimerClass);
-            
+
 
             // Populate stepCollections and ingredientCollections based on the arrays
             List<string> newSteps = new List<string>(StepList.Select(step => step.Step));
-            List<(string, double, string)> newIngredients = new List<(string, double, string)>();
+            List<(string, double, string, double, string)> newIngredients = new List<(string, double, string, double, string)>();
             for (int i = 0; i < IngredientList.Count; i++)
             {
                 var ingredient = IngredientList[i];
-                newIngredients.Add((ingredient.Name, ingredient.Quantity, ingredient.Unit));
+                newIngredients.Add((ingredient.Name, ingredient.Quantity, ingredient.Unit, ingredient.IngredientCalories, ingredient.FoodGroup));
             }
 
             // Update the recipe data
@@ -1304,7 +1335,7 @@ namespace POE_PROG6221_ST10023767_GR01
             // Retrieve and display the recipe names in alphabetical order
             List<string> recipeNames = GetRecipeNames();
             List<List<string>> stepCollections = GetStepCollections();
-            List<List<(string, double, string)>> ingredientCollections = GetIngredientCollections();
+            List<List<(string, double, string, double, string)>> ingredientCollections = GetIngredientCollections();
 
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
@@ -1334,7 +1365,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         string selectedRecipeName = sortedRecipeNames[recipeIndex];
                         RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
                         List<string> steps = stepCollections[recipeIndex];
-                        List<(string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
+                        List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
 
                         // Display the selected recipe
                         Console.WriteLine($"Recipe: {selectedRecipe.RecipeName}");
@@ -1346,8 +1377,10 @@ namespace POE_PROG6221_ST10023767_GR01
                             string quantity = validate.Convert_Numerical_Value_To_Corresponding_Text(selectedRecipe.IngredientListIn[i].Quantity);
                             string unit = " " + selectedRecipe.IngredientListIn[i].Unit;
                             string name = " " + selectedRecipe.IngredientListIn[i].Name;
+                            string foodgroup = " " + selectedRecipe.IngredientListIn[i].FoodGroup;
+                            string calories = " " + Convert.ToString(selectedRecipe.IngredientListIn[i].IngredientCalories);
 
-                            Console.WriteLine($"{quantity,-16}\t{unit,-16}\t{name}");
+                            Console.WriteLine($"{quantity,-16}\t{unit,-16}\t{name,-16}\t{foodgroup,-16}\t{calories}");
                         }
 
                         PrintSteps(clockTimerClass);
