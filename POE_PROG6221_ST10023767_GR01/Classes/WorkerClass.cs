@@ -81,6 +81,9 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         public const string FAREWELL = "We appreciate you using our application. Have a great day!";
 
+
+        private List<List<(string, double, string, double, string)>> ingredientCollectionsOriginal;
+
         /// <summary>
         /// Instantiates a new instance of the Validation class. The Validation class
         /// can now be used to perform validation tasks throughout the rest of your code.
@@ -372,293 +375,6 @@ namespace POE_PROG6221_ST10023767_GR01
         /// to adjust each ingredient's unit based on its current unit and quantity.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
-        //public void ScaleQuantities(ClockTimerClass clockTimerClass)
-        //{
-        //    // Initialize variables
-        //    double factor = 0.0f;
-        //    string userInput = string.Empty; 
-        //    bool valid = false; 
-        //    int number = 0;
-
-        //    // change the console colors
-        //    clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-        //    clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-
-        //    // prompt the user for the scaling factor they want to use
-        //    Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
-
-        //    // change the console colors back
-        //    clockTimerClass.ChangeBack();
-
-        //    // show the options the user can choose from
-        //    Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-
-        //    // read the user's input
-        //    userInput = Console.ReadLine();
-
-        //    // validate the user's input
-        //    do
-        //    {
-        //        if (validate.Validate_Integer(userInput))
-        //        {
-        //            // if the user's input is valid, convert it to an integer
-        //            number = Convert.ToInt32(userInput);
-
-        //            if (number > 0 && number < 5)
-        //            {
-        //                // if the user's input is within the range of valid options, set the scaling factor
-        //                factor = arrFactor[(number - 1)];
-
-        //                // get the number of ingredients in the recipe
-        //                int arrayLength = arrIngredientClasses.Count();
-
-        //                if (number > 0 && number < 4)
-        //                {
-        //                    // if the scaling factor is not a reset, scale the quantities of each ingredient
-        //                    for (int i = 0; i < arrayLength; i++)
-        //                    {
-        //                        // update the unit of measure for each ingredient based on the new quantity
-        //                        arrIngredientClasses[i].Quantity =  Math.Round((arrIngredientClasses[i].Quantity * (double)factor), 2);
-
-        //                        for (int j = 0; j < 2; j++)
-        //                        {
-        //                            switch (arrIngredientClasses[i].Unit.ToLower())
-        //                            {
-        //                                // for teaspoons, adjust to tablespoon if the quantity is 1 or 0.5, otherwise use tablespoons
-        //                                // else convert to teaspoon/teaspoons
-        //                                case "tsp":
-        //                                case "teaspoon":
-        //                                case "teaspoons":
-        //                                    if (arrIngredientClasses[i].Quantity >= 3)
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity / 3), 2);
-        //                                        if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "tablespoon";
-        //                                        }
-        //                                        else
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "tablespoons";
-        //                                        }
-        //                                    }
-        //                                    else if (arrIngredientClasses[i].Quantity >= (double)0.5)
-        //                                    {
-        //                                        if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "teaspoon";
-        //                                        }
-        //                                        else
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "teaspoons";
-        //                                        }
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 3), 2);
-        //                                        arrIngredientClasses[i].Unit = "teaspoons";
-        //                                    }
-        //                                    continue;
-
-        //                                // for tablespoons, adjust to cups if the quantity is more than 16, otherwise to cup if the 
-        //                                // quantity after dividing with 16 is 1 or 0.5
-        //                                // else convert to tablespoons if quantity is more than 2, else convert to tablespoon if 
-        //                                // quantity is 1 or 0.5, otherwise multiply with three and convert to teaspoons
-        //                                case "tbsp":
-        //                                case "tablespoon":
-        //                                case "tablespoons":
-        //                                    if (arrIngredientClasses[i].Quantity >= 16)
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity / 16),2);
-        //                                        if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "cup";
-        //                                        }
-        //                                        else
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "cups";
-        //                                        }
-        //                                    }
-        //                                    else if (arrIngredientClasses[i].Quantity >= 3)
-        //                                    {
-        //                                        //arrIngredientClasses[i].Quantity /= 3;// was /= 
-        //                                        arrIngredientClasses[i].Unit = "tablespoons";
-        //                                    }
-        //                                    else if (arrIngredientClasses[i].Quantity >= (double)0.5)
-        //                                    {
-        //                                        if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "tablespoon";
-        //                                        }
-        //                                        else
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "tablespoons";
-        //                                        }
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 3), 2);
-        //                                        arrIngredientClasses[i].Unit = "teaspoons";
-        //                                    }
-        //                                    continue;
-
-        //                                // for ounces, adjust to pounds if the quantity is more than 16, otherwise to ounce if the 
-        //                                // quantity is 1 or 0.5, if it is not 1 or 0.5 but it is more than 0.5 then change to ounces.
-        //                                // else convert to ounces and multiply with 16.
-        //                                case "oz":
-        //                                case "ounce":
-        //                                case "ounces":
-        //                                    if (arrIngredientClasses[i].Quantity >= 16)
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity / 16), 2);
-        //                                        arrIngredientClasses[i].Unit = "pounds";
-
-        //                                    }
-        //                                    else if (arrIngredientClasses[i].Quantity >= (double)0.5)
-        //                                    {
-        //                                        if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "ounce";
-        //                                        }
-        //                                        else
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "ounces";
-        //                                        }
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 16), 2);
-        //                                        arrIngredientClasses[i].Unit = "ounces";
-        //                                    }
-        //                                    continue;
-
-        //                                // for pounds, adjust to pounds if the quantity is more than 1, otherwise to pound if the 
-        //                                // quantity is 1 or 0.5, if it is smaller than 1, multiply with 16 and change to ounces.
-        //                                case "lb":
-        //                                case "pound":
-        //                                case "pounds":
-        //                                    if (arrIngredientClasses[i].Quantity >= 1)
-        //                                    {
-        //                                        if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "pound";
-        //                                        }
-        //                                        else
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "pounds";
-        //                                        }
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 16), 2);
-        //                                        arrIngredientClasses[i].Unit = "ounces";
-        //                                    }
-        //                                    continue;
-
-        //                                // for cups, adjust to gallons if the quantity is more than 16, otherwise to cup if the 
-        //                                // quantity is 1 or 0.5, or to cups if the quantity is not 1 or 0.5 but still more than
-        //                                // 0.25 and less than 16. otherwise multiply with 48 and convert to teaspoons
-        //                                case "cup":
-        //                                case "cups":
-        //                                    if (arrIngredientClasses[i].Quantity >= 16)
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity / 16), 2);
-        //                                        arrIngredientClasses[i].Unit = "gallons";
-        //                                    }
-        //                                    else if (arrIngredientClasses[i].Quantity >= (double)0.25)
-        //                                    {
-        //                                        if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "cup";
-        //                                        }
-        //                                        else
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "cups";
-        //                                        }
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 48), 2);
-        //                                        arrIngredientClasses[i].Unit = "teaspoons";
-        //                                    }
-        //                                    continue;
-
-        //                                // for gallons, adjust to gallons if the quantity is more than 1, otherwise to gallon if the 
-        //                                // quantity is 1 or 0.5
-        //                                // else multiply with 16 and convert to cups
-        //                                case "gal":
-        //                                case "gallon":
-        //                                case "gallons":
-        //                                    if (arrIngredientClasses[i].Quantity >= 1)
-        //                                    {
-        //                                        if (arrIngredientClasses[i].Quantity == 1 || arrIngredientClasses[i].Quantity == 0.5)
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "gallon";
-        //                                        }
-        //                                        else
-        //                                        {
-        //                                            arrIngredientClasses[i].Unit = "gallons";
-        //                                        }
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        arrIngredientClasses[i].Quantity = Math.Round((arrIngredientClasses[i].Quantity * 16), 2);
-        //                                        arrIngredientClasses[i].Unit = "cups";
-        //                                    }
-        //                                    continue;
-        //                                default:
-        //                                    Console.WriteLine("We don't recognize this unit of measurement. Please try again using a different unit.");
-        //                                    break;
-        //                            }
-        //                        }
-        //                    }
-        //                    valid = true;
-        //                }
-        //                else
-        //                {
-        //                    if (number == 4)
-        //                    {
-        //                        //If the value of number is equal to 4, then the program will reset the Quantity
-        //                        //and Unit values in the array of objects arrIngredientClasses to their original values.
-        //                        for (int k = 0; k < arrayLength; k++)
-        //                        {
-        //                            arrIngredientClasses[k].Quantity = arrOriginalQuantities[k];
-        //                            arrIngredientClasses[k].Unit = arrOriginalUnits[k];
-        //                        }
-        //                        valid = true;
-        //                    }
-        //                    else
-        //                    {
-        //                        valid = false;
-        //                    }
-        //                }
-        //                valid = true;
-        //            }
-        //            else
-        //            {
-        //                //If the users input an invalid number reask
-        //                valid = false;
-        //                clockTimerClass.ChangeToErrorColor();
-        //                Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to " +
-        //                    "indicate the desired factor: ");
-        //                clockTimerClass.ChangeBack();
-        //                Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-        //                userInput = Console.ReadLine();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            //If the users input an invalid number reask
-        //            valid = false;
-        //            clockTimerClass.ChangeToErrorColor();
-        //            Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to" +
-        //                " indicate the desired factor: ");
-        //            clockTimerClass.ChangeBack();
-        //            Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-        //            userInput = Console.ReadLine();
-        //        }
-        //    } while (valid == false);
-
-        //}
 
         public void ScaleQuantities(ClockTimerClass clockTimerClass)
         {
@@ -670,10 +386,23 @@ namespace POE_PROG6221_ST10023767_GR01
             string userInput2;
             int userChoice;
             int recipeIndex = 1;
+
             // Retrieve and display the recipe names in alphabetical order
             List<string> recipeNames = GetRecipeNames();
             List<List<string>> stepCollections = GetStepCollections();
             List<List<(string, double, string, double, string)>> ingredientCollections = GetIngredientCollections();
+
+            // Create a deep copy of ingredientCollections if ingredientCollectionsOriginal is null
+            if (ingredientCollectionsOriginal == null)
+            {
+                ingredientCollectionsOriginal = new List<List<(string, double, string, double, string)>>();
+
+                foreach (var recipe in ingredientCollections)
+                {
+                    var copiedRecipe = new List<(string, double, string, double, string)>(recipe);
+                    ingredientCollectionsOriginal.Add(copiedRecipe);
+                }
+            }
 
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
@@ -691,6 +420,9 @@ namespace POE_PROG6221_ST10023767_GR01
             Console.Write(">");
 
             userInput2 = Console.ReadLine();
+
+
+
 
             if (int.TryParse(userInput2, out userChoice))
             {
@@ -931,12 +663,22 @@ namespace POE_PROG6221_ST10023767_GR01
                                 }
                                 else/// the reset code 4th option must be here 
                                 {
-                                    valid = false;
-                                    clockTimerClass.ChangeToErrorColor();
-                                    Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
-                                    clockTimerClass.ChangeBack();
-                                    Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-                                    userInput = Console.ReadLine();
+                                    if (number == 4)
+                                    {
+                                        //If the value of number is equal to 4, then the program will reset the Quantity
+                                        //and Unit values in the array of objects arrIngredientClasses to their original values.
+                                        ingredientCollections[recipeIndex] = new List<(string, double, string, double, string)>(ingredientCollectionsOriginal[recipeIndex]);
+                                        valid = true;
+                                    }
+                                    else
+                                    {
+                                        valid = false;
+                                        clockTimerClass.ChangeToErrorColor();
+                                        Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
+                                        clockTimerClass.ChangeBack();
+                                        Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
+                                        userInput = Console.ReadLine();
+                                    }
                                 }
                             }
                             else
@@ -995,6 +737,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 else if (userChoice == sortedRecipeNames.Count + 1)
                 {
+                    ingredientCollections[recipeIndex] = new List<(string, double, string, double, string)>(ingredientCollectionsOriginal[recipeIndex]);
                     PrintRecipe(clockTimerClass);
                 }
                 else
@@ -1039,6 +782,11 @@ namespace POE_PROG6221_ST10023767_GR01
                 else
                 {
                     WriteRecipeToArrays(clockTimerClass);
+                    if (ingredientCollectionsOriginal != null)
+                    {
+                        ingredientCollectionsOriginal.Clear();
+                    }
+
                     PrintRecipe(clockTimerClass);
                 }
             }
