@@ -12,8 +12,8 @@ using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Windows;
-using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Forms;
+using static POE_PROG6221_ST10023767_GR01.WorkerClass;
 
 namespace POE_PROG6221_ST10023767_GR01
 {
@@ -53,20 +53,6 @@ namespace POE_PROG6221_ST10023767_GR01
         public List<StepClass> StepList { get; set; }
 
         private string AnotherRecipe = "No"; 
-
-        /// <summary>
-        /// An array that will store the original ingredient quantities, which is used when the user 
-        /// wants to reset the recipe
-        /// </summary>
-        //public double[] arrOriginalQuantities;
-        //public List<double> OriginalQuantitiesList { get; set; }
-
-        /// <summary>
-        /// An array that will store the original ingredient units, which is used when the user 
-        /// wants to reset the recipe
-        /// </summary>
-        //public string[] arrOriginalUnits;
-        //public List<string> OriginalUnitsList { get; set; }
 
         /// <summary>
         /// An array that holds the possible scaling factors.
@@ -138,8 +124,6 @@ namespace POE_PROG6221_ST10023767_GR01
             this.numberOfIngredients = number;
 
             IngredientList = new List<IngredientClass>();
-            //OriginalQuantitiesList = new List<double>();
-            //OriginalUnitsList = new List<string>();
 
             for (int i = 0; i < number; i++)
             {
@@ -163,8 +147,6 @@ namespace POE_PROG6221_ST10023767_GR01
                 };
 
                 IngredientList.Add(newIngredient);
-                //OriginalQuantitiesList.Add(newIngredient.Quantity);
-                //OriginalUnitsList.Add(newIngredient.Unit);
             }
         }
 
@@ -214,7 +196,6 @@ namespace POE_PROG6221_ST10023767_GR01
                     Console.SetCursorPosition(length.Length, endLine);
                     Console.Write(new string(' ', 100));
                 }
-
             }
         }
 
@@ -1067,6 +1048,22 @@ namespace POE_PROG6221_ST10023767_GR01
         }
 
         private List<double> totalCaloriesList = new List<double>();
+        public delegate void RecipeNotificationDelegate(string recipeName);
+        public event RecipeNotificationDelegate RecipeExceedsCaloriesEvent;
+
+        public void NotifyUser(string recipeName)
+        {
+            RecipeNotificationDelegate handler = RecipeExceedsCaloriesEvent;
+            if (handler != null)
+            {
+                handler.Invoke(recipeName);
+            }
+        }
+
+        public void HandleRecipeExceedsCalories(string recipeName)
+        {
+            DialogResult result = MessageBox.Show($"The recipe '{recipeName}' exceeds 300 calories.", "Recipe Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         public void AddRecipe(ClockTimerClass clockTimerClass)
         {
@@ -1077,32 +1074,42 @@ namespace POE_PROG6221_ST10023767_GR01
             WriteIngredientsToArrays(clockTimerClass);
             WriteStepsToArray(clockTimerClass);
 
-            double totalCalories = 0.0f;
-            // Populate stepCollections and ingredientCollections based on the arrays
-            List<string> newSteps = new List<string>(StepList.Select(step => step.Step));
-            List<(string, double, string, double, string)> newIngredients = new List<(string, double, string, double, string)>();
-            for (int i = 0; i < IngredientList.Count; i++)
+            double totalCalories = CalculateTotalCalories();
+
+            if (totalCalories > 300)
             {
-                var ingredient = IngredientList[i];
-                newIngredients.Add((ingredient.Name, ingredient.Quantity, ingredient.Unit, ingredient.IngredientCalories, ingredient.FoodGroup));
-                totalCalories += ingredient.IngredientCalories;
+                RecipeExceedsCaloriesEvent += HandleRecipeExceedsCalories;
+                NotifyUser(newRecipeName);
             }
 
             totalCaloriesList.Add(totalCalories);
 
             // Update the recipe data
             recipeNames.Add(newRecipeName);
-            stepCollections.Add(newSteps);
-            ingredientCollections.Add(newIngredients);
+            stepCollections.Add(StepList.Select(step => step.Step).ToList());
+            ingredientCollections.Add(IngredientList.Select(ingredient =>
+                (ingredient.Name, ingredient.Quantity, ingredient.Unit, ingredient.IngredientCalories, ingredient.FoodGroup)).ToList());
 
             // Store the updated recipes
             StoreRecipes(stepCollections, ingredientCollections);
         }
 
+        private double CalculateTotalCalories()
+        {
+            double totalCalories = 0.0;
+
+            foreach (var ingredient in IngredientList)
+            {
+                totalCalories += ingredient.IngredientCalories;
+            }
+
+            return totalCalories;
+        }
+
         private void DisplayRecipeNames(ClockTimerClass clockTimerClass)
         {
             string userInput;
-            int userChoice;
+            bool valid;
 
             // Retrieve and display the recipe names in alphabetical order
             List<string> recipeNames = GetRecipeNames();
@@ -1126,67 +1133,108 @@ namespace POE_PROG6221_ST10023767_GR01
 
             userInput = Console.ReadLine();
 
-            if (int.TryParse(userInput, out userChoice))
+            do
             {
-                if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
+                if (int.TryParse(userInput, out int userChoice))
                 {
-                    int recipeIndex = userChoice - 1;
-
-                    if (recipeIndex >= 0 && recipeIndex < stepCollections.Count)
+                    if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
                     {
-                        string selectedRecipeName = sortedRecipeNames[recipeIndex];
-                        RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
-                        List<string> steps = stepCollections[recipeIndex];
-                        List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
+                        int recipeIndex = userChoice - 1;
 
-                        // Display the selected recipe
-                        //Console.WriteLine($"Recipe: {selectedRecipe.RecipeName}");
-
-                        PrintIngredients(clockTimerClass, selectedRecipe.RecipeName);
-
-                        for (int i = 0; i < selectedRecipe.IngredientListIn.Count; i++)
+                        if (recipeIndex >= 0 && recipeIndex < stepCollections.Count)
                         {
-                            string quantity = validate.Convert_Numerical_Value_To_Corresponding_Text(selectedRecipe.IngredientListIn[i].Quantity);
-                            string unit = " " + selectedRecipe.IngredientListIn[i].Unit;
-                            string name = " " + selectedRecipe.IngredientListIn[i].Name;
-                            string foodgroup = " " + selectedRecipe.IngredientListIn[i].FoodGroup;
-                            string calories = " " + Convert.ToString(selectedRecipe.IngredientListIn[i].IngredientCalories);
+                            string selectedRecipeName = sortedRecipeNames[recipeIndex];
+                            RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
+                            List<string> steps = stepCollections[recipeIndex];
+                            List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
 
-                            Console.WriteLine($"{quantity,-16}\t{unit,-16}\t{name,-16}\t{foodgroup,-16}\t{calories}");
+                            // Display the selected recipe
+                            //Console.WriteLine($"Recipe: {selectedRecipe.RecipeName}");
+
+                            PrintIngredients(clockTimerClass, selectedRecipe.RecipeName);
+
+                            for (int i = 0; i < selectedRecipe.IngredientListIn.Count; i++)
+                            {
+                                string quantity = validate.Convert_Numerical_Value_To_Corresponding_Text(selectedRecipe.IngredientListIn[i].Quantity);
+                                string unit = " " + selectedRecipe.IngredientListIn[i].Unit;
+                                string name = " " + selectedRecipe.IngredientListIn[i].Name;
+                                string foodgroup = " " + selectedRecipe.IngredientListIn[i].FoodGroup;
+                                string calories = " " + Convert.ToString(selectedRecipe.IngredientListIn[i].IngredientCalories);
+
+                                Console.WriteLine($"{quantity,-16}\t{unit,-16}\t{name,-16}\t{foodgroup,-16}\t{calories}");
+                            }
+
+                            Console.WriteLine("\r\n The total number of calories is: " + Convert.ToString(totalCaloriesList[recipeIndex]));//<---------checking if it works 
+
+                            PrintSteps(clockTimerClass);
+
+                            for (int i = 0; i < steps.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}.\t{steps[i]}");
+                            }
+
+                            Console.WriteLine();
+                            DisplayLine();
+                            Console.WriteLine();
+                            valid = true;
                         }
-
-                        Console.WriteLine("\r\n The total number of calories is: " + Convert.ToString(totalCaloriesList[recipeIndex]));//<---------checking if it works 
-
-                        PrintSteps(clockTimerClass);
-
-                        for (int i = 0; i < steps.Count; i++)
+                        else
                         {
-                            Console.WriteLine($"{i + 1}.\t{steps[i]}");
-                        }
+                            clockTimerClass.ChangeToErrorColor();
+                            Console.WriteLine("\r\nPlease select the recipe to view by entering its corresponding number: ");
+                            clockTimerClass.ChangeBack();
 
-                        Console.WriteLine();
-                        DisplayLine();
-                        Console.WriteLine();
+                            for (int i = 0; i < sortedRecipeNames.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
+                            }
+                            Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
+                            Console.Write(">");
+
+                            userInput = Console.ReadLine();
+                            valid = false;
+                        }
+                    }
+                    else if (userChoice == sortedRecipeNames.Count + 1)
+                    {
+                        valid = true;
+                        // User chose to go back
+                        PrintRecipe(clockTimerClass);
                     }
                     else
                     {
-                        // error handling
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.WriteLine("\r\nPlease select the recipe to view by entering its corresponding number: ");
+                        clockTimerClass.ChangeBack();
+
+                        for (int i = 0; i < sortedRecipeNames.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
+                        }
+                        Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
+                        Console.Write(">");
+
+                        userInput = Console.ReadLine();
+                        valid = false;
                     }
-                }
-                else if (userChoice == sortedRecipeNames.Count + 1)
-                {
-                    // User chose to go back
-                    PrintRecipe(clockTimerClass);
                 }
                 else
                 {
-                    // error handling
+                    clockTimerClass.ChangeToErrorColor();
+                    Console.WriteLine("\r\nPlease select the recipe to view by entering its corresponding number: ");
+                    clockTimerClass.ChangeBack();
+
+                    for (int i = 0; i < sortedRecipeNames.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
+                    }
+                    Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
+                    Console.Write(">");
+
+                    userInput = Console.ReadLine();
+                    valid = false;
                 }
-            }
-            else
-            {
-                // error handling
-            }
+            } while (!valid);
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

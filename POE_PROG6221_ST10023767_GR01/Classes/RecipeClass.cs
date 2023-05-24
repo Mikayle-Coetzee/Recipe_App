@@ -19,13 +19,9 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Holds the recipe name
         /// </summary>
         public string RecipeName { get; set; }
-
         public List<StepClass> StepListIn { get; set; }
-
         public List<IngredientClass> IngredientListIn { get; set; }
-
         public List<RecipeClass> RecipeList { get; set; }
-
 
         /// <summary>
         /// Instantiates a new instance of the Validation class. The Validation class
@@ -41,25 +37,23 @@ namespace POE_PROG6221_ST10023767_GR01
         {
             StepListIn = new List<StepClass>();
             IngredientListIn = new List<IngredientClass>();
-            RecipeList = new List<RecipeClass>(); // Add this line to initialize the RecipeList
+            RecipeList = new List<RecipeClass>();
         }
 
-        public String GetRecipeName(ClockTimerClass clockTimerClass)
+        public string GetRecipeName(ClockTimerClass clockTimerClass)
         {
-            // Initialize variables
-            bool valid;
+            bool valid = false;
             string userInput;
             string name = string.Empty;
 
             Console.Write("\nPlease enter the recipe name as text (e.g. 'Cake'):   \t");
             userInput = Console.ReadLine();
 
-            // Validate the user's input
             do
             {
                 valid = validate.Validate_String(userInput);
 
-                if (valid == true)
+                if (valid)
                 {
                     name = userInput;
                 }
@@ -70,10 +64,9 @@ namespace POE_PROG6221_ST10023767_GR01
                     userInput = Console.ReadLine();
                     clockTimerClass.ChangeBack();
                 }
-            } while (valid == false);
+            } while (!valid);
 
-            // Return the string of the entered recipe name
             return name;
-        }    
+        }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//
