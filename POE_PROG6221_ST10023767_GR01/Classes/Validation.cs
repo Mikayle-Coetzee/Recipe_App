@@ -158,8 +158,8 @@ namespace POE_PROG6221_ST10023767_GR01
         public bool Validate_Float(string userInput)
         {
             // Initialize variable
-            bool valid = false;
-            float number = 0;
+            bool valid;
+            float number;
 
             try
             {
@@ -189,9 +189,8 @@ namespace POE_PROG6221_ST10023767_GR01
         public double Convert_Text_To_Corresponding_Numerical_Value(string userInput)
         {
             // Initialize variable
-            double number = 0.0f, currentResult = 0.0f;
+            double currentResult = 0.0f;
             int result = 0, bigMultiplierValue = 1, wholeNumber = 0, decimalNumber = 0 ;
-            string decimalValue = string.Empty; 
             bool bigMultiplierIsActive = false, valid = false;
             bool minusFlag = false, halfFlag = false, decimalFlag = false;
 
@@ -214,7 +213,7 @@ namespace POE_PROG6221_ST10023767_GR01
             // Convert all words to lowercase for proper matching
             var lowercase = userInput.ToLower();
             var inputwords = lowercase.Split(splitchars, StringSplitOptions.RemoveEmptyEntries);
-
+            double number;
             try
             {
                 foreach (string curword in inputwords)
@@ -311,17 +310,17 @@ namespace POE_PROG6221_ST10023767_GR01
                         }
                         else
                         {
-                            if (curword == "comma") 
+                            if (curword == "comma")
                             {
                                 decimalFlag = true;
                                 valid = true;
                             }
-                        } 
+                        }
                     }
                 }
 
                 // Combine the results and the big multiplier value to get the final number
-                if ((valid == true)&&(decimalFlag == false))
+                if ((valid == true) && (decimalFlag == false))
                 {
                     number = result + currentResult * bigMultiplierValue;
                 }
@@ -329,7 +328,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     if ((valid == true) && (decimalFlag == true))
                     {
-                        decimalValue = wholeNumber + "," + decimalNumber;
+                        string decimalValue = wholeNumber + "," + decimalNumber;
                         number = float.Parse(decimalValue);
                     }
                     else
@@ -337,7 +336,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         number = -9999;
                     }
                 }
-                
+
                 // If a minus word was found, make the number negative
                 if (minusFlag)
                     number *= -1;
@@ -510,6 +509,19 @@ namespace POE_PROG6221_ST10023767_GR01
         {
             bool valid = Enum.IsDefined(typeof(Measurements), userInput);
             return valid;
+        }
+
+
+        public bool ValidateUserInput(string userInput, int recipeCount, ClockTimerClass clockTimerClass)
+        {
+            if (int.TryParse(userInput, out int userChoice))
+            {
+                if (userChoice >= 1 && userChoice <= recipeCount)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

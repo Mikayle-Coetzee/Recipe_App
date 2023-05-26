@@ -14,11 +14,14 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Windows.Forms;
 using static POE_PROG6221_ST10023767_GR01.WorkerClass;
+using POE_PROG6221_ST10023767_GR01.Classes;
 
 namespace POE_PROG6221_ST10023767_GR01
 {
     public class WorkerClass
     {
+        public DisplayClass displayClass = new DisplayClass();
+
         /// <summary>
         /// Initializes a private instance of the IngredientClass, which is used to get and store 
         /// information about the ingredients in the recipe.
@@ -59,16 +62,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         public double[] arrFactor = { 0.5, 2, 3, 4 };
 
-        /// <summary>
-        /// Holds the constant welcome string message 
-        /// </summary>
-        public const string WELCOME = "Welcome aboard! Thank you for choosing our application.";
-
-        /// <summary>
-        /// Holds the constant farewell string message 
-        /// </summary>
-        public const string FAREWELL = "We appreciate you using our application. Have a great day!";
-
+        public RecipeClass recipeClass = new RecipeClass();
 
         private List<List<(string, double, string, double, string)>> ingredientCollectionsOriginal;
 
@@ -84,28 +78,9 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         public WorkerClass(ClockTimerClass clockTimerClass)
         {
-            WelcomeMessage(clockTimerClass);
+            displayClass.WelcomeMessage(clockTimerClass);
         }
 
-        //・♫-------------------------------------------------------------------------------------------------♫・//
-        /// <summary>
-        /// Method displays the welcome message on the console screen, changes the console background and 
-        /// foreground colors, calls the DisplayBlock method to clear a block of characters on the screen, and 
-        /// then resets the background color.
-        /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
-        public void WelcomeMessage(ClockTimerClass clockTimerClass)
-        {
-            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            string welcome = "welcome";
-            Console.Write(WELCOME);
-
-            DisplayBlock(welcome);
-
-            Console.WriteLine();
-            clockTimerClass.ChangeBack();
-        }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -150,77 +125,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
-        //・♫-------------------------------------------------------------------------------------------------♫・//
-        /// <summary>
-        /// Prints a horizontal line made of Unicode character "\u2500"
-        /// The length of the line is 100 characters
-        /// </summary>
-        public void DisplayLine()
-        {
-            // Initialize variable
-            string line = "\u2500";
 
-            for (int i = 0; i < 100; i++)
-            {
-                Console.Write(line);
-            }
-        }
-
-        //・♫-------------------------------------------------------------------------------------------------♫・//
-        /// <summary>
-        /// Method is used to display a block of white spaces on the console at a specific position.
-        /// If the argument "length" is equal to "welcome", it sets the cursor position to the end of the welcome 
-        /// message. Otherwise, it calculates the end line of the console output and sets the cursor position to 
-        /// the beginning of the "BYE" message, then displays a block of 60 white spaces to overwrite any previous
-        /// text in that line.
-        /// </summary>
-        /// <param name="length"></param>
-        public void DisplayBlock(string length)
-        {
-            if (length == "welcome")
-            {
-                Console.SetCursorPosition(WELCOME.Length, 0);
-                Console.Write(new string(' ', 60));
-            }
-            else
-            {
-                if (length == "farewell")
-                {
-                    int endLine = (Console.CursorTop) - 1;
-                    Console.SetCursorPosition(FAREWELL.Length, endLine);
-                    Console.Write(new string(' ', 60));
-                }
-                else
-                {
-                    int endLine = (Console.CursorTop) - 1;
-                    Console.SetCursorPosition(length.Length, endLine);
-                    Console.Write(new string(' ', 100));
-                }
-            }
-        }
-
-        //・♫-------------------------------------------------------------------------------------------------♫・//
-        /// <summary>
-        /// Method prints a report of all the ingredients in the recipe.
-        /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
-        public void PrintIngredients(ClockTimerClass clockTimerClass, string selectedRecipe)
-        {
-            // Initialize variable
-            string recipe = "Recipe: "+ selectedRecipe;
-
-            Console.WriteLine();
-            DisplayLine();
-            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            Console.WriteLine();
-            Console.WriteLine(recipe);
-            DisplayBlock(recipe);
-            Console.WriteLine();
-            Console.WriteLine("\r\nIngredients:\r\n");
-            Console.WriteLine($"{"Quantities",-16} \t {"Units",-16} \t {"Names"}\n");
-            clockTimerClass.ChangeBack();
-        }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -230,35 +135,31 @@ namespace POE_PROG6221_ST10023767_GR01
         /// the recipe using the Array.Clear method and then calls the Application method to restart the program.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
-        public void PrintRecipe(ClockTimerClass clockTimerClass)
+        public void PrintMenu(ClockTimerClass clockTimerClass)
         {
-            // Initialize variables
-            string userInput = string.Empty;
-            int userChoice = 0;
-
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.Write("\r\nPlease select an option by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
             Console.Write("\r\n1. Print A Specific Recipe \r\n2. Scale Quantities \r\n3. Enter Another Recipe \r\n4. Clear Recipe \r\n5. Quit \n>");
-            userInput = Console.ReadLine();
+            // Initialize variables
+            string userInput = Console.ReadLine();
 
-            userChoice = GetValidUserChoice(userInput, validate, clockTimerClass);
-
+            int userChoice = GetValidUserChoice(userInput, validate, clockTimerClass);
             switch (userChoice)
             {
                 case 1:
                     DisplayRecipeNames(clockTimerClass); /// < ---------------------------------------------------------------
-                    PrintRecipe(clockTimerClass);
+                    PrintMenu(clockTimerClass);
                     break;
                 case 2:
                     ScaleQuantities(clockTimerClass);
-                    PrintRecipe(clockTimerClass);
+                    PrintMenu(clockTimerClass);
                     break;
                 case 3:
                     AnotherRecipe = "Yes"; 
                     WriteRecipeToArrays(clockTimerClass);
-                    PrintRecipe(clockTimerClass);
+                    PrintMenu(clockTimerClass);
                     break;
                 case 4:
                     clockTimerClass.ChangeToErrorColor();
@@ -282,7 +183,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         clockTimerClass.ChangeToErrorColor();
                         Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
                         clockTimerClass.ChangeBack();
-                        PrintRecipe(clockTimerClass);
+                        PrintMenu(clockTimerClass);
                     }
                     else
                     {
@@ -294,25 +195,25 @@ namespace POE_PROG6221_ST10023767_GR01
 
                         // Clearing the generic collections
 
-                        if (IngredientList != null && StepList != null && totalCaloriesList != null)
+                        if (IngredientList != null && StepList != null && TotalCaloriesList != null)
                         {
                             IngredientList.Clear();
                             StepList.Clear();
-                            totalCaloriesList.Clear();
-                            recipeNames.Clear();
-                            stepCollections.Clear();
-                            ingredientCollections.Clear();
+                            TotalCaloriesList.Clear();
+                            RecipeNames.Clear();
+                            StepCollections.Clear();
+                            IngredientCollections.Clear();
                             ingredientCollectionsOriginal.Clear();
                             RecipeList.Clear();
                         }
 
                         Application(clockTimerClass);
 
-                        PrintRecipe(clockTimerClass);
+                        PrintMenu(clockTimerClass);
                     }
                     break;
                 case 5:
-                    PrintQuitMessage(clockTimerClass);
+                    displayClass.PrintQuitMessage(clockTimerClass);
                     break;
                 default:
                     break;
@@ -374,7 +275,7 @@ namespace POE_PROG6221_ST10023767_GR01
         {
             double factor = 0.0;
             string userInput = string.Empty;
-            bool valid = false;
+            bool valid;
             int number = 0;
 
             string userInput2;
@@ -701,35 +602,14 @@ namespace POE_PROG6221_ST10023767_GR01
                     // Display the selected recipe
                     //Console.WriteLine($"Recipe: {selectedRecipe.RecipeName}");
 
-                    PrintIngredients(clockTimerClass, selectedRecipe.RecipeName);
+                    displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples);
 
-                    for (int i = 0; i < ingredientTuples.Count; i++)
-                    {
-                        string quantity = validate.Convert_Numerical_Value_To_Corresponding_Text(ingredientTuples[i].Item2);
-                        string unit = " " + ingredientTuples[i].Item3;
-                        string name = " " + ingredientTuples[i].Item1;
-                        string foodgroup = " " + selectedRecipe.IngredientListIn[i].FoodGroup;
-                        string calories = " " + Convert.ToString(selectedRecipe.IngredientListIn[i].IngredientCalories);
-
-                        Console.WriteLine($"{quantity,-16}\t{unit,-16}\t{name,-16}\t{foodgroup,-16}\t{calories}");
-                    }
-
-                    PrintSteps(clockTimerClass);
-
-                    for (int i = 0; i < steps.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}.\t{steps[i]}");
-                    }
-
-                    Console.WriteLine();
-                    DisplayLine();
-                    Console.WriteLine();
-
+                    displayClass.PrintSteps(clockTimerClass, steps);
                 }
                 else if (userChoice == sortedRecipeNames.Count + 1)
                 {
                     ingredientCollections[recipeIndex] = new List<(string, double, string, double, string)>(ingredientCollectionsOriginal[recipeIndex]);
-                    PrintRecipe(clockTimerClass);
+                    PrintMenu(clockTimerClass);
                 }
                 else
                 {
@@ -778,12 +658,12 @@ namespace POE_PROG6221_ST10023767_GR01
                         ingredientCollectionsOriginal.Clear();
                     }
 
-                    PrintRecipe(clockTimerClass);
+                    PrintMenu(clockTimerClass);
                 }
             }
             else
             {
-                PrintQuitMessage(clockTimerClass);
+                displayClass.PrintQuitMessage(clockTimerClass);
             }
         }
 
@@ -862,15 +742,15 @@ namespace POE_PROG6221_ST10023767_GR01
             //WriteStepsToArray(clockTimerClass);
             if (AnotherRecipe == "Yes")
             {
-                recipeNames = recipeNames;
-                stepCollections = stepCollections;
-                ingredientCollections = ingredientCollections;
+                RecipeNames = RecipeNames;
+                StepCollections = StepCollections;
+                IngredientCollections = IngredientCollections;
             }
             else
             {
-                recipeNames = new List<string>();
-                stepCollections = new List<List<string>>();
-                ingredientCollections = new List<List<(string, double, string, double, string)>>();
+                RecipeNames = new List<string>();
+                StepCollections = new List<List<string>>();
+                IngredientCollections = new List<List<(string, double, string, double, string)>>();
             }
 
             string userInput = GetValidYesOrNoInput(clockTimerClass, "\r\nDo you want to enter a recipe? " +
@@ -880,7 +760,7 @@ namespace POE_PROG6221_ST10023767_GR01
             {
                 if (userInput.Trim().ToUpper().Equals("NO"))
                 {
-                    PrintRecipe(clockTimerClass);
+                    PrintMenu(clockTimerClass);
                 }
                 else
                 {
@@ -891,25 +771,7 @@ namespace POE_PROG6221_ST10023767_GR01
             } while (userInput.Trim().ToUpper().Equals("YES"));
         }
 
-        //・♫-------------------------------------------------------------------------------------------------♫・//
-        /// <summary>
-        /// Prints a thank you message and sets the console color to black with white text. Also calls 
-        /// DisplayBlock() method to display a horizontal line. After printing the message, the console 
-        /// color is reset to its previous state and waits for user input.
-        /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
-        private void PrintQuitMessage(ClockTimerClass clockTimerClass)
-        {
-            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            Console.WriteLine("\r\n" + FAREWELL);
-            string farewell = "farewell";
-            DisplayBlock(farewell);
-            clockTimerClass.ChangeBack();
-            Console.WriteLine();
-            Console.ReadLine();
-            Environment.Exit(0);
-        }
+
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -922,7 +784,7 @@ namespace POE_PROG6221_ST10023767_GR01
         public void WriteStepsToArray(ClockTimerClass clockTimerClass)
         {
             // Initialize variables
-            bool valid = false;
+            bool valid ;
             int number = stepClass.GetNumOfSteps(clockTimerClass);
             this.numberOfSteps = number;
             string userInput = string.Empty;
@@ -958,58 +820,39 @@ namespace POE_PROG6221_ST10023767_GR01
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
-        /// <summary>
-        /// Prints a report of the steps
-        /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
-        public void PrintSteps(ClockTimerClass clockTimerClass)
-        {
-            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            Console.WriteLine("\r\nSteps:\r\n");
-            clockTimerClass.ChangeBack();
-            //StepReport();
-            //Console.WriteLine();
-            //DisplayLine();
-            //Console.WriteLine();
-        }
-
-        //・♫-------------------------------------------------------------------------------------------------♫・//
-
-        private List<string> recipeNames { get; set; }
-        private List<List<string>> stepCollections { get; set; }
-        private List<List<(string, double, string, double, string)>> ingredientCollections { get; set; }
+        private List<string> RecipeNames { get; set; }
+        private List<List<string>> StepCollections { get; set; }
+        private List<List<(string, double, string, double, string)>> IngredientCollections { get; set; }
 
         private List<RecipeClass> RecipeList = new List<RecipeClass>();
+        private List<double> TotalCaloriesList = new List<double>();
 
         public List<string> GetRecipeNames()
         {
-            return recipeNames;
+            return RecipeNames;
         }
 
         public List<List<string>> GetStepCollections()
         {
-            return stepCollections;
+            return StepCollections;
         }
 
         public List<List<(string, double, string, double, string)>> GetIngredientCollections()
         {
-            return ingredientCollections;
+            return IngredientCollections;
         }
 
         public void StoreRecipes(List<List<string>> stepCollections, List<List<(string, double, string, double, string)>> ingredientCollections)
         {
-            // Retrieve the generic collection from the WorkerClass
-            List<string> recipeNames = GetRecipeNames();
-
-            // Clear the existing recipe list
+            RecipeNames = GetRecipeNames();
             RecipeList.Clear();
 
-            // Iterate over the collections and create Recipe objects to store in the list
-            for (int i = 0; i < recipeNames.Count; i++)
+            for (int i = 0; i < RecipeNames.Count; i++)
             {
-                RecipeClass recipe = new RecipeClass();
-                recipe.RecipeName = recipeNames[i];
+                RecipeClass recipe = new RecipeClass
+                {
+                    RecipeName = RecipeNames[i]
+                };
 
                 // Check if the stepCollections and ingredientCollections have elements at the current index
                 if (i < stepCollections.Count && i < ingredientCollections.Count)
@@ -1020,26 +863,31 @@ namespace POE_PROG6221_ST10023767_GR01
                     // Add steps to the recipe
                     foreach (string step in steps)
                     {
-                        StepClass stepObj = new StepClass();
-                        stepObj.Step = step;
+                        StepClass stepObj = new StepClass
+                        {
+                            Step = step
+                        };
                         recipe.StepListIn.Add(stepObj);
                     }
 
                     // Add ingredients to the recipe
                     foreach ((string name, double quantity, string unit, double calories, string foodgroup) in ingredientTuples)
                     {
-                        IngredientClass ingredientObj = new IngredientClass();
-                        ingredientObj.Name = name;
-                        ingredientObj.Quantity = quantity;
-                        ingredientObj.Unit = unit;
-                        ingredientObj.IngredientCalories = calories;
-                        ingredientObj.FoodGroup = foodgroup;
+                        IngredientClass ingredientObj = new IngredientClass
+                        {
+                            Name = name,
+                            Quantity = quantity,
+                            Unit = unit,
+                            IngredientCalories = calories,
+                            FoodGroup = foodgroup
+                        };
                         recipe.IngredientListIn.Add(ingredientObj);
                     }
                 }
                 else
                 {
-                    // error handling
+                    Console.WriteLine("\r\nError: Incomplete data for recipe " + recipe.RecipeName);
+                    StoreRecipes(stepCollections, ingredientCollections);
                 }
 
                 // Add the recipe to the list
@@ -1047,7 +895,6 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
-        private List<double> totalCaloriesList = new List<double>();
         public delegate void RecipeNotificationDelegate(string recipeName);
         public event RecipeNotificationDelegate RecipeExceedsCaloriesEvent;
 
@@ -1082,16 +929,16 @@ namespace POE_PROG6221_ST10023767_GR01
                 NotifyUser(newRecipeName);
             }
 
-            totalCaloriesList.Add(totalCalories);
+            TotalCaloriesList.Add(totalCalories);
 
             // Update the recipe data
-            recipeNames.Add(newRecipeName);
-            stepCollections.Add(StepList.Select(step => step.Step).ToList());
-            ingredientCollections.Add(IngredientList.Select(ingredient =>
+            RecipeNames.Add(newRecipeName);
+            StepCollections.Add(StepList.Select(step => step.Step).ToList());
+            IngredientCollections.Add(IngredientList.Select(ingredient =>
                 (ingredient.Name, ingredient.Quantity, ingredient.Unit, ingredient.IngredientCalories, ingredient.FoodGroup)).ToList());
 
             // Store the updated recipes
-            StoreRecipes(stepCollections, ingredientCollections);
+            StoreRecipes(StepCollections, IngredientCollections);
         }
 
         private double CalculateTotalCalories()
@@ -1108,133 +955,62 @@ namespace POE_PROG6221_ST10023767_GR01
 
         private void DisplayRecipeNames(ClockTimerClass clockTimerClass)
         {
-            string userInput;
-            bool valid;
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+            Console.WriteLine("\r\nPlease select the recipe to view by entering its corresponding number: ");
+            clockTimerClass.ChangeBack();
 
             // Retrieve and display the recipe names in alphabetical order
             List<string> recipeNames = GetRecipeNames();
             List<List<string>> stepCollections = GetStepCollections();
             List<List<(string, double, string, double, string)>> ingredientCollections = GetIngredientCollections();
 
-            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            Console.WriteLine("\r\nPlease select the recipe to view by entering its corresponding number: ");
-            clockTimerClass.ChangeBack();
-
             // Sort the recipe names in alphabetical order
             List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
-            for (int i = 0; i < sortedRecipeNames.Count; i++)
+            displayClass.PrintRecipeNames(sortedRecipeNames);
+
+            string userInput = Console.ReadLine();
+
+            bool valid = validate.ValidateUserInput(userInput, sortedRecipeNames.Count, clockTimerClass);
+            while (!valid)
             {
-                Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
+                PrintErrorSelection(clockTimerClass, sortedRecipeNames);
+                userInput = Console.ReadLine();
+                valid = validate.ValidateUserInput(userInput, sortedRecipeNames.Count, clockTimerClass);
             }
-            Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
-            Console.Write(">");
 
-            userInput = Console.ReadLine();
+            int userChoice = int.Parse(userInput);
 
-            do
+            if (userChoice == sortedRecipeNames.Count + 1)
             {
-                if (int.TryParse(userInput, out int userChoice))
-                {
-                    if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
-                    {
-                        int recipeIndex = userChoice - 1;
+                // User chose to go back
+                PrintMenu(clockTimerClass);
+                return;
+            }
 
-                        if (recipeIndex >= 0 && recipeIndex < stepCollections.Count)
-                        {
-                            string selectedRecipeName = sortedRecipeNames[recipeIndex];
-                            RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
-                            List<string> steps = stepCollections[recipeIndex];
-                            List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
+            int recipeIndex = userChoice - 1;
+            if (recipeIndex >= 0 && recipeIndex < stepCollections.Count)
+            {
+                displayClass.DisplaySelectedRecipe(sortedRecipeNames, recipeIndex, clockTimerClass, stepCollections, 
+                    ingredientCollections, RecipeList, TotalCaloriesList);
+            }
+            else
+            {
+                clockTimerClass.ChangeToErrorColor();
+                Console.WriteLine("\r\nInvalid recipe selection. Please try again.\n");
+                clockTimerClass.ChangeBack();
+                DisplayRecipeNames(clockTimerClass);
+            }
+        }
 
-                            // Display the selected recipe
-                            //Console.WriteLine($"Recipe: {selectedRecipe.RecipeName}");
-
-                            PrintIngredients(clockTimerClass, selectedRecipe.RecipeName);
-
-                            for (int i = 0; i < selectedRecipe.IngredientListIn.Count; i++)
-                            {
-                                string quantity = validate.Convert_Numerical_Value_To_Corresponding_Text(selectedRecipe.IngredientListIn[i].Quantity);
-                                string unit = " " + selectedRecipe.IngredientListIn[i].Unit;
-                                string name = " " + selectedRecipe.IngredientListIn[i].Name;
-                                string foodgroup = " " + selectedRecipe.IngredientListIn[i].FoodGroup;
-                                string calories = " " + Convert.ToString(selectedRecipe.IngredientListIn[i].IngredientCalories);
-
-                                Console.WriteLine($"{quantity,-16}\t{unit,-16}\t{name,-16}\t{foodgroup,-16}\t{calories}");
-                            }
-
-                            Console.WriteLine("\r\n The total number of calories is: " + Convert.ToString(totalCaloriesList[recipeIndex]));//<---------checking if it works 
-
-                            PrintSteps(clockTimerClass);
-
-                            for (int i = 0; i < steps.Count; i++)
-                            {
-                                Console.WriteLine($"{i + 1}.\t{steps[i]}");
-                            }
-
-                            Console.WriteLine();
-                            DisplayLine();
-                            Console.WriteLine();
-                            valid = true;
-                        }
-                        else
-                        {
-                            clockTimerClass.ChangeToErrorColor();
-                            Console.WriteLine("\r\nPlease select the recipe to view by entering its corresponding number: ");
-                            clockTimerClass.ChangeBack();
-
-                            for (int i = 0; i < sortedRecipeNames.Count; i++)
-                            {
-                                Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
-                            }
-                            Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
-                            Console.Write(">");
-
-                            userInput = Console.ReadLine();
-                            valid = false;
-                        }
-                    }
-                    else if (userChoice == sortedRecipeNames.Count + 1)
-                    {
-                        valid = true;
-                        // User chose to go back
-                        PrintRecipe(clockTimerClass);
-                    }
-                    else
-                    {
-                        clockTimerClass.ChangeToErrorColor();
-                        Console.WriteLine("\r\nPlease select the recipe to view by entering its corresponding number: ");
-                        clockTimerClass.ChangeBack();
-
-                        for (int i = 0; i < sortedRecipeNames.Count; i++)
-                        {
-                            Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
-                        }
-                        Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
-                        Console.Write(">");
-
-                        userInput = Console.ReadLine();
-                        valid = false;
-                    }
-                }
-                else
-                {
-                    clockTimerClass.ChangeToErrorColor();
-                    Console.WriteLine("\r\nPlease select the recipe to view by entering its corresponding number: ");
-                    clockTimerClass.ChangeBack();
-
-                    for (int i = 0; i < sortedRecipeNames.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
-                    }
-                    Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
-                    Console.Write(">");
-
-                    userInput = Console.ReadLine();
-                    valid = false;
-                }
-            } while (!valid);
+        private void PrintErrorSelection(ClockTimerClass clockTimerClass, List<string> sortedRecipeNames)
+        {
+            clockTimerClass.ChangeToErrorColor();
+            Console.WriteLine("\r\nInvalid recipe selection. Please try again.\n");
+            clockTimerClass.ChangeBack();
+            displayClass.PrintRecipeNames(sortedRecipeNames);
+            Console.Write(">");
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

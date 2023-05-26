@@ -19,8 +19,17 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Holds the recipe name
         /// </summary>
         public string RecipeName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public List<StepClass> StepListIn { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public List<IngredientClass> IngredientListIn { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public List<RecipeClass> RecipeList { get; set; }
 
         /// <summary>
@@ -40,9 +49,15 @@ namespace POE_PROG6221_ST10023767_GR01
             RecipeList = new List<RecipeClass>();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clockTimerClass"></param>
+        /// <returns></returns>
         public string GetRecipeName(ClockTimerClass clockTimerClass)
         {
-            bool valid = false;
+            bool valid;
             string userInput;
             string name = string.Empty;
 

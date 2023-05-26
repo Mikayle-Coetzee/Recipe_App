@@ -387,15 +387,16 @@ namespace POE_PROG6221_ST10023767_GR01
             double calories = 0.0;
             int userChoice;
 
-            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            Console.Write("\r\nPlease select an option by entering its corresponding number: ");
-            clockTimerClass.ChangeBack();
-            Console.Write("\r\n1. Enter the number of calories as a numerical number (e.g. 25)" +
-                "\r\n2. More information about calories\r\n>");
-            userInput = Console.ReadLine();
             do
             {
+                clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+                clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+                Console.Write("\r\nPlease select an option by entering its corresponding number: ");
+                clockTimerClass.ChangeBack();
+                Console.Write("\r\n1. Enter the number of calories as a numerical number (e.g. 25)" +
+                    "\r\n2. More information about calories\r\n>");
+                userInput = Console.ReadLine();
+
                 while (!int.TryParse(userInput, out userChoice) || userChoice < 1 || userChoice > 2)
                 {
                     clockTimerClass.ChangeToErrorColor();
@@ -458,7 +459,6 @@ namespace POE_PROG6221_ST10023767_GR01
         public string GetFoodGroup(ClockTimerClass clockTimerClass)
         {
             string userInput, foodGroup = string.Empty;
-            int userChoice;
             bool valid = false;
 
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
@@ -476,7 +476,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.Write(">");
 
                 userInput = Console.ReadLine();
-                if (int.TryParse(userInput, out userChoice))
+                if (int.TryParse(userInput, out int userChoice))
                 {
                     if (userChoice >= 1 && userChoice <= FoodGroupList.Count)
                     {
@@ -507,13 +507,15 @@ namespace POE_PROG6221_ST10023767_GR01
 
             return foodGroup;
         }
-
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clockTimerClass"></param>
         public void FoodGroupInformation(ClockTimerClass clockTimerClass)
         {
-            string userInput, foodGroup = string.Empty;
-            int userChoice;
-            bool valid = false;
+            string userInput;
+            bool valid;
 
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
@@ -529,9 +531,10 @@ namespace POE_PROG6221_ST10023767_GR01
 
             userInput = Console.ReadLine();
 
+            
             do
             {
-                if (int.TryParse(userInput, out userChoice))
+                if (int.TryParse(userInput, out int userChoice))
                 {
                     if (userChoice >= 1 && userChoice <= FoodGroupList.Count)
                     {
@@ -609,7 +612,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     {
                         if (userChoice == FoodGroupList.Count + 1)
                         {
-                            valid = true; 
+                            valid = true;
                         }
                         else
                         {
@@ -647,6 +650,5 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
             } while (valid == false);
         }
-
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//
