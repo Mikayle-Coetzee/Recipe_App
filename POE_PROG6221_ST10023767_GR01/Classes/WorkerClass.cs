@@ -195,7 +195,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
                         // Clearing the generic collections
 
-                        if (IngredientList != null && StepList != null && TotalCaloriesList != null)
+                        if (IngredientList != null && StepList != null && TotalCaloriesList != null && ingredientCollectionsOriginal != null)
                         {
                             IngredientList.Clear();
                             StepList.Clear();
@@ -560,6 +560,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                         //If the value of number is equal to 4, then the program will reset the Quantity
                                         //and Unit values in the array of objects arrIngredientClasses to their original values.
                                         ingredientCollections[recipeIndex] = new List<(string, double, string, double, string)>(ingredientCollectionsOriginal[recipeIndex]);
+                                        //ingredientCollections[recipeIndex] = ingredientCollectionsOriginal[recipeIndex];
                                         valid = true;
                                     }
                                     else
@@ -608,7 +609,6 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 else if (userChoice == sortedRecipeNames.Count + 1)
                 {
-                    ingredientCollections[recipeIndex] = new List<(string, double, string, double, string)>(ingredientCollectionsOriginal[recipeIndex]);
                     PrintMenu(clockTimerClass);
                 }
                 else
@@ -653,10 +653,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 else
                 {
                     WriteRecipeToArrays(clockTimerClass);
-                    if (ingredientCollectionsOriginal != null)
-                    {
-                        ingredientCollectionsOriginal.Clear();
-                    }
+                    ingredientCollectionsOriginal?.Clear();//if the list is not null clear 
 
                     PrintMenu(clockTimerClass);
                 }

@@ -36,14 +36,13 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Array holds the avaliable light colors 
         /// </summary>
         private readonly ConsoleColor[] arrAvailableColorsLight = new ConsoleColor[] { ConsoleColor.Yellow, 
-            ConsoleColor.Cyan, ConsoleColor.Gray, ConsoleColor.Red };
+            ConsoleColor.Cyan, ConsoleColor.Gray};
 
         /// <summary>
         /// Array holds the avaliable dark colors 
         /// </summary>
         private readonly ConsoleColor[] arrAvailableColorsDark = new ConsoleColor[] { ConsoleColor.DarkCyan, 
-            ConsoleColor.DarkGray, ConsoleColor.DarkMagenta, ConsoleColor.DarkGreen, ConsoleColor.DarkRed, 
-            ConsoleColor.DarkBlue };
+            ConsoleColor.DarkGray, ConsoleColor.DarkMagenta, ConsoleColor.DarkGreen, ConsoleColor.DarkBlue };
 
         /// <summary>
         /// Holds the selected text color
