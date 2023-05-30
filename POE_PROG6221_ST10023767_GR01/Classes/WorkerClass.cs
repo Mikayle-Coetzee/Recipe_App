@@ -634,7 +634,8 @@ namespace POE_PROG6221_ST10023767_GR01
                     List<string> steps = stepCollections[recipeIndex];
                     List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
 
-                    displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples);
+                    displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples,
+                        TotalCaloriesList,recipeIndex);
 
                     displayClass.PrintSteps(clockTimerClass, steps);
                 }

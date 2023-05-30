@@ -9,8 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace POE_PROG6221_ST10023767_GR01.Classes
 {
@@ -48,8 +50,11 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         /// <param name="selectedRecipe">The name of the selected recipe</param>
         /// <param name="ingredientTuples">The list of ingredient tuples</param>
+        /// <param name="TotalCaloriesList">The list of total calories for each recipe</param>
+        /// <param name="recipeIndex">The index of the selected recipe</param>
         public void PrintIngredients(ClockTimerClass clockTimerClass, string selectedRecipe, 
-            List<(string, double, string, double, string)> ingredientTuples)
+            List<(string, double, string, double, string)> ingredientTuples, List<double> TotalCaloriesList,
+             int recipeIndex)
         {
             // Initialize variable
             string recipe = "Recipe: " + selectedRecipe;
@@ -63,19 +68,22 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             DisplayBlock(recipe);
             Console.WriteLine();
             Console.WriteLine("\r\nIngredients:\r\n");
-            Console.WriteLine($"{"Quantities",-16} \t {"Units",-16} \t {"Names"}\n");
+           
             clockTimerClass.ChangeBack();
 
             for (int i = 0; i < ingredientTuples.Count; i++)
             {
-                string quantity = validate.Convert_Numerical_Value_To_Corresponding_Text(ingredientTuples[i].Item2);
-                string unit = " " + ingredientTuples[i].Item3;
-                string name = " " + ingredientTuples[i].Item1;
-                string foodgroup = " " + ingredientTuples[i].Item5;
-                string calories = " " + Convert.ToString(ingredientTuples[i].Item4);
+                string quantity = (validate.Convert_Numerical_Value_To_Corresponding_Text(ingredientTuples[i].Item2));
+                quantity = quantity[0].ToString().ToUpper() + quantity.Substring(1);
+                string unit = ingredientTuples[i].Item3;
+                string name = ingredientTuples[i].Item1;
+                string foodgroup =  ingredientTuples[i].Item5;
+                string calories = Convert.ToString(ingredientTuples[i].Item4);
 
-                Console.WriteLine($"{quantity,-16}\t{unit,-16}\t{name,-16}\t{foodgroup,-16}\t{calories}");
+                Console.WriteLine($"{i + 1} >\t{quantity} {unit} of {name} (Food Group: {foodgroup} | Calories = {calories})");
             }
+
+            Console.WriteLine("\r\nThe total number of calories is: " + Convert.ToString(TotalCaloriesList[recipeIndex]));
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -127,9 +135,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
 
             // Display the selected recipe
-            PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples);
-
-            Console.WriteLine("\r\nThe total number of calories is: " + Convert.ToString(TotalCaloriesList[recipeIndex]));
+            PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples, TotalCaloriesList, recipeIndex);
 
             PrintSteps(clockTimerClass, steps);
         }
@@ -231,7 +237,6 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             }
             catch (IOException e)
             {
-                // Handle the exception or log the error
                 Console.WriteLine("An error occurred while displaying the welcome message: " + e.Message);
             }
         }
