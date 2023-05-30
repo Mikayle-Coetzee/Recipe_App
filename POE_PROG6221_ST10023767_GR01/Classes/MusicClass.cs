@@ -19,10 +19,9 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
     public class MusicClass
     {
         /// <summary>
-        ///  Creates an instance of the ClockTimerClass, which provides functionality for
-        ///  keeping track of time and firing events at specified intervals. The 'readonly' 
-        ///  keyword is used to ensure that the clockTimerClass object cannot be reassigned 
-        ///  after it has been initialized.
+        ///  Creates an instance of the ClockTimerClass, which provides functionality for keeping track of time 
+        ///  and firing events at specified intervals. The 'readonly' keyword is used to ensure that the 
+        ///  clockTimerClass object cannot be reassigned after it has been initialized.
         /// </summary>
         private readonly ClockTimerClass clockTimerClass = new ClockTimerClass();
 
@@ -58,11 +57,10 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method provides options for the user to select a song to play. It prompts the 
-        /// user to enter a number corresponding to a song from a list of available songs.
-        /// It validates the user's input and ensures that only valid numbers are accepted. 
-        /// If an invalid number is entered, it prompts the user to re-enter a valid number.
-        /// Once a valid number is entered, the corresponding song is played using the "Play()" method.
+        /// Method provides options for the user to select a song to play. It prompts the user to enter a number 
+        /// corresponding to a song from a list of available songs. It validates the user's input and ensures that 
+        /// only valid numbers are accepted. If an invalid number is entered, it prompts the user to re-enter a
+        /// valid number.Once a valid number is entered, the corresponding song is played using the "Play()" method.
         /// The method also sets the console color and size, and starts the timer using the "ClockTimerClass" 
         /// object.
         /// </summary>
@@ -74,7 +72,6 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             // Initialize variables
             string audio = string.Empty;
             string userInput;
-            int selection;
             bool valid = false;
 
             clockTimerClass.ChangeBackColor(ConsoleColor.Cyan);
@@ -92,7 +89,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
             do
             {
-                if ((Int32.TryParse(userInput, out selection) == true))
+                if (Int32.TryParse(userInput, out int selection) == true)
                 {
                     selection = Convert.ToInt32(userInput);
                     if (selection > 0 && selection < 14)
@@ -189,7 +186,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// The method waits until the audio playback state is no longer playing before exiting.
         /// If the audio file is not found, it prints an error message and returns.
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="fileName">The file name</param>
         private void PlayAudioFile(string fileName)
         {
             string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;

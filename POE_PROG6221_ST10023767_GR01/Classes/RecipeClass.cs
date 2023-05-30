@@ -19,28 +19,31 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Holds the recipe name
         /// </summary>
         public string RecipeName { get; set; }
+
         /// <summary>
-        /// 
+        /// Holds the list of steps
         /// </summary>
         public List<StepClass> StepListIn { get; set; }
+
         /// <summary>
-        /// 
+        /// Holds the list of ingredients
         /// </summary>
         public List<IngredientClass> IngredientListIn { get; set; }
+
         /// <summary>
-        /// 
+        /// Holds the list of recipes.
         /// </summary>
         public List<RecipeClass> RecipeList { get; set; }
 
         /// <summary>
-        /// Instantiates a new instance of the Validation class. The Validation class
-        /// can now be used to perform validation tasks throughout the rest of your code.
+        /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
+        /// perform validation tasks throughout the rest of the code.
         /// /// </summary>
         public Validation validate = new Validation();
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Default constructor for StepClass.
+        /// Default constructor for the RecipeClass. Initializes the step list, ingredient list, and recipe list.
         /// </summary>
         public RecipeClass()
         {
@@ -51,12 +54,13 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// 
+        /// Method prompts the user to enter the name of the recipe and retrieves it as a string.
         /// </summary>
-        /// <param name="clockTimerClass"></param>
-        /// <returns></returns>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
+        /// <returns>The name of the recipe as a string</returns>
         public string GetRecipeName(ClockTimerClass clockTimerClass)
         {
+            // Initialize variables
             bool valid;
             string userInput;
             string name = string.Empty;

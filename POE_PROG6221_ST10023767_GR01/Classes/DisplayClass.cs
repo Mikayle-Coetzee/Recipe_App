@@ -16,10 +16,9 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 {
     public class DisplayClass
     {
-
         /// <summary>
-        /// Instantiates a new instance of the Validation class. The Validation class
-        /// can now be used to perform validation tasks throughout the rest of your code.
+        /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
+        /// perform validation tasks throughout the rest of the code.
         /// /// </summary>
         public Validation validate = new Validation();
 
@@ -42,24 +41,26 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
         }
 
-
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prints a report of all the ingredients in the recipe.
+        /// Method prints the ingredients of a selected recipe. 
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
-        public void PrintIngredients(ClockTimerClass clockTimerClass, string selectedRecipe, List<(string, double, string, double, string)> ingredientTuples)
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
+        /// <param name="selectedRecipe">The name of the selected recipe</param>
+        /// <param name="ingredientTuples">The list of ingredient tuples</param>
+        public void PrintIngredients(ClockTimerClass clockTimerClass, string selectedRecipe, 
+            List<(string, double, string, double, string)> ingredientTuples)
         {
             // Initialize variable
             string recipe = "Recipe: " + selectedRecipe;
 
             Console.WriteLine();
-            //DisplayLine();
+            DisplayLine();
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine();
             Console.WriteLine(recipe);
-            //DisplayBlock(recipe);
+            DisplayBlock(recipe);
             Console.WriteLine();
             Console.WriteLine("\r\nIngredients:\r\n");
             Console.WriteLine($"{"Quantities",-16} \t {"Units",-16} \t {"Names"}\n");
@@ -79,9 +80,11 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Prints a report of the steps
+        /// Method prints the steps of a recipe. Changes the console background and foreground colors to highlight 
+        /// the steps. Prints each step with its corresponding index.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
+        /// <param name="steps">The list of steps for the recipe</param>
         public void PrintSteps(ClockTimerClass clockTimerClass, List<string> steps)
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
@@ -96,12 +99,24 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
             Console.WriteLine();
 
-            //DisplayLine();
+            DisplayLine();
 
             Console.WriteLine();
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method displays the selected recipe along with its ingredients, total calories, and steps. Takes in 
+        /// various parameters. Retrieves the selected recipe and relevant information based on the recipe index.
+        /// Prints the ingredients, total calories, and steps of the selected recipe.
+        /// </summary>
+        /// <param name="sortedRecipeNames">The sorted list of recipe names</param>
+        /// <param name="recipeIndex">The index of the selected recipe</param>
+        /// <param name="clockTimerClass">Instance of the clock timer class</param>
+        /// <param name="stepCollections">The collections of steps for each recipe</param>
+        /// <param name="ingredientCollections">The collections of ingredients for each recipe</param>
+        /// <param name="RecipeList">The list of recipe objects</param>
+        /// <param name="TotalCaloriesList">The list of total calories for each recipe</param>
         public void DisplaySelectedRecipe(List<string> sortedRecipeNames, int recipeIndex, ClockTimerClass clockTimerClass,
             List<List<string>> stepCollections, List<List<(string, double, string, double, string)>> ingredientCollections,
             List<RecipeClass> RecipeList, List<double> TotalCaloriesList)
@@ -121,21 +136,26 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Prints a thank you message and sets the console color to black with white text. Also calls 
+        /// Method prints a thank you message and sets the console color to black with white text. Also calls 
         /// DisplayBlock() method to display a horizontal line. After printing the message, the console 
         /// color is reset to its previous state and waits for user input.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         public void PrintQuitMessage(ClockTimerClass clockTimerClass)
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\n" + FAREWELL);
+
             string farewell = "farewell";
+
             DisplayBlock(farewell);
+
             clockTimerClass.ChangeBack();
+
             Console.WriteLine();
             Console.ReadLine();
+
             Environment.Exit(0);
         }
 
@@ -172,11 +192,10 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             }
         }
 
-
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Prints a horizontal line made of Unicode character "\u2500"
-        /// The length of the line is 100 characters
+        /// Method prints a horizontal line made of Unicode character "\u2500". The length of the line is 100 
+        /// characters.
         /// </summary>
         public void DisplayLine()
         {
@@ -189,14 +208,13 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             }
         }
 
-
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method displays the welcome message on the console screen, changes the console background and 
         /// foreground colors, calls the DisplayBlock method to clear a block of characters on the screen, and 
         /// then resets the background color.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         public void WelcomeMessage(ClockTimerClass clockTimerClass)
         {
             try
@@ -217,6 +235,13 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                 Console.WriteLine("An error occurred while displaying the welcome message: " + e.Message);
             }
         }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method prints the names of the recipes in the given list. Displays the recipe names with corresponding 
+        /// numbers, followed by an option to go back. 
+        /// </summary>
+        /// <param name="recipeNames">The list of recipe names</param>
         public void PrintRecipeNames(List<string> recipeNames)
         {
             for (int i = 0; i < recipeNames.Count; i++)

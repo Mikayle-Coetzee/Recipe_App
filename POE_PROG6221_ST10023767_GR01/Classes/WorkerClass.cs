@@ -20,7 +20,10 @@ namespace POE_PROG6221_ST10023767_GR01
 {
     public class WorkerClass
     {
-        public DisplayClass displayClass = new DisplayClass();
+        /// <summary>
+        /// Initializes a private instance of the DisplayClass 
+        /// </summary>
+        private DisplayClass displayClass = new DisplayClass();
 
         /// <summary>
         /// Initializes a private instance of the IngredientClass, which is used to get and store 
@@ -44,42 +47,73 @@ namespace POE_PROG6221_ST10023767_GR01
         private int numberOfSteps = 0;
 
         /// <summary>
-        /// An array of IngredientClass objects
+        /// Holds the list of ingredients for the recipe.
         /// </summary>
-        //public IngredientClass[] arrIngredientClasses;
         public List<IngredientClass> IngredientList { get; set; }
 
         /// <summary>
-        /// An array of StepClass objects
+        /// Holds the list of steps for the recipe.
         /// </summary>
-        // public StepClass[] arrSteps;
         public List<StepClass> StepList { get; set; }
 
-        private string AnotherRecipe = "No"; 
+        /// <summary>
+        /// Flag indicating whether the user wants to enter another recipe.
+        /// </summary>
+        private bool AnotherRecipe = false; 
 
         /// <summary>
         /// An array that holds the possible scaling factors.
         /// </summary>
         public double[] arrFactor = { 0.5, 2, 3, 4 };
 
-        public RecipeClass recipeClass = new RecipeClass();
+        /// <summary>
+        /// Initializes a private instance of the RecipeClass.
+        /// </summary>
+        private RecipeClass recipeClass = new RecipeClass();
 
+        /// <summary>
+        /// Holds the original collection list of ingredients.
+        /// </summary>
         private List<List<(string, double, string, double, string)>> ingredientCollectionsOriginal;
 
         /// <summary>
-        /// Instantiates a new instance of the Validation class. The Validation class
-        /// can now be used to perform validation tasks throughout the rest of your code.
+        /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
+        /// perform validation tasks throughout the rest of the code.
         /// /// </summary>
         public Validation validate = new Validation();
+
+        /// <summary>
+        /// Holds the list of names of the recipes.
+        /// </summary>
+        private List<string> RecipeNames { get; set; }
+
+        /// <summary>
+        /// Holds the list of collections of steps for each recipe.
+        /// </summary>
+        private List<List<string>> StepCollections { get; set; }
+
+        /// <summary>
+        /// Holds the list of collections of ingredients for each recipe.
+        /// </summary>
+        private List<List<(string, double, string, double, string)>> IngredientCollections { get; set; }
+
+        /// <summary>
+        /// Holds the list of recipes.
+        /// </summary>
+        private List<RecipeClass> RecipeList = new List<RecipeClass>();
+
+        /// <summary>
+        /// Holds the list total calories for each recipe.
+        /// </summary>
+        private List<double> TotalCaloriesList = new List<double>();
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Default constructor for WorkerClass.
         /// </summary>
-
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public WorkerClass(ClockTimerClass clockTimerClass)
         {
-
             try
             {
                 displayClass.WelcomeMessage(clockTimerClass);
@@ -92,15 +126,13 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method initializes and populates arrays with information about the ingredients.It first calls 
-        /// GetNumOfIngredients method to get the number of ingredients, and then creates three arrays
-        /// of IngredientClass, double and string types to store the ingredients, their quantities and units.
-        /// It then prompts the user to provide details for each ingredient, and calls the GetIngredientName, 
-        /// GetIngredientQuantity, and GetIngredientUnit methods to get the name, quantity and unit of each 
-        /// ingredient.The obtained values are assigned to the respective properties of the IngredientClass object, 
-        /// which is then added to the arrIngredientClasses array. the method stores the original quantities and 
-        /// units of the ingredients in the arrOriginalQuantities and arrOriginalUnits arrays respectively.
+        /// Method initializes and populates a list with information about the ingredients.It first calls 
+        /// GetNumOfIngredients method to get the number of ingredients. It then prompts the user to provide details 
+        /// for each ingredient, and calls the GetIngredientName, GetIngredientQuantity, GetIngredientUnit,
+        /// GetIngredientCalories, and GetFoodGroup methods to get the name, quantity, unit, calories and food group
+        /// of each ingredient. The information of the ingredient is then added to the list.
         /// </summary>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void WriteIngredientsToArrays(ClockTimerClass clockTimerClass) // change the methods name to WriteIngredientsToCollections
         {
             int number = ingredientClass.GetNumOfIngredients(clockTimerClass);
@@ -133,31 +165,32 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
-
-
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prints the recipe and provides options for editing the recipe. It validates user input and executes
-        /// the corresponding option using the GetValidUserChoice method. It uses the clockTimerClass to change the
-        /// console color and prompt the user for input. If the user chooses to clear the recipe, the method clears
-        /// the recipe using the Array.Clear method and then calls the Application method to restart the program.
+        /// Method prints the menu and provides options for user selection.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void PrintMenu(ClockTimerClass clockTimerClass)
         {
+            // Change console colors for better visibility
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+
+            // Prompt the user to select an option
             Console.Write("\r\nPlease select an option by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
             Console.Write("\r\n1. Print A Specific Recipe \r\n2. Scale Quantities \r\n3. Enter Another Recipe \r\n4. Clear Recipe \r\n5. Quit \n>");
-            // Initialize variables
+
+            // Read user input
             string userInput = Console.ReadLine();
 
-            int userChoice = GetValidUserChoice(userInput, validate, clockTimerClass);
+            // Get valid user choice
+            int userChoice = GetValidUserChoice(userInput, clockTimerClass);
+
             switch (userChoice)
             {
                 case 1:
-                    DisplayRecipeNames(clockTimerClass); /// < ---------------------------------------------------------------
+                    DisplayRecipeNames(clockTimerClass);
                     PrintMenu(clockTimerClass);
                     break;
                 case 2:
@@ -165,13 +198,14 @@ namespace POE_PROG6221_ST10023767_GR01
                     PrintMenu(clockTimerClass);
                     break;
                 case 3:
-                    AnotherRecipe = "Yes"; 
+                    AnotherRecipe = true;
                     WriteRecipeToArrays(clockTimerClass);
                     PrintMenu(clockTimerClass);
                     break;
                 case 4:
+                    // Prompt user for confirmation before clearing the recipe
                     clockTimerClass.ChangeToErrorColor();
-                    Console.Write("\r\nDo you still want to proceed with clearing your recipe,considering " +
+                    Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
                                     "\r\nthat this action is irreversible? (Yes/No):");
                     string newInput = Console.ReadLine();
                     clockTimerClass.ChangeBack();
@@ -179,15 +213,15 @@ namespace POE_PROG6221_ST10023767_GR01
                     while (validate.Validate_Yes_Or_No(newInput) == false)
                     {
                         clockTimerClass.ChangeToErrorColor();
-                        Console.Write("\r\nDo you still want to proceed with clearing your recipe,considering " +
+                        Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
                                         "\r\nthat this action is irreversible? (Yes/No):");
                         newInput = Console.ReadLine();
                         clockTimerClass.ChangeBack();
-
                     }
 
                     if (newInput.Trim().ToUpper().Equals("NO"))
                     {
+                        // Cancel the request to enter a new recipe
                         clockTimerClass.ChangeToErrorColor();
                         Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
                         clockTimerClass.ChangeBack();
@@ -195,15 +229,9 @@ namespace POE_PROG6221_ST10023767_GR01
                     }
                     else
                     {
-                        //Clearing the arrays
-                        //Array.Clear(arrIngredientClasses, 0, arrIngredientClasses.Length);
-                        //Array.Clear(arrOriginalQuantities, 0, arrOriginalQuantities.Length);
-                        //Array.Clear(arrOriginalUnits, 0, arrOriginalUnits.Length);
-                        //Array.Clear(arrSteps, 0, arrSteps.Length);
-
-                        // Clearing the generic collections
-
-                        if (IngredientList != null && StepList != null && TotalCaloriesList != null && ingredientCollectionsOriginal != null)
+                        // Clear the generic collections and proceed with entering a new recipe
+                        if (IngredientList != null && StepList != null && TotalCaloriesList != null && 
+                            ingredientCollectionsOriginal != null)
                         {
                             IngredientList.Clear();
                             StepList.Clear();
@@ -216,11 +244,11 @@ namespace POE_PROG6221_ST10023767_GR01
                         }
 
                         Application(clockTimerClass);
-
                         PrintMenu(clockTimerClass);
                     }
                     break;
                 case 5:
+                    // Print the quit message and exit the program
                     displayClass.PrintQuitMessage(clockTimerClass);
                     break;
                 default:
@@ -235,11 +263,10 @@ namespace POE_PROG6221_ST10023767_GR01
         /// integer between 1 and 4, and prompts the user for valid input if necessary.It also changes the console 
         /// color to indicate an error if the user enters invalid input.
         /// </summary>
-        /// <param name="userInput"></param>
-        /// <param name="validate"></param>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="userInput">The user input to validate.</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         /// <returns></returns>
-        private int GetValidUserChoice(string userInput, Validation validate, ClockTimerClass clockTimerClass)
+        private int GetValidUserChoice(string userInput, ClockTimerClass clockTimerClass)
         {
             // Initialize variables
             int number = 0;
@@ -275,10 +302,9 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method that takes a ClockTimerClass object as an argument and prompts the user to enter a scaling factor.
         /// It then adjusts the quantity and unit of each ingredient in a list based on the selected factor.
         /// The method uses a loop to iterate through the list of ingredients and a switch statement to determine how
-        /// to adjust each ingredient's unit based on its current unit and quantity.
+        /// to adjust each ingredients unit based on its current unit and quantity.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
-
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void ScaleQuantities(ClockTimerClass clockTimerClass)
         {
             double factor = 0.0;
@@ -561,7 +587,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                     }
                                     valid = true;
                                 }
-                                else/// the reset code 4th option must be here 
+                                else
                                 {
                                     if (number == 4)
                                     {
@@ -608,9 +634,6 @@ namespace POE_PROG6221_ST10023767_GR01
                     List<string> steps = stepCollections[recipeIndex];
                     List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
 
-                    // Display the selected recipe
-                    //Console.WriteLine($"Recipe: {selectedRecipe.RecipeName}");
-
                     displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples);
 
                     displayClass.PrintSteps(clockTimerClass, steps);
@@ -630,20 +653,18 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.WriteLine("\r\nInvalid selection. Please try again.");
                 ScaleQuantities(clockTimerClass);
             }
-
-
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method is the main entry point for the recipe application. It prompts the user to select between two 
         /// options: enter a new recipe or quit. If the user chooses to enter a recipe, it asks for confirmation 
-        /// and then calls the WriteRecipeToArrays method to write the recipe information to arrays. It then calls
-        /// the PrintRecipe method to display the recipe information to the console. If the user chooses to quit,
-        /// it calls the PrintQuitMessage method to display a quit message. The ClockTimerClass parameter is used 
-        /// to change the color of the console output.
+        /// and then calls the method to write the recipe information to lists. It then calls the PrintMenu method
+        /// to display the recipe information to the console. If the user chooses to quit, it calls the 
+        /// PrintQuitMessage method to display a quit message. The ClockTimerClass parameter is used to change 
+        /// the color of the console output.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void Application(ClockTimerClass clockTimerClass)
         {
             // Get the valid user choice from the user using the GetValidUserChoice method
@@ -675,10 +696,10 @@ namespace POE_PROG6221_ST10023767_GR01
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method prompts the user to enter a valid integer choice 1 or 2 for the menu options. Returns 
-        /// the user's choice. If the user enters an invalid input, displays an error message and prompts 
-        /// again until a valid input is received, It returns the user's choice as an integer.
+        /// the users choice. If the user enters an invalid input, displays an error message and prompts 
+        /// again until a valid input is received, It returns the users choice as an integer.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         /// <returns>The integer value of the users choice</returns>
         private int GetValidUserChoice(ClockTimerClass clockTimerClass)
         {
@@ -707,11 +728,11 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prompts the user with a message and validates their input to ensure they enter either "Yes" or "No". 
-        /// It returns the user's input as a string
+        /// Method prompts the user with a message and validates their input to ensure they enter either "Yes" 
+        /// or "No". It returns the user's input as a string
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
-        /// <param name="message"></param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
+        /// <param name="message">Message that is displayed to the user.</param>
         /// <returns>The string value of the users input that must be yes or no</returns>
         private string GetValidYesOrNoInput(ClockTimerClass clockTimerClass, string message)
         {
@@ -737,15 +758,12 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method writes the recipe ingredients and steps entered by the user to their arrays. It is called 
-        /// within the application flow when the user chooses to enter a new recipe.
+        /// Method writes the recipe details to lists for storage.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         private void WriteRecipeToArrays(ClockTimerClass clockTimerClass)
         {
-            //WriteIngredientsToArrays(clockTimerClass);
-            //WriteStepsToArray(clockTimerClass);
-            if (AnotherRecipe == "Yes")
+            if (AnotherRecipe == true)
             {
                 RecipeNames = RecipeNames;
                 StepCollections = StepCollections;
@@ -769,23 +787,21 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 else
                 {
-                    AddRecipe(clockTimerClass);   //<---------------------------------------------------------
+                    AddRecipe(clockTimerClass); 
                     userInput = GetValidYesOrNoInput(clockTimerClass, "\r\nDo you want to enter a recipe? " +
                        "(Yes or No): ");
                 }
             } while (userInput.Trim().ToUpper().Equals("YES"));
         }
 
-
-
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// This method prompts the user to input a description for each step of a process.
-        /// The input is validated and stored in an array of StepClass objects. The method uses an instance of
-        /// the Validation class to ensure that the input is not empty or null. The method also takes an 
-        /// instance of the ClockTimerClass to change the console colors during the input process.
+        /// The input is validated and stored in a list. The method uses the Validation class to ensure that the
+        /// input is not empty or null. The method also takes an instance of the ClockTimerClass to change the
+        /// console colors during the input process.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void WriteStepsToArray(ClockTimerClass clockTimerClass)
         {
             // Initialize variables
@@ -825,29 +841,44 @@ namespace POE_PROG6221_ST10023767_GR01
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
-        private List<string> RecipeNames { get; set; }
-        private List<List<string>> StepCollections { get; set; }
-        private List<List<(string, double, string, double, string)>> IngredientCollections { get; set; }
-
-        private List<RecipeClass> RecipeList = new List<RecipeClass>();
-        private List<double> TotalCaloriesList = new List<double>();
-
+        /// <summary>
+        /// Method returns the list of recipe names.
+        /// </summary>
+        /// <returns>The list of recipe names.</returns>
         public List<string> GetRecipeNames()
         {
             return RecipeNames;
         }
 
+//・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method returns the collections of steps for each recipe.
+        /// </summary>
+        /// <returns>The collections of steps for each recipe.</returns>
         public List<List<string>> GetStepCollections()
         {
             return StepCollections;
         }
 
+//・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method returns the collections of ingredients for each recipe.
+        /// </summary>
+        /// <returns>The collections of ingredients for each recipe.</returns>
         public List<List<(string, double, string, double, string)>> GetIngredientCollections()
         {
             return IngredientCollections;
         }
 
-        public void StoreRecipes(List<List<string>> stepCollections, List<List<(string, double, string, double, string)>> ingredientCollections)
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Stores the recipes by populating the RecipeList based on the provided stepCollections and 
+        /// ingredientCollections.
+        /// </summary>
+        /// <param name="stepCollections">The collections of steps for each recipe.</param>
+        /// <param name="ingredientCollections">The collections of ingredients for each recipe.</param>
+        public void StoreRecipes(List<List<string>> stepCollections, 
+            List<List<(string, double, string, double, string)>> ingredientCollections)
         {
             RecipeNames = GetRecipeNames();
             RecipeList.Clear();
@@ -900,9 +931,22 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Delegate for notifying the user about a recipe.
+        /// </summary>
+        /// <param name="recipeName">The name of the recipe.</param>
         public delegate void RecipeNotificationDelegate(string recipeName);
+
+        /// <summary>
+        /// Event that is triggered when a recipe exceeds the calorie limit.
+        /// </summary>
         public event RecipeNotificationDelegate RecipeExceedsCaloriesEvent;
 
+        /// <summary>
+        /// Notifies the user about a recipe.
+        /// </summary>
+        /// <param name="recipeName">The name of the recipe.</param>
         public void NotifyUser(string recipeName)
         {
             RecipeNotificationDelegate handler = RecipeExceedsCaloriesEvent;
@@ -912,11 +956,21 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
+//・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Handles the event when a recipe exceeds the calorie limit.
+        /// </summary>
+        /// <param name="recipeName">The name of the recipe.</param>
         public void HandleRecipeExceedsCalories(string recipeName)
         {
             DialogResult result = MessageBox.Show($"The recipe '{recipeName}' exceeds 300 calories.", "Recipe Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Adds a new recipe to the recipe collections.
+        /// </summary>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void AddRecipe(ClockTimerClass clockTimerClass)
         {
             RecipeClass recipeClass = new RecipeClass();
@@ -946,6 +1000,12 @@ namespace POE_PROG6221_ST10023767_GR01
             StoreRecipes(StepCollections, IngredientCollections);
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Calculates the total calories of a list of ingredients.
+        /// </summary>
+        /// <param name="IngredientList">The list of ingredients.</param>
+        /// <returns>The total calories.</returns>
         public double CalculateTotalCalories(List<IngredientClass> IngredientList)
         {
             if (IngredientList == null)
@@ -965,6 +1025,11 @@ namespace POE_PROG6221_ST10023767_GR01
             return totalCalories;
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Displays the list of recipe names and allows the user to select a recipe to view its details.
+        /// </summary>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         private void DisplayRecipeNames(ClockTimerClass clockTimerClass)
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
@@ -1016,12 +1081,24 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Prints an error message for an invalid recipe selection and prompts the user to enter a valid selection.
+        /// </summary>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
+        /// <param name="sortedRecipeNames">A list of recipe names in sorted order.</param>
         private void PrintErrorSelection(ClockTimerClass clockTimerClass, List<string> sortedRecipeNames)
         {
+            // Change console color to indicate error
             clockTimerClass.ChangeToErrorColor();
+
             Console.WriteLine("\r\nInvalid recipe selection. Please try again.\n");
+
             clockTimerClass.ChangeBack();
+
+            // Print the sorted recipe names again
             displayClass.PrintRecipeNames(sortedRecipeNames);
+
             Console.Write(">");
         }
     }

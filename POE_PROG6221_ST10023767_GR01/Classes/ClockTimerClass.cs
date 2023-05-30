@@ -60,8 +60,8 @@ namespace POE_PROG6221_ST10023767_GR01
         public ConsoleColor selectedTextBackgroundColor;
 
         /// <summary>
-        /// Instantiates a new instance of the Validation class. The Validation class
-        /// can now be used to perform validation tasks throughout the rest of your code.
+        /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
+        /// perform validation tasks throughout the rest of the code.
         /// </summary>
         public Validation validate = new Validation();
 
@@ -75,7 +75,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        ///  It includes a timer that updates the console title with the current time every second
+        /// Method includes a timer that updates the console title with the current time every second
         /// </summary>
         public void StartTimer()
         {
@@ -128,7 +128,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Methhod that checks if the users input is valid 
+        /// Method that checks if the users input is valid 
         /// </summary>
         /// <returns>The integer of the users selection</returns>
         private int GetValidSelection()
@@ -187,7 +187,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Sets the console background color to the specified color.
+        /// Method sets the console background color to the specified color.
         /// </summary>
         /// <param name="color"></param>
         public void ChangeBackColor(ConsoleColor color)
@@ -197,7 +197,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Sets the console foreground color to the specified color.
+        /// Method sets the console foreground color to the specified color.
         /// </summary>
         /// <param name="color"></param>
         public void ChangeForeColor(ConsoleColor color)
@@ -207,7 +207,8 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Sets the console background color to white and the foreground color to red, used to indicate an error.
+        /// Method sets the console background color to white and the foreground color to red, used to indicate 
+        /// an error.
         /// </summary>
         public void ChangeToErrorColor()
         {
@@ -226,7 +227,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Sets the console background and foreground colors back to the originally selected color scheme.
+        /// Method sets the console background and foreground colors back to the originally selected color scheme.
         /// </summary>
         public void ChangeBack()
         {

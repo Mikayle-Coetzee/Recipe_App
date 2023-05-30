@@ -47,6 +47,9 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         public string FoodGroup { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Holds the list of food groups.
+        /// </summary>
         public List<string> FoodGroupList { get; set; } = new List<string>
         {
             "Starchy foods",
@@ -59,18 +62,21 @@ namespace POE_PROG6221_ST10023767_GR01
         };
 
         /// <summary>
-        /// Instantiates a new instance of the Validation class. The Validation class
-        /// can now be used to perform validation tasks throughout the rest of your code.
+        /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
+        /// perform validation tasks throughout the rest of the code.
         /// /// </summary>
         public Validation validate = new Validation();
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// PART 2
-        /// Constructor method of the IngredientClass class. It takes four parameters, which are the name of the
-        /// ingredient, its quantity, its unit of measurement, and the number of ingredients. It initializes 
-        /// the corresponding properties of the class with these parameter values.
+        /// Initializes a new instance of the IngredientClass with the specified properties.
         /// </summary>
+        /// <param name="name">The name of the ingredient.</param>
+        /// <param name="quantity">The quantity of the ingredient.</param>
+        /// <param name="unit">The unit of measurement for the ingredient.</param>
+        /// <param name="numOfIngredients">The number of ingredients.</param>
+        /// <param name="calories">The calorie content of the ingredient.</param>
+        /// <param name="foodgroup">The food group of the ingredient.</param>
         public IngredientClass(string name, double quantity, string unit, int numOfIngredients, double calories, string foodgroup)
         {
             this.Name = name;
@@ -87,20 +93,17 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         public IngredientClass()
         {
-
-
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// PART 2
         /// This method prompts the user to enter ingredient data and returns an IngredientClass object with the 
         /// data entered. The method first calls GetNumOfIngredients to get the number of ingredients to be 
-        /// entered. It then calls GetIngredientName, GetIngredientQuantity, and GetIngredientUnit to get the 
-        /// name, quantity, and unit of each ingredient respectively. It creates and returns a new IngredientClass
-        /// object with the data entered.
+        /// entered. It then calls GetIngredientName, GetIngredientQuantity, GetIngredientUnit, GetIngredientCalories,
+        /// and the GetFoodGroup to get the name, quantity, unit, calories and food group of each ingredient. It 
+        /// creates and returns a new IngredientClass object with the data entered.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         /// <returns>a new IngredientClass object with the data entered</returns>
         public IngredientClass GetIngredientData(ClockTimerClass clockTimerClass)
         {
@@ -122,7 +125,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// is not valid, it prompts the user to re-enter the number of ingredients. The method continues to loop
         /// until a valid input is received. The method then returns the valid number of ingredients as an integer.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass/param>
         /// <returns>The valid number of ingredients as an integer</returns>
         public int GetNumOfIngredients(ClockTimerClass clockTimerClass)
         {
@@ -166,10 +169,10 @@ namespace POE_PROG6221_ST10023767_GR01
         }
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prompts the user to enter a text string representing the name of an ingredient, 
-        /// validates the input to ensure it is a valid string, and returns the input as a string.
+        /// Method prompts the user to enter a text string representing the name of an ingredient, validates the 
+        /// input to ensure it is a valid string, and returns the input as a string.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         /// <returns>The string representing the entered ingredient name</returns>
         public string GetIngredientName(ClockTimerClass clockTimerClass)
         {
@@ -211,7 +214,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method prompts the user to enter an ingredient unit as text (e.g. "cup") and validates the input to
         /// ensure it is a valid string and a valid unit of measurement. It returns the validated unit as a string.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         /// <returns>The string representing the entered ingredient unit</returns>
         public String GetIngredientUnit(ClockTimerClass clockTimerClass)
         {
@@ -253,9 +256,10 @@ namespace POE_PROG6221_ST10023767_GR01
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method prompts the user to enter an ingredient quantity as text (e.g. "one") and converts it to 
-        /// a numerical value.
+        /// a numerical value. Or if the user selected that they would like to enter the quantity as a numerical 
+        /// value it would prompt the user to enter the ingreident quantity as a numerical value (e.g. 1)
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         /// <returns>The numerical value of the entered ingredient quantity.</returns>
         public double GetIngredientQuantity(ClockTimerClass clockTimerClass)
         {
@@ -282,10 +286,6 @@ namespace POE_PROG6221_ST10023767_GR01
                     "\r\n2. Enter the ingredient quantity as a numerical number (e.g. 1)\r\n>");
                 userInput = Console.ReadLine();
             }
-
-            //// Prompt the user to enter the ingredient quantity as text
-            //Console.Write("Please enter the ingredient quantity as text (e.g. 'one'): \t");
-            //userInput = Console.ReadLine();
 
             // Validate the user's input
             if (userChoice == 1)
@@ -373,12 +373,12 @@ namespace POE_PROG6221_ST10023767_GR01
             return quantity;
         }
 
-
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prompts the user to enter an ingredient calories.
+        /// Method prompts the user to enter the number of calories for an ingredient and returns the numerical
+        /// value.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         /// <returns>The numerical value of the entered ingredient calories.</returns>
         public double GetIngredientCalories(ClockTimerClass clockTimerClass)
         {
@@ -451,11 +451,17 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
             } while (!valid);
 
-            // Return the numerical value of the entered ingredient quantity
+            // Return the numerical value of the entered ingredient calories
             return calories;
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method prompts the user to select a food group from the list and returns the selected food group 
+        /// as a string.
+        /// </summary>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
+        /// <returns>The selected food group as a string</returns>
         public string GetFoodGroup(ClockTimerClass clockTimerClass)
         {
             string userInput, foodGroup = string.Empty;
@@ -490,7 +496,6 @@ namespace POE_PROG6221_ST10023767_GR01
                     }
                     else if (userChoice == FoodGroupList.Count + 1)
                     {
-                        // More information
                         FoodGroupInformation(clockTimerClass);
                     }
                 }
@@ -509,9 +514,9 @@ namespace POE_PROG6221_ST10023767_GR01
         }
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// 
+        /// Method displays information about a specific food group based on the users selection.
         /// </summary>
-        /// <param name="clockTimerClass"></param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void FoodGroupInformation(ClockTimerClass clockTimerClass)
         {
             string userInput;
@@ -531,7 +536,6 @@ namespace POE_PROG6221_ST10023767_GR01
 
             userInput = Console.ReadLine();
 
-            
             do
             {
                 if (int.TryParse(userInput, out int userChoice))

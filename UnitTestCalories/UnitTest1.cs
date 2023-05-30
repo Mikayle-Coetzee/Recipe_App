@@ -24,6 +24,7 @@ namespace UnitTestCalories
             double totalCalories = workerClass.CalculateTotalCalories(emptyIngredientList);
             Assert.AreEqual(0.0f, totalCalories);
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// This test verifies that the CalculateTotalCalories method returns the correct total calories
@@ -45,6 +46,7 @@ namespace UnitTestCalories
             double totalCalories = workerClass.CalculateTotalCalories(ingredientList);
             Assert.AreEqual(345.0f, totalCalories);
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// This test ensures that the CalculateTotalCalories method returns 0 when the ingredient list 
@@ -60,6 +62,7 @@ namespace UnitTestCalories
             double totalCalories = workerClass.CalculateTotalCalories(nullIngredientList);
             Assert.AreEqual(0.0f, totalCalories);
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// This test verifies that the CalculateTotalCalories method handles negative calorie values 
@@ -82,6 +85,7 @@ namespace UnitTestCalories
             double totalCalories = workerClass.CalculateTotalCalories(ingredientList);
             Assert.AreEqual(245.0f, totalCalories);
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// This test ensures that the CalculateTotalCalories method handles large total calorie values 
@@ -102,6 +106,7 @@ namespace UnitTestCalories
             double totalCalories = workerClass.CalculateTotalCalories(ingredientList);
             Assert.AreEqual(6e9f, totalCalories);
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// This test ensures that the CalculateTotalCalories method returns 0 when the ingredient list
