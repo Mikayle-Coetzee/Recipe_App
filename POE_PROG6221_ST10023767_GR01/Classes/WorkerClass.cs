@@ -133,7 +133,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// of each ingredient. The information of the ingredient is then added to the list.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
-        public void WriteIngredientsToArrays(ClockTimerClass clockTimerClass) // change the methods name to WriteIngredientsToCollections
+        public void WriteIngredientsToList(ClockTimerClass clockTimerClass) 
         {
             int number = ingredientClass.GetNumOfIngredients(clockTimerClass);
             this.numberOfIngredients = number;
@@ -199,7 +199,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     break;
                 case 3:
                     AnotherRecipe = true;
-                    WriteRecipeToArrays(clockTimerClass);
+                    WriteRecipeToList(clockTimerClass);
                     PrintMenu(clockTimerClass);
                     break;
                 case 4:
@@ -374,11 +374,11 @@ namespace POE_PROG6221_ST10023767_GR01
                             {
                                 factor = arrFactor[(number - 1)];
 
-                                int arrayLength = ingredientCollections[recipeIndex].Count;
+                                int listLength = ingredientCollections[recipeIndex].Count;
 
                                 if (number > 0 && number < 4)
                                 {
-                                    for (int i = 0; i < arrayLength; i++)
+                                    for (int i = 0; i < listLength; i++)
                                     {
                                         ingredientCollections[recipeIndex][i] = (
                                             ingredientCollections[recipeIndex][i].Item1,
@@ -592,7 +592,7 @@ namespace POE_PROG6221_ST10023767_GR01
                                     if (number == 4)
                                     {
                                         //If the value of number is equal to 4, then the program will reset the Quantity
-                                        //and Unit values in the array of objects arrIngredientClasses to their original values.
+                                        //and Unit values in the list to their original values.
                                         ingredientCollections[recipeIndex] = new List<(string, double, string, double, string)>(ingredientCollectionsOriginal[recipeIndex]);
                                         //ingredientCollections[recipeIndex] = ingredientCollectionsOriginal[recipeIndex];
                                         valid = true;
@@ -681,7 +681,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 else
                 {
-                    WriteRecipeToArrays(clockTimerClass);
+                    WriteRecipeToList(clockTimerClass);
                     ingredientCollectionsOriginal?.Clear();//if the list is not null clear 
 
                     PrintMenu(clockTimerClass);
@@ -761,7 +761,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Method writes the recipe details to lists for storage.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
-        private void WriteRecipeToArrays(ClockTimerClass clockTimerClass)
+        private void WriteRecipeToList(ClockTimerClass clockTimerClass)
         {
             if (AnotherRecipe == true)
             {
@@ -802,7 +802,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// console colors during the input process.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
-        public void WriteStepsToArray(ClockTimerClass clockTimerClass)
+        public void WriteStepsToList(ClockTimerClass clockTimerClass)
         {
             // Initialize variables
             bool valid ;
@@ -976,9 +976,9 @@ namespace POE_PROG6221_ST10023767_GR01
             RecipeClass recipeClass = new RecipeClass();
             string newRecipeName = recipeClass.GetRecipeName(clockTimerClass);
 
-            // Write the steps and ingredients to the arrays
-            WriteIngredientsToArrays(clockTimerClass);
-            WriteStepsToArray(clockTimerClass);
+            // Write the steps and ingredients to the lists
+            WriteIngredientsToList(clockTimerClass);
+            WriteStepsToList(clockTimerClass);
 
             double totalCalories = CalculateTotalCalories(IngredientList);
 

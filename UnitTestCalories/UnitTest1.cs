@@ -1,4 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿#region
+// Mikayle Coetzee
+// ST10023767
+// PROG6221 POE 2023
+// Part 1 and 2 
+#endregion
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POE_PROG6221_ST10023767_GR01;
 using System;
 using System.Collections.Generic;
