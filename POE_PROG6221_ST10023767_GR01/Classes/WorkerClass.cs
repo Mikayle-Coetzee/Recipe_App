@@ -76,11 +76,19 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Default constructor for WorkerClass.
         /// </summary>
+
         public WorkerClass(ClockTimerClass clockTimerClass)
         {
-            displayClass.WelcomeMessage(clockTimerClass);
-        }
 
+            try
+            {
+                displayClass.WelcomeMessage(clockTimerClass);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while displaying the welcome message: " + ex.Message);
+            }
+        }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -918,7 +926,7 @@ namespace POE_PROG6221_ST10023767_GR01
             WriteIngredientsToArrays(clockTimerClass);
             WriteStepsToArray(clockTimerClass);
 
-            double totalCalories = CalculateTotalCalories();
+            double totalCalories = CalculateTotalCalories(IngredientList);
 
             if (totalCalories > 300)
             {
@@ -938,13 +946,20 @@ namespace POE_PROG6221_ST10023767_GR01
             StoreRecipes(StepCollections, IngredientCollections);
         }
 
-        private double CalculateTotalCalories()
+        public double CalculateTotalCalories(List<IngredientClass> IngredientList)
         {
+            if (IngredientList == null)
+            {
+                return 0.0;
+            }
+
             double totalCalories = 0.0;
 
             foreach (var ingredient in IngredientList)
             {
-                totalCalories += ingredient.IngredientCalories;
+                // Ensure the ingredient's calorie value is non-negative
+                double ingredientCalories = Math.Max(ingredient.IngredientCalories, 0);
+                totalCalories += ingredientCalories;
             }
 
             return totalCalories;

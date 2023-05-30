@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -198,15 +199,23 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// <param name="clockTimerClass">An instance of the ClockTimerClass to control the color of the console window</param>
         public void WelcomeMessage(ClockTimerClass clockTimerClass)
         {
-            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-            string welcome = "welcome";
-            Console.Write(WELCOME);
+            try
+            {
+                clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+                clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+                string welcome = "welcome";
+                Console.Write(WELCOME);
 
-            DisplayBlock(welcome);
+                DisplayBlock(welcome);
 
-            Console.WriteLine();
-            clockTimerClass.ChangeBack();
+                Console.WriteLine();
+                clockTimerClass.ChangeBack();
+            }
+            catch (IOException e)
+            {
+                // Handle the exception or log the error
+                Console.WriteLine("An error occurred while displaying the welcome message: " + e.Message);
+            }
         }
         public void PrintRecipeNames(List<string> recipeNames)
         {

@@ -40,7 +40,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Holds the number of calories
         /// </summary>
-        public double IngredientCalories { get; set; } = (double)0.0;
+        public double IngredientCalories { get; set; }
 
         /// <summary>
         /// Holds the selected food group
