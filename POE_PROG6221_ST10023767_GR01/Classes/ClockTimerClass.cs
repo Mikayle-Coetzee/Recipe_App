@@ -36,7 +36,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Array holds the avaliable light colors 
         /// </summary>
         private readonly ConsoleColor[] arrAvailableColorsLight = new ConsoleColor[] { ConsoleColor.Yellow, 
-            ConsoleColor.Cyan, ConsoleColor.Gray};
+            ConsoleColor.Cyan, ConsoleColor.Gray, ConsoleColor.Cyan};
 
         /// <summary>
         /// Array holds the avaliable dark colors 

@@ -104,40 +104,10 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             {
                 Console.WriteLine($"{i + 1}.\t{steps[i]}");
             }
-
-            Console.WriteLine();
-
+            
             DisplayLine();
 
             Console.WriteLine();
-        }
-
-        //・♫-------------------------------------------------------------------------------------------------♫・//
-        /// <summary>
-        /// Method displays the selected recipe along with its ingredients, total calories, and steps. Takes in 
-        /// various parameters. Retrieves the selected recipe and relevant information based on the recipe index.
-        /// Prints the ingredients, total calories, and steps of the selected recipe.
-        /// </summary>
-        /// <param name="sortedRecipeNames">The sorted list of recipe names</param>
-        /// <param name="recipeIndex">The index of the selected recipe</param>
-        /// <param name="clockTimerClass">Instance of the clock timer class</param>
-        /// <param name="stepCollections">The collections of steps for each recipe</param>
-        /// <param name="ingredientCollections">The collections of ingredients for each recipe</param>
-        /// <param name="RecipeList">The list of recipe objects</param>
-        /// <param name="TotalCaloriesList">The list of total calories for each recipe</param>
-        public void DisplaySelectedRecipe(List<string> sortedRecipeNames, int recipeIndex, ClockTimerClass clockTimerClass,
-            List<List<string>> stepCollections, List<List<(string, double, string, double, string)>> ingredientCollections,
-            List<RecipeClass> RecipeList, List<double> TotalCaloriesList)
-        {
-            string selectedRecipeName = sortedRecipeNames[recipeIndex];
-            RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
-            List<string> steps = stepCollections[recipeIndex];
-            List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
-
-            // Display the selected recipe
-            PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples, TotalCaloriesList, recipeIndex);
-
-            PrintSteps(clockTimerClass, steps);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -255,6 +225,11 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             }
             Console.WriteLine($"{recipeNames.Count + 1}. Back");
             Console.Write(">");
+        }
+
+        public void CaloriesInformation()
+        {
+
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

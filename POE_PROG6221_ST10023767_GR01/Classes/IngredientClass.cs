@@ -5,6 +5,7 @@
 // Part 1 and 2 
 #endregion
 
+using POE_PROG6221_ST10023767_GR01.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +61,11 @@ namespace POE_PROG6221_ST10023767_GR01
             "Fats and oil",
             "Water"
         };
+
+        /// <summary>
+        /// Initializes a private instance of the DisplayClass 
+        /// </summary>
+        private readonly DisplayClass displayClass = new DisplayClass();
 
         /// <summary>
         /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
@@ -437,6 +443,8 @@ namespace POE_PROG6221_ST10023767_GR01
                 else
                 {
                     valid = false;
+                    Console.WriteLine();
+                    displayClass.DisplayLine();
                     Console.WriteLine("\r\nCalories:" +
                         "\r\nCalories are a measure of energy. In the context of nutrition, calories refer to the energy " +
                         "\r\ncontent of food and drinks that our bodies can utilize for various physiological functions " +
@@ -448,6 +456,8 @@ namespace POE_PROG6221_ST10023767_GR01
                         "\r\nphysical activities, and supporting bodily processes like digestion and cellular metabolism." +
                         "\r\n\r\nIt's important to note that the calorie content of foods can vary based on factors such as serving size," +
                         "\r\ncooking methods, and specific varieties.");
+                    displayClass.DisplayLine();
+                    Console.WriteLine();
                 }
             } while (!valid);
 
@@ -547,53 +557,69 @@ namespace POE_PROG6221_ST10023767_GR01
                         if (recipeIndex >= 0 && recipeIndex < FoodGroupList.Count)
                         {
                             valid = true;
+                            Console.WriteLine();
                             switch (recipeIndex)
                             {
                                 case 0:
+                                    displayClass.DisplayLine();
                                     Console.WriteLine("\r\nStarchy foods:" +
                                         "\r\nThese are foods rich in carbohydrates and provide energy." +
                                         "\r\nThey typically include grains, cereals, potatoes, and root vegetables." +
                                         "\r\nFor example, rice, bread, pasta, and sweet potatoes are considered starchy foods.");
+                                    displayClass.DisplayLine();
                                     break;
                                 case 1:
+                                    displayClass.DisplayLine();
                                     Console.WriteLine("\r\nVegetables and fruits:" +
                                         "\r\nThis food group consists of plant-based foods that are rich in vitamins, minerals, and dietary fiber." +
                                         "\r\nIt includes a wide variety of vegetables (leafy greens, cruciferous vegetables, etc.) and " +
                                         "\r\nfruits (apples, bananas, berries, etc.)." +
                                         "\r\nFor instance, spinach, broccoli, oranges, and strawberries are part of this group.");
+                                    displayClass.DisplayLine();
                                     break;
                                 case 2:
+                                    displayClass.DisplayLine();
                                     Console.WriteLine("\r\nDry beans, peas, lentils, and soya:" +
                                         "\r\nThis group includes legumes that are high in protein, fiber, and various nutrients." +
                                         "\r\nExamples of dry beans include kidney beans, black beans, and chickpeas. Lentils and peas," +
                                         "\r\nsuch as green lentils and split peas, also fall into this category. Soybeans are used to make" +
                                         "\r\nsoy products like tofu and soy milk.");
+                                    displayClass.DisplayLine();
                                     break;
                                 case 3:
+                                    displayClass.DisplayLine();
                                     Console.WriteLine("\r\nChicken, fish, meat, and eggs: " +
                                         "\r\nThis food group comprises animal-based protein sources." +
                                         "\r\nIt includes poultry (chicken, turkey), fish (salmon, tuna), red meat (beef, pork), and eggs. " +
                                         "\r\nThese foods are rich in protein, vitamins, and minerals and serve as important sources of nutrition.");
+                                    displayClass.DisplayLine();
                                     break;
                                 case 4:
+                                    displayClass.DisplayLine();
                                     Console.WriteLine("\r\nMilk and dairy products: " +
                                         "\r\nThis group encompasses milk and various dairy products derived from it, such as cheese, yogurt, and butter." +
                                         "\r\nThese foods are excellent sources of calcium, protein, and vitamins like vitamin D. " +
                                         "\r\nExamples include cow's milk, cheddar cheese, and Greek yogurt.");
+                                    displayClass.DisplayLine();
                                     break;
                                 case 5:
+                                    displayClass.DisplayLine();
                                     Console.WriteLine("\r\nFats and oil: " +
                                         "\r\nThis food group includes fats and oils that are consumed in moderation. " +
                                         "\r\nIt comprises sources of healthy fats like vegetable oils (olive oil, canola oil), nuts, seeds, and avocados." +
                                         "\r\n While fats are high in calories, they play essential roles in providing energy and carrying fat-soluble vitamins.");
+                                    displayClass.DisplayLine();
                                     break;
                                 default:
+                                    displayClass.DisplayLine();
                                     Console.WriteLine("\r\nWater:" +
                                         "\r\nWater is not a food group but an essential component of a healthy diet." +
                                         "\r\nIt is crucial for hydration and the proper functioning of the body." +
                                         "\r\n Drinking sufficient water helps maintain bodily functions, supports digestion, and aids in temperature regulation.");
+                                    displayClass.DisplayLine();
                                     break;
                             }
+                            Console.WriteLine();
                         }
                         else
                         {

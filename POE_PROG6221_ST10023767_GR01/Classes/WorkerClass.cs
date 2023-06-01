@@ -15,15 +15,22 @@ using System.Xml.Linq;
 using System.Windows.Forms;
 using static POE_PROG6221_ST10023767_GR01.WorkerClass;
 using POE_PROG6221_ST10023767_GR01.Classes;
+using System.Runtime.InteropServices;
 
 namespace POE_PROG6221_ST10023767_GR01
 {
+    /// <summary>
+    /// Delegate for notifying the user about a recipe.
+    /// </summary>
+    /// <param name="recipeName">The name of the recipe.</param>
+    public delegate void RecipeNotificationDelegate(string recipeName);
+
     public class WorkerClass
     {
         /// <summary>
         /// Initializes a private instance of the DisplayClass 
         /// </summary>
-        private DisplayClass displayClass = new DisplayClass();
+        private readonly DisplayClass displayClass = new DisplayClass();
 
         /// <summary>
         /// Initializes a private instance of the IngredientClass, which is used to get and store 
@@ -59,7 +66,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Flag indicating whether the user wants to enter another recipe.
         /// </summary>
-        private bool AnotherRecipe = false; 
+        private bool AnotherRecipe = false;
 
         /// <summary>
         /// An array that holds the possible scaling factors.
@@ -74,7 +81,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Holds the original collection list of ingredients.
         /// </summary>
-        private List<List<(string, double, string, double, string)>> ingredientCollectionsOriginal;
+        private List<IngredientClass> ingredientCollectionsOriginal;
 
         /// <summary>
         /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
@@ -107,6 +114,11 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         private List<double> TotalCaloriesList = new List<double>();
 
+        /// <summary>
+        /// Event that is triggered when a recipe exceeds the calorie limit.
+        /// </summary>
+        public event RecipeNotificationDelegate RecipeExceedsCaloriesEvent;
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Default constructor for WorkerClass.
@@ -133,12 +145,13 @@ namespace POE_PROG6221_ST10023767_GR01
         /// of each ingredient. The information of the ingredient is then added to the list.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
-        public void WriteIngredientsToList(ClockTimerClass clockTimerClass) 
+        public void WriteIngredientsToList(ClockTimerClass clockTimerClass)
         {
             int number = ingredientClass.GetNumOfIngredients(clockTimerClass);
             this.numberOfIngredients = number;
 
             IngredientList = new List<IngredientClass>();
+            ingredientCollectionsOriginal = new List<IngredientClass>();
 
             for (int i = 0; i < number; i++)
             {
@@ -162,6 +175,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 };
 
                 IngredientList.Add(newIngredient);
+                ingredientCollectionsOriginal.Add(newIngredient);
             }
         }
 
@@ -203,6 +217,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     PrintMenu(clockTimerClass);
                     break;
                 case 4:
+                    indexFood = -1;
                     // Prompt user for confirmation before clearing the recipe
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
@@ -230,7 +245,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     else
                     {
                         // Clear the generic collections and proceed with entering a new recipe
-                        if (IngredientList != null && StepList != null && TotalCaloriesList != null && 
+                        if (IngredientList != null && StepList != null && TotalCaloriesList != null &&
                             ingredientCollectionsOriginal != null)
                         {
                             IngredientList.Clear();
@@ -298,6 +313,9 @@ namespace POE_PROG6221_ST10023767_GR01
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
+        
+        public int indexFood = -1;
+        
         /// <summary>
         /// Method that takes a ClockTimerClass object as an argument and prompts the user to enter a scaling factor.
         /// It then adjusts the quantity and unit of each ingredient in a list based on the selected factor.
@@ -313,25 +331,12 @@ namespace POE_PROG6221_ST10023767_GR01
             int number = 0;
 
             string userInput2;
-            int userChoice;
             int recipeIndex = 1;
 
             // Retrieve and display the recipe names in alphabetical order
             List<string> recipeNames = GetRecipeNames();
             List<List<string>> stepCollections = GetStepCollections();
             List<List<(string, double, string, double, string)>> ingredientCollections = GetIngredientCollections();
-
-            // Create a deep copy of ingredientCollections if ingredientCollectionsOriginal is null
-            if (ingredientCollectionsOriginal == null)
-            {
-                ingredientCollectionsOriginal = new List<List<(string, double, string, double, string)>>();
-
-                foreach (var recipe in ingredientCollections)
-                {
-                    var copiedRecipe = new List<(string, double, string, double, string)>(recipe);
-                    ingredientCollectionsOriginal.Add(copiedRecipe);
-                }
-            }
 
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
@@ -350,11 +355,17 @@ namespace POE_PROG6221_ST10023767_GR01
 
             userInput2 = Console.ReadLine();
 
-            if (int.TryParse(userInput2, out userChoice))
+            if (int.TryParse(userInput2, out int userChoice))
             {
                 if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
                 {
                     recipeIndex = userChoice - 1;
+                    //Code that can revert the ordered recipe to the unsorted one...
+                    string selectedRecipeName = sortedRecipeNames[recipeIndex];
+                    //RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
+                    int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
+
+
 
                     clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
                     clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
@@ -374,54 +385,54 @@ namespace POE_PROG6221_ST10023767_GR01
                             {
                                 factor = arrFactor[(number - 1)];
 
-                                int listLength = ingredientCollections[recipeIndex].Count;
+                                int listLength = ingredientCollections[recipeIndex2].Count;//222
 
                                 if (number > 0 && number < 4)
                                 {
                                     for (int i = 0; i < listLength; i++)
                                     {
-                                        ingredientCollections[recipeIndex][i] = (
-                                            ingredientCollections[recipeIndex][i].Item1,
-                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 * factor), 2),
-                                            ingredientCollections[recipeIndex][i].Item3,
-                                            ingredientCollections[recipeIndex][i].Item4,
-                                            ingredientCollections[recipeIndex][i].Item5
+                                        ingredientCollections[recipeIndex2][i] = (
+                                            ingredientCollections[recipeIndex2][i].Item1,
+                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * factor), 2),
+                                            ingredientCollections[recipeIndex2][i].Item3,
+                                            ingredientCollections[recipeIndex2][i].Item4,
+                                            ingredientCollections[recipeIndex2][i].Item5
                                         );
 
                                         for (int j = 0; j < 2; j++)
                                         {
-                                            switch (ingredientCollections[recipeIndex][i].Item3.ToLower())
+                                            switch (ingredientCollections[recipeIndex2][i].Item3.ToLower())
                                             {
                                                 case "tsp":
                                                 case "teaspoon":
                                                 case "teaspoons":
-                                                    if (ingredientCollections[recipeIndex][i].Item2 >= 3)
+                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 3)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 / 3), 2),
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 3), 2),
+                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
 
                                                     }
-                                                    else if (ingredientCollections[recipeIndex][i].Item2 >= (double)0.5)
+                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "teaspoon" : "teaspoons",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            ingredientCollections[recipeIndex2][i].Item2,
+                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "teaspoon" : "teaspoons",
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
                                                     else
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 * 3), 2),
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 3), 2),
                                                             "teaspoons",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5
                                                         );
                                                     }
                                                     continue;
@@ -429,128 +440,128 @@ namespace POE_PROG6221_ST10023767_GR01
                                                 case "tbsp":
                                                 case "tablespoon":
                                                 case "tablespoons":
-                                                    if (ingredientCollections[recipeIndex][i].Item2 >= 16)
+                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 / 16), 2),
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "cup" : "cups",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
+                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "cup" : "cups",
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
-                                                    else if (ingredientCollections[recipeIndex][i].Item2 >= 3)
+                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= 3)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            ingredientCollections[recipeIndex][i].Item2,
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            ingredientCollections[recipeIndex2][i].Item2,
                                                             "tablespoons",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
-                                                    else if (ingredientCollections[recipeIndex][i].Item2 >= (double)0.5)
+                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            ingredientCollections[recipeIndex2][i].Item2,
+                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
                                                     else
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 * 3), 2),
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 3), 2),
                                                             "teaspoons",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
                                                     continue;
 
                                                 case "oz":
                                                 case "ounce":
                                                 case "ounces":
-                                                    if (ingredientCollections[recipeIndex][i].Item2 >= 16)
+                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 / 16), 2),
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
                                                             "pounds",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
-                                                    else if (ingredientCollections[recipeIndex][i].Item2 >= (double)0.5)
+                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "ounce" : "ounces",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            ingredientCollections[recipeIndex2][i].Item2,
+                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "ounce" : "ounces",
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
                                                     else
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 * 16), 2),
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2),
                                                             "ounces",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
                                                     continue;
 
                                                 case "lb":
                                                 case "pound":
                                                 case "pounds":
-                                                    if (ingredientCollections[recipeIndex][i].Item2 >= 1)
+                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 1)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "pound" : "pounds",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            ingredientCollections[recipeIndex2][i].Item2,
+                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "pound" : "pounds",
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
                                                     else
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 * 16), 2),
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2),
                                                             "ounces",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
                                                     continue;
 
                                                 case "cup":
                                                 case "cups":
-                                                    if (ingredientCollections[recipeIndex][i].Item2 >= 16)
+                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 / 16), 2),
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
                                                             "gallons",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5);
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5);
                                                     }
-                                                    else if (ingredientCollections[recipeIndex][i].Item2 >= (double)0.25)
+                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.25)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "cup" : "cups",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            ingredientCollections[recipeIndex2][i].Item2,
+                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "cup" : "cups",
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5
                                                         );
                                                     }
                                                     else
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 * 48), 2),
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 48), 2),
                                                             "teaspoons",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5
                                                         );
                                                     }
                                                     continue;
@@ -558,24 +569,24 @@ namespace POE_PROG6221_ST10023767_GR01
                                                 case "gal":
                                                 case "gallon":
                                                 case "gallons":
-                                                    if (ingredientCollections[recipeIndex][i].Item2 >= 1)
+                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 1)
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            ingredientCollections[recipeIndex][i].Item2,
-                                                            (ingredientCollections[recipeIndex][i].Item2 == 1 || ingredientCollections[recipeIndex][i].Item2 == 0.5) ? "gallon" : "gallons",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            ingredientCollections[recipeIndex2][i].Item2,
+                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "gallon" : "gallons",
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5
                                                         );
                                                     }
                                                     else
                                                     {
-                                                        ingredientCollections[recipeIndex][i] = (
-                                                            ingredientCollections[recipeIndex][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex][i].Item2 * 16), 2),
+                                                        ingredientCollections[recipeIndex2][i] = (
+                                                            ingredientCollections[recipeIndex2][i].Item1,
+                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2),
                                                             "cups",
-                                                            ingredientCollections[recipeIndex][i].Item4,
-                                                            ingredientCollections[recipeIndex][i].Item5
+                                                            ingredientCollections[recipeIndex2][i].Item4,
+                                                            ingredientCollections[recipeIndex2][i].Item5
                                                         );
                                                     }
                                                     continue;
@@ -593,8 +604,9 @@ namespace POE_PROG6221_ST10023767_GR01
                                     {
                                         //If the value of number is equal to 4, then the program will reset the Quantity
                                         //and Unit values in the list to their original values.
-                                        ingredientCollections[recipeIndex] = new List<(string, double, string, double, string)>(ingredientCollectionsOriginal[recipeIndex]);
-                                        //ingredientCollections[recipeIndex] = ingredientCollectionsOriginal[recipeIndex];
+                                        //ingredientCollections[recipeIndex2] = new List<(string, double, string, double, string)>(ingredientCollectionsOriginal[recipeIndex2]);
+                                        ingredientCollections[recipeIndex2] = IngredientList.Select(ingredient =>
+                (ingredient.Name, ingredient.Quantity, ingredient.Unit, ingredient.IngredientCalories, ingredient.FoodGroup)).ToList();
                                         valid = true;
                                     }
                                     else
@@ -629,13 +641,13 @@ namespace POE_PROG6221_ST10023767_GR01
                         }
                     } while (!valid);
 
-                    string selectedRecipeName = sortedRecipeNames[recipeIndex];
+                    //string selectedRecipeName = sortedRecipeNames[recipeIndex];
                     RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
-                    List<string> steps = stepCollections[recipeIndex];
-                    List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex];
+                    List<string> steps = stepCollections[recipeIndex2];
+                    List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];
 
                     displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples,
-                        TotalCaloriesList,recipeIndex);
+                        TotalCaloriesList, recipeIndex2);
 
                     displayClass.PrintSteps(clockTimerClass, steps);
                 }
@@ -780,19 +792,15 @@ namespace POE_PROG6221_ST10023767_GR01
             string userInput = GetValidYesOrNoInput(clockTimerClass, "\r\nDo you want to enter a recipe? " +
                     "(Yes or No): ");
 
-            do
+            if (userInput.Trim().ToUpper().Equals("NO"))
             {
-                if (userInput.Trim().ToUpper().Equals("NO"))
-                {
-                    PrintMenu(clockTimerClass);
-                }
-                else
-                {
-                    AddRecipe(clockTimerClass); 
-                    userInput = GetValidYesOrNoInput(clockTimerClass, "\r\nDo you want to enter a recipe? " +
-                       "(Yes or No): ");
-                }
-            } while (userInput.Trim().ToUpper().Equals("YES"));
+                AnotherRecipe = false;
+                PrintMenu(clockTimerClass);
+            }
+            else
+            {
+                AddRecipe(clockTimerClass);
+            }
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -806,7 +814,7 @@ namespace POE_PROG6221_ST10023767_GR01
         public void WriteStepsToList(ClockTimerClass clockTimerClass)
         {
             // Initialize variables
-            bool valid ;
+            bool valid;
             int number = stepClass.GetNumOfSteps(clockTimerClass);
             this.numberOfSteps = number;
             string userInput = string.Empty;
@@ -851,7 +859,7 @@ namespace POE_PROG6221_ST10023767_GR01
             return RecipeNames;
         }
 
-//・♫-------------------------------------------------------------------------------------------------♫・//
+        //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method returns the collections of steps for each recipe.
         /// </summary>
@@ -861,7 +869,7 @@ namespace POE_PROG6221_ST10023767_GR01
             return StepCollections;
         }
 
-//・♫-------------------------------------------------------------------------------------------------♫・//
+        //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method returns the collections of ingredients for each recipe.
         /// </summary>
@@ -878,7 +886,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         /// <param name="stepCollections">The collections of steps for each recipe.</param>
         /// <param name="ingredientCollections">The collections of ingredients for each recipe.</param>
-        public void StoreRecipes(List<List<string>> stepCollections, 
+        public void StoreRecipes(List<List<string>> stepCollections,
             List<List<(string, double, string, double, string)>> ingredientCollections)
         {
             RecipeNames = GetRecipeNames();
@@ -934,17 +942,6 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Delegate for notifying the user about a recipe.
-        /// </summary>
-        /// <param name="recipeName">The name of the recipe.</param>
-        public delegate void RecipeNotificationDelegate(string recipeName);
-
-        /// <summary>
-        /// Event that is triggered when a recipe exceeds the calorie limit.
-        /// </summary>
-        public event RecipeNotificationDelegate RecipeExceedsCaloriesEvent;
-
-        /// <summary>
         /// Notifies the user about a recipe.
         /// </summary>
         /// <param name="recipeName">The name of the recipe.</param>
@@ -957,7 +954,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
-//・♫-------------------------------------------------------------------------------------------------♫・//
+        //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Handles the event when a recipe exceeds the calorie limit.
         /// </summary>
@@ -1066,12 +1063,20 @@ namespace POE_PROG6221_ST10023767_GR01
                 PrintMenu(clockTimerClass);
                 return;
             }
-
             int recipeIndex = userChoice - 1;
-            if (recipeIndex >= 0 && recipeIndex < stepCollections.Count)
+            string selectedRecipeName = sortedRecipeNames[recipeIndex];
+            int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
+            if (recipeIndex2 >= 0 && recipeIndex2 < stepCollections.Count)
             {
-                displayClass.DisplaySelectedRecipe(sortedRecipeNames, recipeIndex, clockTimerClass, stepCollections, 
-                    ingredientCollections, RecipeList, TotalCaloriesList);
+                //string selectedRecipeName = sortedRecipeNames[recipeIndex2];
+                RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
+                List<string> steps = stepCollections[recipeIndex2];
+                List<(string, double, string, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];
+
+                // Display the selected recipe
+                displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples, TotalCaloriesList, recipeIndex2);
+
+                displayClass.PrintSteps(clockTimerClass, steps);
             }
             else
             {
