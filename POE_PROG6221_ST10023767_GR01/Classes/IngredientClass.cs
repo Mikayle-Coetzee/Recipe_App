@@ -522,6 +522,8 @@ namespace POE_PROG6221_ST10023767_GR01
 
             return foodGroup;
         }
+
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method displays information about a specific food group based on the users selection.

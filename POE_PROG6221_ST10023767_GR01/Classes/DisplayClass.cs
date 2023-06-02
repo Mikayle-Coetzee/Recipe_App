@@ -83,7 +83,37 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                 Console.WriteLine($"{i + 1} >\t{quantity} {unit} of {name} (Food Group: {foodgroup} | Calories = {calories})");
             }
 
-            Console.WriteLine("\r\nThe total number of calories is: " + Convert.ToString(TotalCaloriesList[recipeIndex]));
+            Console.WriteLine("\r\nThe total number of calories is: " + Convert.ToString(TotalCaloriesList[recipeIndex])
+                + "\r\n\t(Range: "+ CalorieRangeInformation(TotalCaloriesList[recipeIndex]) +")");
+        }
+
+        private string CalorieRangeInformation(double totalNumberOfCalories)
+        {
+            string information;
+
+            switch (totalNumberOfCalories)
+            {
+                case 0:
+                    information = "0 - There is no number of calories in the recipe.";
+                    break;
+                case double n when (n > 0 && n <= 150):
+                    information = "Between 0 and 150 - This recipe is perfect for a snack.";
+                    break;
+                case double n when (n > 150 && n <= 300):
+                    information = "Between 150 and 300 - This recipe is perfect for a breakfast.";
+                    break;
+                case double n when (n > 300 && n <= 500):
+                    information = "Between 300 and 500 - This recipe is perfect for a lunch.";
+                    break;
+                case double n when (n > 500 && n <= 800):
+                    information = "Between 500 and 800 - This recipe is perfect for a dinner.";
+                    break;
+                default:
+                    information = "More than 800 - This recipe is perfect to share.";
+                    break;
+            }
+
+            return information;
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//

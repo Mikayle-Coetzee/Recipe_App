@@ -242,19 +242,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     }
                     else
                     {
-                        // Clear the generic collections and proceed with entering a new recipe
-                        //if (IngredientList != null && StepList != null && TotalCaloriesList != null &&
-                        //    ingredientCollectionsOriginal != null)
-                        //{
-                        //    IngredientList.Clear();
-                        //    StepList.Clear();
-                        //    TotalCaloriesList.Clear();
-                        //    RecipeNames.Clear();
-                        //    StepCollections.Clear();
-                        //    IngredientCollections.Clear();
-                        //    ingredientCollectionsOriginal.Clear();
-                        //    RecipeList.Clear();
-                        //}
+                        // Clear the selected generic collections 
                         ClearRecipe(clockTimerClass);
 
                         //Application(clockTimerClass);
@@ -313,7 +301,6 @@ namespace POE_PROG6221_ST10023767_GR01
                     stepCollections.RemoveAt(recipeIndex2);
                     ingredientCollections.RemoveAt(recipeIndex2);
                     TotalCaloriesList.RemoveAt(recipeIndex2);
-                    //IngredientCollectionsOriginal.RemoveAt(recipeIndex2);
                 }
             }
         }
@@ -428,7 +415,7 @@ namespace POE_PROG6221_ST10023767_GR01
                             {
                                 factor = arrFactor[(number - 1)];
 
-                                int listLength = ingredientCollections[recipeIndex2].Count;//222
+                                int listLength = ingredientCollections[recipeIndex2].Count;
 
                                 if (number > 0 && number < 4)
                                 {
@@ -442,6 +429,8 @@ namespace POE_PROG6221_ST10023767_GR01
                                             ingredientCollections[recipeIndex2][i].Item5,
                                             ingredientCollections[recipeIndex2][i].Item6    
                                         );
+
+                                        
 
                                         for (int j = 0; j < 2; j++)
                                         {
