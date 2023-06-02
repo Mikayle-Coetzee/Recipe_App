@@ -52,9 +52,9 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// <param name="ingredientTuples">The list of ingredient tuples</param>
         /// <param name="TotalCaloriesList">The list of total calories for each recipe</param>
         /// <param name="recipeIndex">The index of the selected recipe</param>
-        public void PrintIngredients(ClockTimerClass clockTimerClass, string selectedRecipe, 
-            List<(string, double, string, double, string)> ingredientTuples, List<double> TotalCaloriesList,
-             int recipeIndex)
+        public void PrintIngredients(ClockTimerClass clockTimerClass, string selectedRecipe,
+            List<(string, double, string, double, string, double)> ingredientTuples, List<double> TotalCaloriesList,
+            int recipeIndex)
         {
             // Initialize variable
             string recipe = "Recipe: " + selectedRecipe;
