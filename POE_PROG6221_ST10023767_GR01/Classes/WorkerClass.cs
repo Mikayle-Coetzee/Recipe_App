@@ -13,14 +13,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Windows.Forms;
-using static POE_PROG6221_ST10023767_GR01.WorkerClass;
+//using static POE_PROG6221_ST10023767_GR01.WorkerClass;
 using POE_PROG6221_ST10023767_GR01.Classes;
 using System.Runtime.InteropServices;
 
 namespace POE_PROG6221_ST10023767_GR01
 {
     /// <summary>
-    /// Delegate for notifying the user about a recipe.
+    /// Delegate for notifying the user about the calories of a recipe.
     /// </summary>
     /// <param name="recipeName">The name of the recipe.</param>
     public delegate void RecipeNotificationDelegate(string recipeName);
@@ -175,15 +175,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 };
 
                 IngredientList.Add(newIngredient);
-               // ingredientCollectionsOriginal.Add(newIngredient);
             }
-
-            //for (int i = 0; i < number; i++)
-            //{
-            //    ingredientCollectionsOriginal.Add(IngredientList.Select(ingredient =>
-            //    (ingredient.Name, ingredient.Quantity, ingredient.Unit, ingredient.IngredientCalories, ingredient.FoodGroup)).ToList());
-            //}
-
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -224,7 +216,6 @@ namespace POE_PROG6221_ST10023767_GR01
                     PrintMenu(clockTimerClass);
                     break;
                 case 4:
-                    indexFood = -1;
                     // Prompt user for confirmation before clearing the recipe
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
@@ -279,6 +270,11 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clockTimerClass"></param>
         private void ClearRecipe(ClockTimerClass clockTimerClass)
         {
             // Retrieve and display the recipe names in alphabetical order
@@ -318,8 +314,6 @@ namespace POE_PROG6221_ST10023767_GR01
                     ingredientCollections.RemoveAt(recipeIndex2);
                     TotalCaloriesList.RemoveAt(recipeIndex2);
                     //IngredientCollectionsOriginal.RemoveAt(recipeIndex2);
-                    //StepList.RemoveAt(recipeIndex2);
-                    //IngredientList.RemoveAt(recipeIndex2);
                 }
             }
         }
@@ -366,9 +360,7 @@ namespace POE_PROG6221_ST10023767_GR01
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
-        
-        public int indexFood = -1;
-        
+            
         /// <summary>
         /// Method that takes a ClockTimerClass object as an argument and prompts the user to enter a scaling factor.
         /// It then adjusts the quantity and unit of each ingredient in a list based on the selected factor.
@@ -376,7 +368,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// to adjust each ingredients unit based on its current unit and quantity.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
-        public void ScaleQuantities(ClockTimerClass clockTimerClass)
+        public void ScaleQuantities(ClockTimerClass clockTimerClass)///make this method shorter 
         {
             double factor = 0.0;
             string userInput = string.Empty;
@@ -1024,16 +1016,12 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Notifies the user about a recipe.
+        /// Notifies the user about a recipe.//event handeler
         /// </summary>
         /// <param name="recipeName">The name of the recipe.</param>
-        public void NotifyUser(string recipeName)
+        protected virtual void NotifyUser(string recipeName)
         {
-            RecipeNotificationDelegate handler = RecipeExceedsCaloriesEvent;
-            if (handler != null)
-            {
-                handler.Invoke(recipeName);
-            }
+            RecipeExceedsCaloriesEvent?.Invoke(recipeName);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -1041,9 +1029,10 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Handles the event when a recipe exceeds the calorie limit.
         /// </summary>
         /// <param name="recipeName">The name of the recipe.</param>
-        public void HandleRecipeExceedsCalories(string recipeName)
+        private void HandleRecipeExceedsCalories(string recipeName)
         {
-            DialogResult result = MessageBox.Show($"The recipe '{recipeName}' exceeds 300 calories.", "Recipe Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DialogResult result = MessageBox.Show($"The recipe '{recipeName}' exceeds 300 calories.", "Recipe Notification",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -1053,7 +1042,6 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void AddRecipe(ClockTimerClass clockTimerClass)
         {
-            indexFood++;
             RecipeClass recipeClass = new RecipeClass();
             string newRecipeName = recipeClass.GetRecipeName(clockTimerClass);
 
