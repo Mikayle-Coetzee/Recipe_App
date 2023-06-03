@@ -66,6 +66,9 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// </summary>
         public void AudioOptions()
         {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.Clear();
+
             ConsoleAppSize();
             clockTimerClass.StartTimer();
 
@@ -74,11 +77,11 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             string userInput;
             bool valid = false;
 
-            clockTimerClass.ChangeBackColor(ConsoleColor.Cyan);
-            clockTimerClass.ChangeForeColor(ConsoleColor.Black);
-            Console.WriteLine("Please select a song to play by entering its corresponding number: ");
-            clockTimerClass.ChangeBackColor(ConsoleColor.Black);
+            clockTimerClass.ChangeBackColor(ConsoleColor.DarkMagenta);
             clockTimerClass.ChangeForeColor(ConsoleColor.White);
+            Console.WriteLine("Please select a song to play by entering its corresponding number: ");
+            clockTimerClass.ChangeBackColor(ConsoleColor.White);
+            clockTimerClass.ChangeForeColor(ConsoleColor.Black);
             Console.Write("1.  Bon Jovi - It's My Life\r\n2.  Bryan Adams - Summer of 69\r\n" +
                 "3.  Cat Stevens - Morning Has Broken\r\n4.  Demi Lee Moore - Coat Of Many Colors\r\n" +
                 "5.  Dire Straits - Walk Of Life\r\n6.  Kenny Loggins - Footloose\r\n" +
@@ -146,8 +149,8 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                         clockTimerClass.ChangeToErrorColor();
                         Console.WriteLine("\r\nPlease re-select a song to play by entering its corresponding " +
                             "number: ");
-                        clockTimerClass.ChangeBackColor(ConsoleColor.Black);
-                        clockTimerClass.ChangeForeColor(ConsoleColor.White);
+                        clockTimerClass.ChangeBackColor(ConsoleColor.White);
+                        clockTimerClass.ChangeForeColor(ConsoleColor.Black);
                         Console.Write("1.  Bon Jovi - It's My Life\r\n2.  Bryan Adams - Summer of 69\r\n" +
                             "3.  Cat Stevens - Morning Has Broken\r\n4.  Demi Lee Moore - Coat Of Many Colors\r\n" +
                             "5.  Dire Straits - Walk Of Life\r\n6.  Kenny Loggins - Footloose\r\n" +

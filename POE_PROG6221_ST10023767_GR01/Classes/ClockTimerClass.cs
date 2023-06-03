@@ -137,15 +137,15 @@ namespace POE_PROG6221_ST10023767_GR01
             bool valid = false; 
 
             // change the console colors
-            ChangeBackColor(ConsoleColor.Cyan);
-            ChangeForeColor(ConsoleColor.Black);
+            ChangeBackColor(ConsoleColor.DarkMagenta);
+            ChangeForeColor(ConsoleColor.White);
 
             // prompt the user for selecting an option
             Console.WriteLine("\r\nPlease select an option by entering its corresponding number: ");
 
             // change the console colors back
-            ChangeBackColor(ConsoleColor.Black);
-            ChangeForeColor(ConsoleColor.White);
+            ChangeBackColor(ConsoleColor.White);
+            ChangeForeColor(ConsoleColor.Black);
 
             // show the options the user can choose from
             Console.Write("1. Dark theme \r\n2. Light theme \r\n>");
@@ -173,8 +173,8 @@ namespace POE_PROG6221_ST10023767_GR01
 
                 Console.WriteLine("\r\nPlease re-select an option by entering its corresponding number: ");
 
-                ChangeBackColor(ConsoleColor.Black);
-                ChangeForeColor(ConsoleColor.White);
+                ChangeBackColor(ConsoleColor.White);
+                ChangeForeColor(ConsoleColor.Black);
 
                 Console.Write("1. Dark theme \r\n2. Light theme \r\n>");
 
