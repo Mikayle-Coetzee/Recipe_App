@@ -350,12 +350,426 @@ namespace POE_PROG6221_ST10023767_GR01
         /// to adjust each ingredients unit based on its current unit and quantity.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
-        public void ScaleQuantities(ClockTimerClass clockTimerClass)///make this method shorter 
+        //public void ScaleQuantities(ClockTimerClass clockTimerClass)///make this method shorter 
+        //{
+        //    double factor = 0.0;
+        //    string userInput = string.Empty;
+        //    bool valid;
+        //    int number = 0;
+
+        //    string userInput2;
+        //    int recipeIndex = 1;
+
+        //    // Retrieve and display the recipe names in alphabetical order
+        //    List<string> recipeNames = GetRecipeNames();
+        //    List<List<string>> stepCollections = GetStepCollections();
+
+        //    List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections = GetIngredientCollections();
+
+        //    clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+        //    clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+        //    Console.WriteLine("\r\nPlease select the recipe to scale by entering its corresponding number: ");
+        //    //clockTimerClass.ChangeBack();
+
+        //    //// Sort the recipe names in alphabetical order
+        //    List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
+
+        //    for (int i = 0; i < sortedRecipeNames.Count; i++)
+        //    {
+        //        Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
+        //    }
+        //    Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
+        //    Console.Write(">");
+
+        //    userInput2 = Console.ReadLine();
+
+        //    if (int.TryParse(userInput2, out int userChoice))
+        //    {
+        //        if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
+        //        {
+        //            recipeIndex = userChoice - 1;
+        //            //Code that can revert the ordered recipe to the unsorted one...
+        //            string selectedRecipeName = sortedRecipeNames[recipeIndex];
+        //            int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
+
+        //            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+        //            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+
+        //            Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
+
+        //            clockTimerClass.ChangeBack();
+        //            Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
+
+        //            userInput = Console.ReadLine();
+
+        //            do
+        //            {
+        //                if (int.TryParse(userInput, out number))
+        //                {
+        //                    if (number > 0 && number < 5)
+        //                    {
+        //                        factor = arrFactor[(number - 1)];
+
+        //                        int listLength = ingredientCollections[recipeIndex2].Count;
+        //                        TotalCaloriesList[recipeIndex2] = Math.Round((TotalCaloriesList[recipeIndex2] * factor), 2);
+
+        //                        //if (TotalCaloriesList[recipeIndex2] > 300)
+        //                        //{
+        //                        //    RecipeExceedsCaloriesEvent += HandleRecipeExceedsCalories;
+        //                        //    NotifyUser(sortedRecipeNames[recipeIndex]);
+        //                        //}
+
+        //                        if (number > 0 && number < 4)
+        //                        {
+        //                            for (int i = 0; i < listLength; i++)
+        //                            {
+        //                                ingredientCollections[recipeIndex2][i] = (
+        //                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 * factor), 2),
+        //                                    ingredientCollections[recipeIndex2][i].Item3,
+        //                                    Math.Round((ingredientCollections[recipeIndex2][i].Item4 * factor), 2),
+        //                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                    ingredientCollections[recipeIndex2][i].Item8
+        //                                );
+
+
+
+        //                                for (int j = 0; j < 2; j++)
+        //                                {
+        //                                    switch (ingredientCollections[recipeIndex2][i].Item3.ToLower())
+        //                                    {
+        //                                        case "tsp":
+        //                                        case "teaspoon":
+        //                                        case "teaspoons":
+        //                                            if (ingredientCollections[recipeIndex2][i].Item2 >= 3)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 3), 2),
+        //                                                    (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+
+        //                                            }
+        //                                            else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    ingredientCollections[recipeIndex2][i].Item2,
+        //                                                    (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "teaspoon" : "teaspoons",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 3), 2),
+        //                                                    "teaspoons",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8
+        //                                                );
+        //                                            }
+        //                                            continue;
+
+        //                                        case "tbsp":
+        //                                        case "tablespoon":
+        //                                        case "tablespoons":
+        //                                            if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
+        //                                                    (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "cup" : "cups",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            else if (ingredientCollections[recipeIndex2][i].Item2 >= 3)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    ingredientCollections[recipeIndex2][i].Item2,
+        //                                                    "tablespoons",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    ingredientCollections[recipeIndex2][i].Item2,
+        //                                                    (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 3), 2),
+        //                                                    "teaspoons",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            continue;
+
+        //                                        case "oz":
+        //                                        case "ounce":
+        //                                        case "ounces":
+        //                                            if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
+        //                                                    "pounds",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    ingredientCollections[recipeIndex2][i].Item2,
+        //                                                    (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "ounce" : "ounces",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2),
+        //                                                    "ounces",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            continue;
+
+        //                                        case "lb":
+        //                                        case "pound":
+        //                                        case "pounds":
+        //                                            if (ingredientCollections[recipeIndex2][i].Item2 >= 1)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    ingredientCollections[recipeIndex2][i].Item2,
+        //                                                    (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "pound" : "pounds",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2),
+        //                                                    "ounces",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            continue;
+
+        //                                        case "cup":
+        //                                        case "cups":
+        //                                            if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
+        //                                                    "gallons",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8);
+        //                                            }
+        //                                            else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.25)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    ingredientCollections[recipeIndex2][i].Item2,
+        //                                                    (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "cup" : "cups",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8
+        //                                                );
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 48), 2),
+        //                                                    "teaspoons",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8
+        //                                                );
+        //                                            }
+        //                                            continue;
+
+        //                                        case "gal":
+        //                                        case "gallon":
+        //                                        case "gallons":
+        //                                            if (ingredientCollections[recipeIndex2][i].Item2 >= 1)
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    ingredientCollections[recipeIndex2][i].Item2,
+        //                                                    (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "gallon" : "gallons",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8
+        //                                                );
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                ingredientCollections[recipeIndex2][i] = (
+        //                                                    ingredientCollections[recipeIndex2][i].Item1,
+        //                                                    Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2), "cups",
+        //                                                    ingredientCollections[recipeIndex2][i].Item4,
+        //                                                    ingredientCollections[recipeIndex2][i].Item5,
+        //                                                    ingredientCollections[recipeIndex2][i].Item6,
+        //                                                    ingredientCollections[recipeIndex2][i].Item7,
+        //                                                    ingredientCollections[recipeIndex2][i].Item8
+        //                                                );
+        //                                            }
+        //                                            continue;
+        //                                        default:
+        //                                            Console.WriteLine("We don't recognize this unit of measurement. Please try again using a different unit.");
+        //                                            break;
+        //                                    }
+        //                                }
+        //                            }
+        //                            valid = true;
+        //                        }
+        //                        else
+        //                        {
+        //                            if (number == 4)
+        //                            {
+        //                                double numberOfCalories = 0.0f;
+        //                                for (var i = 0; i < ingredientCollections[recipeIndex2].Count; i++)
+        //                                {
+        //                                    ingredientCollections[recipeIndex2][i] = (
+        //                                        ingredientCollections[recipeIndex2][i].Item1,
+        //                                        ingredientCollections[recipeIndex2][i].Item6,
+        //                                        ingredientCollections[recipeIndex2][i].Item8,
+        //                                        ingredientCollections[recipeIndex2][i].Item7,
+        //                                        ingredientCollections[recipeIndex2][i].Item5,
+        //                                        ingredientCollections[recipeIndex2][i].Item6,
+        //                                        ingredientCollections[recipeIndex2][i].Item7,
+        //                                        ingredientCollections[recipeIndex2][i].Item8);
+
+        //                                    numberOfCalories += ingredientCollections[recipeIndex2][i].Item7;
+        //                                }
+
+        //                                TotalCaloriesList[recipeIndex2] = numberOfCalories;
+        //                                valid = true;
+        //                            }
+        //                            else
+        //                            {
+        //                                valid = false;
+        //                                clockTimerClass.ChangeToErrorColor();
+        //                                Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
+        //                                clockTimerClass.ChangeBack();
+        //                                Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
+        //                                userInput = Console.ReadLine();
+        //                            }
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        valid = false;
+        //                        clockTimerClass.ChangeToErrorColor();
+        //                        Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
+        //                        clockTimerClass.ChangeBack();
+        //                        Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
+        //                        userInput = Console.ReadLine();
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    valid = false;
+        //                    clockTimerClass.ChangeToErrorColor();
+        //                    Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
+        //                    clockTimerClass.ChangeBack();
+        //                    Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
+        //                    userInput = Console.ReadLine();
+        //                }
+        //            } while (!valid);
+
+        //            RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
+        //            List<string> steps = stepCollections[recipeIndex2];
+
+        //            List<(string, double, string, double, string, double, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];
+        //            displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples,
+        //                TotalCaloriesList, recipeIndex2);
+
+        //            displayClass.PrintSteps(clockTimerClass, steps);
+        //        }
+        //        else if (userChoice == sortedRecipeNames.Count + 1)
+        //        {
+        //            PrintMenu(clockTimerClass);
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("\r\nInvalid selection. Please try again.");
+        //            ScaleQuantities(clockTimerClass);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("\r\nInvalid selection. Please try again.");
+        //        ScaleQuantities(clockTimerClass);
+        //    }
+        //}      
+
+        public void ScaleQuantities(ClockTimerClass clockTimerClass)
         {
             double factor = 0.0;
             string userInput = string.Empty;
-            bool valid;
-            int number = 0;
 
             string userInput2;
             int recipeIndex = 1;
@@ -369,19 +783,13 @@ namespace POE_PROG6221_ST10023767_GR01
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\nPlease select the recipe to scale by entering its corresponding number: ");
-            clockTimerClass.ChangeBack();
+            //clockTimerClass.ChangeBack();
 
-            // Sort the recipe names in alphabetical order
+            //// Sort the recipe names in alphabetical order
             List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
-            for (int i = 0; i < sortedRecipeNames.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
-            }
-            Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
-            Console.Write(">");
-
-            userInput2 = Console.ReadLine();
+            DisplayRecipeNames(sortedRecipeNames, clockTimerClass);
+            userInput2 = GetUserInput();
 
             if (int.TryParse(userInput2, out int userChoice))
             {
@@ -392,346 +800,16 @@ namespace POE_PROG6221_ST10023767_GR01
                     string selectedRecipeName = sortedRecipeNames[recipeIndex];
                     int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
 
-                    clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-                    clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+                    DisplayScalingFactorOptions(clockTimerClass);
 
-                    Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
-
-                    clockTimerClass.ChangeBack();
-                    Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-
-                    userInput = Console.ReadLine();
-
-                    do
-                    {
-                        if (int.TryParse(userInput, out number))
-                        {
-                            if (number > 0 && number < 5)
-                            {
-                                factor = arrFactor[(number - 1)];
-
-                                int listLength = ingredientCollections[recipeIndex2].Count;
-
-                                if (number > 0 && number < 4)
-                                {
-                                    for (int i = 0; i < listLength; i++)
-                                    {
-                                        ingredientCollections[recipeIndex2][i] = (
-                                            ingredientCollections[recipeIndex2][i].Item1,
-                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * factor), 2),
-                                            ingredientCollections[recipeIndex2][i].Item3,
-                                            Math.Round((ingredientCollections[recipeIndex2][i].Item4 * factor), 2),
-                                            ingredientCollections[recipeIndex2][i].Item5,
-                                            ingredientCollections[recipeIndex2][i].Item6,
-                                            ingredientCollections[recipeIndex2][i].Item7,
-                                            ingredientCollections[recipeIndex2][i].Item8
-                                        );
-
-                                        TotalCaloriesList[recipeIndex2] = Math.Round((TotalCaloriesList[recipeIndex2] * factor),2);
-
-                                        for (int j = 0; j < 2; j++)
-                                        {
-                                            switch (ingredientCollections[recipeIndex2][i].Item3.ToLower())
-                                            {
-                                                case "tsp":
-                                                case "teaspoon":
-                                                case "teaspoons":
-                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 3)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 3), 2),
-                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-
-                                                    }
-                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            ingredientCollections[recipeIndex2][i].Item2,
-                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "teaspoon" : "teaspoons",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    else
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 3), 2),
-                                                            "teaspoons",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8
-                                                        );
-                                                    }
-                                                    continue;
-
-                                                case "tbsp":
-                                                case "tablespoon":
-                                                case "tablespoons":
-                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
-                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "cup" : "cups",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= 3)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            ingredientCollections[recipeIndex2][i].Item2,
-                                                            "tablespoons",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            ingredientCollections[recipeIndex2][i].Item2,
-                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    else
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 3), 2),
-                                                            "teaspoons",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    continue;
-
-                                                case "oz":
-                                                case "ounce":
-                                                case "ounces":
-                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
-                                                            "pounds",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            ingredientCollections[recipeIndex2][i].Item2,
-                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "ounce" : "ounces",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    else
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2),
-                                                            "ounces",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    continue;
-
-                                                case "lb":
-                                                case "pound":
-                                                case "pounds":
-                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 1)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            ingredientCollections[recipeIndex2][i].Item2,
-                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "pound" : "pounds",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    else
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2),
-                                                            "ounces",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    continue;
-
-                                                case "cup":
-                                                case "cups":
-                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
-                                                            "gallons",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8);
-                                                    }
-                                                    else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.25)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            ingredientCollections[recipeIndex2][i].Item2,
-                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "cup" : "cups",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8
-                                                        );
-                                                    }
-                                                    else
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 48), 2),
-                                                            "teaspoons",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8
-                                                        );
-                                                    }
-                                                    continue;
-
-                                                case "gal":
-                                                case "gallon":
-                                                case "gallons":
-                                                    if (ingredientCollections[recipeIndex2][i].Item2 >= 1)
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            ingredientCollections[recipeIndex2][i].Item2,
-                                                            (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "gallon" : "gallons",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8
-                                                        );
-                                                    }
-                                                    else
-                                                    {
-                                                        ingredientCollections[recipeIndex2][i] = (
-                                                            ingredientCollections[recipeIndex2][i].Item1,
-                                                            Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2), "cups",
-                                                            ingredientCollections[recipeIndex2][i].Item4,
-                                                            ingredientCollections[recipeIndex2][i].Item5,
-                                                            ingredientCollections[recipeIndex2][i].Item6,
-                                                            ingredientCollections[recipeIndex2][i].Item7,
-                                                            ingredientCollections[recipeIndex2][i].Item8
-                                                        );
-                                                    }
-                                                    continue;
-                                                default:
-                                                    Console.WriteLine("We don't recognize this unit of measurement. Please try again using a different unit.");
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                    valid = true;
-                                }
-                                else
-                                {
-                                    if (number == 4)
-                                    {
-                                        TotalCaloriesList[recipeIndex2] = 0.0f;
-                                        for (var i = 0; i < ingredientCollections[recipeIndex2].Count; i++)
-                                        {
-                                            ingredientCollections[recipeIndex2][i] = (
-                                                ingredientCollections[recipeIndex2][i].Item1,
-                                                ingredientCollections[recipeIndex2][i].Item6,
-                                                ingredientCollections[recipeIndex2][i].Item8,
-                                                ingredientCollections[recipeIndex2][i].Item7,
-                                                ingredientCollections[recipeIndex2][i].Item5,
-                                                ingredientCollections[recipeIndex2][i].Item6,
-                                                ingredientCollections[recipeIndex2][i].Item7,
-                                                ingredientCollections[recipeIndex2][i].Item8);
+                    factor = GetScalingFactor(clockTimerClass);
 
 
-                                            TotalCaloriesList[recipeIndex2] += ingredientCollections[recipeIndex2][i].Item7 ;
-                                        }
-                                        
-                                        valid = true;
-                                    }
-                                    else
-                                    {
-                                        valid = false;
-                                        clockTimerClass.ChangeToErrorColor();
-                                        Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
-                                        clockTimerClass.ChangeBack();
-                                        Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-                                        userInput = Console.ReadLine();
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                valid = false;
-                                clockTimerClass.ChangeToErrorColor();
-                                Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
-                                clockTimerClass.ChangeBack();
-                                Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-                                userInput = Console.ReadLine();
-                            }
-                        }
-                        else
-                        {
-                            valid = false;
-                            clockTimerClass.ChangeToErrorColor();
-                            Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
-                            clockTimerClass.ChangeBack();
-                            Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-                            userInput = Console.ReadLine();
-                        }
-                    } while (!valid);
+                    int listLength = ingredientCollections[recipeIndex2].Count;
+                    TotalCaloriesList[recipeIndex2] = Math.Round((TotalCaloriesList[recipeIndex2] * factor), 2);
+
+                    ApplyScalingFactor(recipeIndex2, factor, ingredientCollections);
+
 
                     RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
                     List<string> steps = stepCollections[recipeIndex2];
@@ -759,6 +837,355 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
+        
+        
+        private void ApplyScalingFactor(int recipeIndex2, double factor,
+            List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
+        {
+            if (factor >= 0 && factor < 4)
+            {
+                for (int i = 0; i < ingredientCollections[recipeIndex2].Count; i++)
+                {
+                    ingredientCollections[recipeIndex2][i] = (
+                        ingredientCollections[recipeIndex2][i].Item1,
+                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 * factor), 2),
+                        ingredientCollections[recipeIndex2][i].Item3,
+                        Math.Round((ingredientCollections[recipeIndex2][i].Item4 * factor), 2),
+                        ingredientCollections[recipeIndex2][i].Item5,
+                        ingredientCollections[recipeIndex2][i].Item6,
+                        ingredientCollections[recipeIndex2][i].Item7,
+                        ingredientCollections[recipeIndex2][i].Item8
+                    );
+
+                    for (int j = 0; j < 2; j++)
+                    {
+                        switch (ingredientCollections[recipeIndex2][i].Item3.ToLower())
+                        {
+                            case "tsp":
+                            case "teaspoon":
+                            case "teaspoons":
+                                if (ingredientCollections[recipeIndex2][i].Item2 >= 3)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 3), 2),
+                                        (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+
+                                }
+                                else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        ingredientCollections[recipeIndex2][i].Item2,
+                                        (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "teaspoon" : "teaspoons",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                else
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 3), 2),
+                                        "teaspoons",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8
+                                    );
+                                }
+                                continue;
+
+                            case "tbsp":
+                            case "tablespoon":
+                            case "tablespoons":
+                                if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
+                                        (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "cup" : "cups",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                else if (ingredientCollections[recipeIndex2][i].Item2 >= 3)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        ingredientCollections[recipeIndex2][i].Item2,
+                                        "tablespoons",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        ingredientCollections[recipeIndex2][i].Item2,
+                                        (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "tablespoon" : "tablespoons",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                else
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 3), 2),
+                                        "teaspoons",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                continue;
+
+                            case "oz":
+                            case "ounce":
+                            case "ounces":
+                                if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
+                                        "pounds",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.5)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        ingredientCollections[recipeIndex2][i].Item2,
+                                        (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "ounce" : "ounces",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                else
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2),
+                                        "ounces",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                continue;
+
+                            case "lb":
+                            case "pound":
+                            case "pounds":
+                                if (ingredientCollections[recipeIndex2][i].Item2 >= 1)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        ingredientCollections[recipeIndex2][i].Item2,
+                                        (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "pound" : "pounds",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                else
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2),
+                                        "ounces",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                continue;
+
+                            case "cup":
+                            case "cups":
+                                if (ingredientCollections[recipeIndex2][i].Item2 >= 16)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 / 16), 2),
+                                        "gallons",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8);
+                                }
+                                else if (ingredientCollections[recipeIndex2][i].Item2 >= (double)0.25)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        ingredientCollections[recipeIndex2][i].Item2,
+                                        (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "cup" : "cups",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8
+                                    );
+                                }
+                                else
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 48), 2),
+                                        "teaspoons",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8
+                                    );
+                                }
+                                continue;
+
+                            case "gal":
+                            case "gallon":
+                            case "gallons":
+                                if (ingredientCollections[recipeIndex2][i].Item2 >= 1)
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        ingredientCollections[recipeIndex2][i].Item2,
+                                        (ingredientCollections[recipeIndex2][i].Item2 == 1 || ingredientCollections[recipeIndex2][i].Item2 == 0.5) ? "gallon" : "gallons",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8
+                                    );
+                                }
+                                else
+                                {
+                                    ingredientCollections[recipeIndex2][i] = (
+                                        ingredientCollections[recipeIndex2][i].Item1,
+                                        Math.Round((ingredientCollections[recipeIndex2][i].Item2 * 16), 2), "cups",
+                                        ingredientCollections[recipeIndex2][i].Item4,
+                                        ingredientCollections[recipeIndex2][i].Item5,
+                                        ingredientCollections[recipeIndex2][i].Item6,
+                                        ingredientCollections[recipeIndex2][i].Item7,
+                                        ingredientCollections[recipeIndex2][i].Item8
+                                    );
+                                }
+                                continue;
+                            default:
+                                Console.WriteLine("We don't recognize this unit of measurement. Please try again using a different unit.");
+                                break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (factor == 4)
+                {
+                    double numberOfCalories = 0.0f;
+                    for (var i = 0; i < ingredientCollections[recipeIndex2].Count; i++)
+                    {
+                        ingredientCollections[recipeIndex2][i] = (
+                            ingredientCollections[recipeIndex2][i].Item1,
+                            ingredientCollections[recipeIndex2][i].Item6,
+                            ingredientCollections[recipeIndex2][i].Item8,
+                            ingredientCollections[recipeIndex2][i].Item7,
+                            ingredientCollections[recipeIndex2][i].Item5,
+                            ingredientCollections[recipeIndex2][i].Item6,
+                            ingredientCollections[recipeIndex2][i].Item7,
+                            ingredientCollections[recipeIndex2][i].Item8);
+
+                        numberOfCalories += ingredientCollections[recipeIndex2][i].Item7;
+                    }
+
+                    TotalCaloriesList[recipeIndex2] = numberOfCalories;
+                }
+            }
+        }
+
+        private void DisplayRecipeNames(List<string> recipeNames, ClockTimerClass clockTimerClass)
+        {
+            clockTimerClass.ChangeBack();
+
+            for (int i = 0; i < recipeNames.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {recipeNames[i]}");
+            }
+
+            Console.WriteLine($"{recipeNames.Count + 1}. Back");
+            Console.Write(">");
+        }
+
+        private string GetUserInput()
+        {
+            return Console.ReadLine();
+        }
+
+        private void DisplayScalingFactorOptions(ClockTimerClass clockTimerClass)
+        {
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+
+            Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
+
+            clockTimerClass.ChangeBack();
+            Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
+        }
+
+        private double GetScalingFactor(ClockTimerClass clockTimerClass)
+        {
+            string userInput = GetUserInput();
+
+            while (!IsValidScalingFactor(userInput))
+            {
+                clockTimerClass.ChangeToErrorColor();
+                Console.Write("\r\nWhat scaling factor would you like to use? Please re-enter a number to indicate the desired factor: ");
+                clockTimerClass.ChangeBack();
+                Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
+                userInput = GetUserInput();
+            }
+
+            return GetScalingFactorValue(userInput);
+        }
+
+        private bool IsValidScalingFactor(string userInput)
+        {
+            return int.TryParse(userInput, out int number) && number >= 1 && number <= 4;
+        }
+
+        private double GetScalingFactorValue(string userInput)
+        {
+            double[] arrFactor = { 0.5, 2, 3, 4 };
+            int number = int.Parse(userInput);
+            return arrFactor[number - 1];
+        }
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method is the main entry point for the recipe application. It prompts the user to select between two 
@@ -1005,7 +1432,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     }
 
                     // Add ingredients to the recipe
-                    foreach ((string name, double quantity, string unit, double calories, string foodgroup, double originalQuantity, 
+                    foreach ((string name, double quantity, string unit, double calories, string foodgroup, double originalQuantity,
                         double originalCalories, string originalUnit) in ingredientTuples)
                     {
                         IngredientClass ingredientObj = new IngredientClass
@@ -1072,7 +1499,10 @@ namespace POE_PROG6221_ST10023767_GR01
                 (ingredient.Name, ingredient.Quantity, ingredient.Unit, ingredient.IngredientCalories,
                 ingredient.FoodGroup, ingredient.Quantity, ingredient.IngredientCalories, ingredient.Unit)).ToList());
 
-            double totalCalories = CalculateTotalCalories(IngredientCollections);
+            // List<double> recipeCalories = CalculateTotalCalories(IngredientCollections);
+            TotalCaloriesList = CalculateTotalCalories(IngredientCollections);
+
+            double totalCalories = TotalCaloriesList.LastOrDefault(); // Get the total calories of the last added recipe
 
             if (totalCalories > 300)
             {
@@ -1080,11 +1510,9 @@ namespace POE_PROG6221_ST10023767_GR01
                 NotifyUser(newRecipeName);
             }
 
-            TotalCaloriesList.Add(totalCalories);
-
-
             StoreRecipes(StepCollections, IngredientCollections);
         }
+
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -1092,45 +1520,30 @@ namespace POE_PROG6221_ST10023767_GR01
         /// </summary>
         /// <param name="IngredientList">The list of ingredients.</param>
         /// <returns>The total calories.</returns>
-        //public double CalculateTotalCalories(List<IngredientClass> IngredientList)
-        //{
-        //    if (IngredientList == null)
-        //    {
-        //        return 0.0;
-        //    }
-
-        //    double totalCalories = 0.0;
-
-        //    foreach (var ingredient in IngredientList)
-        //    {
-        //        // Ensure the ingredient's calorie value is non-negative
-        //        double ingredientCalories = Math.Max(ingredient.IngredientCalories, 0);
-        //        totalCalories += ingredientCalories;
-        //    }
-
-        //    return totalCalories;
-        //}
-        //List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections
-        public double CalculateTotalCalories(List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
+        public List<double> CalculateTotalCalories(List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
         {
             if (ingredientCollections == null)
             {
-                return 0.0;
+                return new List<double>();
             }
 
-            double totalCalories = 0.0;
+            List<double> recipeCalories = new List<double>();
 
             foreach (var ingredientList in ingredientCollections)
             {
+                double recipeTotalCalories = 0.0;
+
                 foreach (var ingredient in ingredientList)
                 {
                     // Ensure the ingredient's calorie value is non-negative
                     double ingredientCalories = Math.Max(ingredient.Item4, 0);
-                    totalCalories += ingredientCalories;
+                    recipeTotalCalories += ingredientCalories;
                 }
+
+                recipeCalories.Add(recipeTotalCalories);
             }
 
-            return totalCalories;
+            return recipeCalories;
         }
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>

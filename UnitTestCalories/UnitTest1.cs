@@ -29,8 +29,8 @@ namespace UnitTestCalories
             WorkerClass workerClass = new WorkerClass(new ClockTimerClass());
             List<List<(string, double, string, double, string, double, double, string)>> emptyIngredientList =
                 new List<List<(string, double, string, double, string, double, double, string)>>();
-            double totalCalories = workerClass.CalculateTotalCalories(emptyIngredientList);
-            Assert.AreEqual(0.0f, totalCalories);
+            List<double> totalCalories = workerClass.CalculateTotalCalories(emptyIngredientList);
+            Assert.AreEqual(0, totalCalories.Count);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -45,18 +45,19 @@ namespace UnitTestCalories
         {
             WorkerClass workerClass = new WorkerClass(new ClockTimerClass());
             List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections = new List<List<(string, double, string, double, string, double, double, string)>>()
+        {
+            new List<(string, double, string, double, string, double, double, string)>
             {
-                new List<(string, double, string, double, string, double, double, string)>
-                {
-                    ("Ingredient1", 0.0, "", 100.0, "", 0.0, 100.0, ""),
-                    ("Ingredient2", 0.0, "", 50.0 , "", 0.0, 50.0 , ""),
-                    ("Ingredient3", 0.0, "", 75.0 , "", 0.0, 75.0 , ""),
-                    ("Ingredient4", 0.0, "", 120.0, "", 0.0, 120.0, "")
-                }
-            };
+                ("Ingredient1", 0.0, "", 100.0, "", 0.0, 100.0, ""),
+                ("Ingredient2", 0.0, "", 50.0 , "", 0.0, 50.0 , ""),
+                ("Ingredient3", 0.0, "", 75.0 , "", 0.0, 75.0 , ""),
+                ("Ingredient4", 0.0, "", 120.0, "", 0.0, 120.0, "")
+            }
+        };
 
-            double totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
-            Assert.AreEqual(345.0, totalCalories);
+            List<double> totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
+            Assert.AreEqual(1, totalCalories.Count);
+            Assert.AreEqual(345.0, totalCalories[0]);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -70,12 +71,9 @@ namespace UnitTestCalories
         public void Test_CalculateTotalCalories_WithNullIngredientList()
         {
             WorkerClass workerClass = new WorkerClass(new ClockTimerClass());
-            List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections = new List<List<(string, double, string, double, string, double, double, string)>>()
-            {
-                new List<(string, double, string, double, string, double, double, string)>()
-            };
-            double totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
-            Assert.AreEqual(0.0, totalCalories);
+            List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections = null;
+            List<double> totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
+            Assert.AreEqual(0, totalCalories.Count);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -101,8 +99,9 @@ namespace UnitTestCalories
                 }
             };
 
-            double totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
-            Assert.AreEqual(245.0, totalCalories);
+            List<double> totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
+            Assert.AreEqual(1, totalCalories.Count);
+            Assert.AreEqual(245.0, totalCalories[0]);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -126,8 +125,9 @@ namespace UnitTestCalories
                 }
             };
 
-            double totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
-            Assert.AreEqual(6e9, totalCalories);
+            List<double> totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
+            Assert.AreEqual(1, totalCalories.Count);
+            Assert.AreEqual(6e9, totalCalories[0]);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -152,8 +152,9 @@ namespace UnitTestCalories
                 }
             };
 
-            double totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
-            Assert.AreEqual(0.0, totalCalories);
+            List<double> totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
+            Assert.AreEqual(1, totalCalories.Count);
+            Assert.AreEqual(0.0, totalCalories[0]);
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//
