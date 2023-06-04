@@ -769,7 +769,7 @@ namespace POE_PROG6221_ST10023767_GR01
         {
             double factor = 0.0;
             string userInput = string.Empty;
-
+            bool valid = false;
             string userInput2;
             int recipeIndex = 1;
 
@@ -784,56 +784,65 @@ namespace POE_PROG6221_ST10023767_GR01
             Console.WriteLine("\r\nPlease select the recipe to scale by entering its corresponding number: ");
             //clockTimerClass.ChangeBack();
 
-            //// Sort the recipe names in alphabetical order
-            List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
-
-            DisplayRecipeNames(sortedRecipeNames, clockTimerClass);
-            userInput2 = GetUserInput();
-
-            if (int.TryParse(userInput2, out int userChoice))
+            do
             {
-                if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
+                //// Sort the recipe names in alphabetical order
+                List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
+
+                DisplayRecipeNames(sortedRecipeNames, clockTimerClass);
+                userInput2 = GetUserInput();
+
+                if (int.TryParse(userInput2, out int userChoice))
                 {
-                    recipeIndex = userChoice - 1;
-                    //Code that can revert the ordered recipe to the unsorted one...
-                    string selectedRecipeName = sortedRecipeNames[recipeIndex];
-                    int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
+                    if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
+                    {
+                        recipeIndex = userChoice - 1;
+                        //Code that can revert the ordered recipe to the unsorted one...
+                        string selectedRecipeName = sortedRecipeNames[recipeIndex];
+                        int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
 
-                    DisplayScalingFactorOptions(clockTimerClass);
+                        DisplayScalingFactorOptions(clockTimerClass);
 
-                    factor = GetScalingFactor(clockTimerClass);
-
-
-                    int listLength = ingredientCollections[recipeIndex2].Count;
-                    TotalCaloriesList[recipeIndex2] = Math.Round((TotalCaloriesList[recipeIndex2] * factor), 2);
-
-                    ApplyScalingFactor(recipeIndex2, factor, ingredientCollections);
+                        factor = GetScalingFactor(clockTimerClass);
 
 
-                    RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
-                    List<string> steps = stepCollections[recipeIndex2];
+                        int listLength = ingredientCollections[recipeIndex2].Count;
+                        TotalCaloriesList[recipeIndex2] = Math.Round((TotalCaloriesList[recipeIndex2] * factor), 2);
 
-                    List<(string, double, string, double, string, double, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];
-                    displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples,
-                        TotalCaloriesList, recipeIndex2);
+                        ApplyScalingFactor(recipeIndex2, factor, ingredientCollections);
 
-                    displayClass.PrintSteps(clockTimerClass, steps);
-                }
-                else if (userChoice == sortedRecipeNames.Count + 1)
-                {
-                    PrintMenu(clockTimerClass);
+
+                        RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
+                        List<string> steps = stepCollections[recipeIndex2];
+
+                        List<(string, double, string, double, string, double, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];
+                        displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples,
+                            TotalCaloriesList, recipeIndex2);
+
+                        displayClass.PrintSteps(clockTimerClass, steps);
+                        valid = true;
+                    }
+                    else if (userChoice == sortedRecipeNames.Count + 1)
+                    {
+                        PrintMenu(clockTimerClass);
+                        valid = true;
+                    }
+                    else
+                    {
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.WriteLine("\r\nPlease re-select the recipe to scale by entering its corresponding number: ");
+                        clockTimerClass.ChangeBack();
+                        valid = false;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("\r\nInvalid selection. Please try again.");
-                    ScaleQuantities(clockTimerClass);
+                    clockTimerClass.ChangeToErrorColor();
+                    Console.WriteLine("\r\nPlease re-select the recipe to scale by entering its corresponding number: ");
+                    clockTimerClass.ChangeBack();
+                    valid = false;
                 }
-            }
-            else
-            {
-                Console.WriteLine("\r\nInvalid selection. Please try again.");
-                ScaleQuantities(clockTimerClass);
-            }
+            } while (valid == false);
         }
 
         
@@ -1555,58 +1564,60 @@ namespace POE_PROG6221_ST10023767_GR01
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\nPlease select the recipe to view by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
-
+            bool valid2 = false;
             // Retrieve and display the recipe names in alphabetical order
             List<string> recipeNames = GetRecipeNames();
             List<List<string>> stepCollections = GetStepCollections();
             List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections = GetIngredientCollections();
 
-            // Sort the recipe names in alphabetical order
-            List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
-
-            displayClass.PrintRecipeNames(sortedRecipeNames);
-
-            string userInput = GetUserInput();
-
-            bool valid = validate.ValidateUserInput(userInput, sortedRecipeNames.Count, clockTimerClass);
-            while (!valid)
+            do
             {
-                PrintErrorSelection(clockTimerClass, sortedRecipeNames);
-                userInput = GetUserInput();
-                valid = validate.ValidateUserInput(userInput, sortedRecipeNames.Count, clockTimerClass);
-            }
 
-            int userChoice = int.Parse(userInput);
+                // Sort the recipe names in alphabetical order
+                List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
-            if (userChoice == sortedRecipeNames.Count + 1)
-            {
-                // User chose to go back
-                PrintMenu(clockTimerClass);
-                return;
-            }
-            int recipeIndex = userChoice - 1;
-            string selectedRecipeName = sortedRecipeNames[recipeIndex];
-            int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
-            if (recipeIndex2 >= 0 && recipeIndex2 < stepCollections.Count)
-            {
-                //string selectedRecipeName = sortedRecipeNames[recipeIndex2];
-                RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
-                List<string> steps = stepCollections[recipeIndex2];
-                List<(string, double, string, double, string, double, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];
+                displayClass.PrintRecipeNames(sortedRecipeNames);
 
-                // Display the selected recipe
-                displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples, TotalCaloriesList, recipeIndex2);
+                string userInput = GetUserInput();
 
-                displayClass.PrintSteps(clockTimerClass, steps);
-            }
-            else
-            {
-                clockTimerClass.ChangeToErrorColor();
-                Console.WriteLine("\r\nInvalid recipe selection. Please try again.\n");
-                clockTimerClass.ChangeBack();
-                DisplayRecipeNames(clockTimerClass);
+                bool valid = validate.ValidateUserInput(userInput, sortedRecipeNames.Count, clockTimerClass);
+                while (!valid)
+                {
+                    PrintErrorSelection(clockTimerClass, sortedRecipeNames);
+                    userInput = GetUserInput();
+                    valid = validate.ValidateUserInput(userInput, sortedRecipeNames.Count, clockTimerClass);
+                }
 
-            }
+                int userChoice = int.Parse(userInput);
+
+                if (userChoice == sortedRecipeNames.Count + 1)
+                {
+                    // User chose to go back
+                    PrintMenu(clockTimerClass);
+                    return;
+                }
+                int recipeIndex = userChoice - 1;
+                string selectedRecipeName = sortedRecipeNames[recipeIndex];
+                int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
+                if (recipeIndex2 >= 0 && recipeIndex2 < stepCollections.Count)
+                {
+                    //string selectedRecipeName = sortedRecipeNames[recipeIndex2];
+                    RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
+                    List<string> steps = stepCollections[recipeIndex2];
+                    List<(string, double, string, double, string, double, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];
+
+                    // Display the selected recipe
+                    displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples, TotalCaloriesList, recipeIndex2);
+
+                    displayClass.PrintSteps(clockTimerClass, steps);
+                    valid2 = true;
+                }
+                else
+                {
+                    PrintErrorSelection(clockTimerClass, sortedRecipeNames);
+                    valid2 = false;
+                }
+            } while (valid2 == false);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -1620,14 +1631,11 @@ namespace POE_PROG6221_ST10023767_GR01
             // Change console color to indicate error
             clockTimerClass.ChangeToErrorColor();
 
-            Console.WriteLine("\r\nInvalid recipe selection. Please try again.\n");
-
+            Console.WriteLine("\r\nPlease re-select the recipe to view by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
 
             // Print the sorted recipe names again
             displayClass.PrintRecipeNames(sortedRecipeNames);
-
-            Console.Write(">");
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//
