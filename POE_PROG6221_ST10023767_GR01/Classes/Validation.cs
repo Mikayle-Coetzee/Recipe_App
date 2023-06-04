@@ -516,7 +516,7 @@ namespace POE_PROG6221_ST10023767_GR01
         {
             if (int.TryParse(userInput, out int userChoice))
             {
-                if (userChoice >= 1 && userChoice <= recipeCount)
+                if (userChoice >= 1 && userChoice <= (recipeCount+1))
                 {
                     return true;
                 }

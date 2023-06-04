@@ -142,7 +142,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             // Prompt the user to enter the number of ingredients as a whole number
             Console.Write("\r\nPlease enter the number of ingredients as a whole number: ");
-            userInput = Console.ReadLine();
+            userInput = GetUserInput();
             // Validate the user's input
             do
             {
@@ -165,7 +165,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease re-enter the number of ingredients as a whole number: ");
-                    userInput = Console.ReadLine();
+                    userInput = GetUserInput();
                     clockTimerClass.ChangeBack();
                 }
             } while (!valid);
@@ -189,7 +189,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             // Prompt the user to enter the ingredient name as text
             Console.Write("Please enter the ingredient name as text (e.g. 'Sugar'):   \t");
-            userInput = Console.ReadLine();
+            userInput = GetUserInput();
 
             // Validate the user's input
             do
@@ -206,7 +206,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease re-enter the ingredient name as text (e.g. 'Sugar'):   \t");
-                    userInput = Console.ReadLine();
+                    userInput = GetUserInput();
                     clockTimerClass.ChangeBack();
                 }
             } while (!valid);
@@ -232,7 +232,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             // Prompt the user to enter the ingredient unit as text
             Console.Write("Please enter the ingredient unit as text (e.g. 'cup'):   \t");
-            userInput = Console.ReadLine();
+            userInput = GetUserInput();
 
             // Validate the user's input
             do
@@ -250,7 +250,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease re-enter the ingredient unit as text (e.g. 'cup'):   \t");
-                    userInput = Console.ReadLine();
+                    userInput = GetUserInput();
                     clockTimerClass.ChangeBack();
                 }
             } while (!valid1 || !valid2);
@@ -281,7 +281,7 @@ namespace POE_PROG6221_ST10023767_GR01
             clockTimerClass.ChangeBack();
             Console.Write("\r\n1. Enter the ingredient quantity as text (e.g. 'one')" +
                 "\r\n2. Enter the ingredient quantity as a numerical number (e.g. 1)\r\n>");
-            userInput = Console.ReadLine();
+            userInput = GetUserInput();
 
             while (!int.TryParse(userInput, out userChoice) || userChoice < 1 || userChoice > 2)
             {
@@ -290,7 +290,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 clockTimerClass.ChangeBack();
                 Console.Write("\r\n1. Enter the ingredient quantity as text (e.g. 'one')" +
                     "\r\n2. Enter the ingredient quantity as a numerical number (e.g. 1)\r\n>");
-                userInput = Console.ReadLine();
+                userInput = GetUserInput();
             }
 
             // Validate the user's input
@@ -299,7 +299,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 clockTimerClass.ChangeBackColor(clockTimerClass.selectedColor);
                 clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
                 Console.Write("\r\nPlease enter the ingredient quantity as text (e.g. 'one'): \t");
-                userInput = Console.ReadLine();
+                userInput = GetUserInput();
                 clockTimerClass.ChangeBack();
                 do
                 {
@@ -311,7 +311,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         valid = false;
                         clockTimerClass.ChangeToErrorColor();
                         Console.Write("\r\nPlease re-enter the ingredient quantity as text (e.g. 'one'): \t");
-                        userInput = Console.ReadLine();
+                        userInput = GetUserInput();
                         clockTimerClass.ChangeBack();
                     }
                     else
@@ -322,7 +322,7 @@ namespace POE_PROG6221_ST10023767_GR01
                             valid = false;
                             clockTimerClass.ChangeToErrorColor();
                             Console.Write("\r\nPlease re-enter the ingredient quantity as text (e.g. 'one'): \t");
-                            userInput = Console.ReadLine();
+                            userInput = GetUserInput();
                             clockTimerClass.ChangeBack();
                         }
                         else
@@ -337,7 +337,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 clockTimerClass.ChangeBackColor(clockTimerClass.selectedColor);
                 clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
                 Console.Write("\r\nPlease enter the ingredient quantity as a numerical number (e.g. 1): \t");
-                userInput = Console.ReadLine();
+                userInput = GetUserInput();
                 clockTimerClass.ChangeBack();
                 do
                 {
@@ -351,7 +351,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         clockTimerClass.ChangeToErrorColor();
                         Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical number " +
                             "(e.g. 1): \t");
-                        userInput = Console.ReadLine();
+                        userInput = GetUserInput();
                         clockTimerClass.ChangeBack();
                     }
                     else
@@ -364,7 +364,7 @@ namespace POE_PROG6221_ST10023767_GR01
                             clockTimerClass.ChangeToErrorColor();
                             Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical " +
                                 "number (e.g. 1): \t");
-                            userInput = Console.ReadLine();
+                            userInput = GetUserInput();
                             clockTimerClass.ChangeBack();
                         }
                         else
@@ -401,41 +401,43 @@ namespace POE_PROG6221_ST10023767_GR01
                 clockTimerClass.ChangeBack();
                 Console.Write("\r\n1. Enter the number of calories as a numerical number (e.g. 25)" +
                     "\r\n2. More information about calories\r\n>");
-                userInput = Console.ReadLine();
+                userInput = GetUserInput();
 
-                while (!int.TryParse(userInput, out userChoice) || userChoice < 1 || userChoice > 2)
+                valid = ValidateUserInput(userInput);
+
+                while (!valid)
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease select an option by entering its corresponding number: ");
                     clockTimerClass.ChangeBack();
                     Console.Write("\r\n1. Enter the number of calories as a numerical number (e.g. 25)" +
                         "\r\n2. More information about calories\r\n>");
-                    userInput = Console.ReadLine();
+                    userInput = GetUserInput();
+                    valid = ValidateUserInput(userInput);
                 }
 
-                // Validate the user's input
+                userChoice = int.Parse(userInput);
+
                 if (userChoice == 1)
                 {
                     clockTimerClass.ChangeBackColor(clockTimerClass.selectedColor);
                     clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
                     Console.Write("\r\nPlease enter the number of calories as a numerical number (e.g. 25): \t");
-                    userInput = Console.ReadLine();
+                    userInput = GetUserInput();
                     clockTimerClass.ChangeBack();
                     do
                     {
-                        // If the input is invalid, prompt the user to re-enter the ingredient quantity and change
-                        // the console color to indicate an error
-                        if (!validate.Validate_String(userInput) || !validate.Validate_Float(userInput))
+                        if (!ValidateCaloriesInput(userInput))
                         {
                             valid = false;
                             clockTimerClass.ChangeToErrorColor();
                             Console.Write("\r\nPlease enter the number of calories as a numerical number (e.g. 25): \t");
-                            userInput = Console.ReadLine();
+                            userInput = GetUserInput();
                             clockTimerClass.ChangeBack();
                         }
                         else
                         {
-                            calories = Convert.ToDouble(userInput);
+                            calories = double.Parse(userInput);
                             valid = true;
                         }
                     } while (!valid);
@@ -444,6 +446,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     valid = false;
                     Console.WriteLine();
+                    DisplayClass displayClass = new DisplayClass();
                     displayClass.DisplayLine();
                     Console.WriteLine("\r\nCalories:" +
                         "\r\nCalories are a measure of energy. In the context of nutrition, calories refer to the energy " +
@@ -461,8 +464,12 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
             } while (!valid);
 
-            // Return the numerical value of the entered ingredient calories
             return calories;
+        }
+
+        private bool ValidateCaloriesInput(string userInput)
+        {
+            return validate.Validate_String(userInput) && validate.Validate_Float(userInput);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -491,7 +498,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.WriteLine($"{FoodGroupList.Count + 1}. More information on a specific food group.");
                 Console.Write(">");
 
-                userInput = Console.ReadLine();
+                userInput = GetUserInput();
                 if (int.TryParse(userInput, out int userChoice))
                 {
                     if (userChoice >= 1 && userChoice <= FoodGroupList.Count)
@@ -513,9 +520,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 if (!valid)
                 {
                     clockTimerClass.ChangeToErrorColor();
-                    clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-                    clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
-                    Console.WriteLine("\r\nPlease select a food group by entering its corresponding number: ");
+                    Console.WriteLine("\r\nPlease re-select a food group by entering its corresponding number: ");
                     clockTimerClass.ChangeBack();
                 }
             } while (!valid);
@@ -531,156 +536,134 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void FoodGroupInformation(ClockTimerClass clockTimerClass)
         {
-            string userInput;
-            bool valid;
-
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\nPlease select a food group to view by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
 
+            DisplayFoodGroupOptions();
+
+            string userInput = GetUserInput();
+            bool valid = ValidateUserInput(userInput);
+
+            while (!valid)
+            {
+                clockTimerClass.ChangeToErrorColor();
+                Console.WriteLine("\r\nPlease re-select a food group by entering its corresponding number: ");
+                clockTimerClass.ChangeBack();
+
+                DisplayFoodGroupOptions();
+                userInput = GetUserInput();
+                valid = ValidateUserInput(userInput);
+            }
+
+            int userChoice = int.Parse(userInput);
+            int recipeIndex = userChoice - 1;
+
+            if (recipeIndex >= 0 && recipeIndex < FoodGroupList.Count)
+            {
+                DisplayFoodGroupInformation(recipeIndex);
+            }
+            else
+            {
+                clockTimerClass.ChangeToErrorColor();
+                Console.WriteLine("\r\nPlease re-select a food group to view by entering its corresponding number: ");
+                clockTimerClass.ChangeBack();
+
+                DisplayFoodGroupOptions();
+                userInput = GetUserInput();
+                valid = ValidateUserInput(userInput);
+
+                while (!valid || int.Parse(userInput) != FoodGroupList.Count + 1)
+                {
+                    clockTimerClass.ChangeToErrorColor();
+                    Console.WriteLine("\r\nPlease re-select a food group by entering its corresponding number: ");
+                    clockTimerClass.ChangeBack();
+
+                    DisplayFoodGroupOptions();
+                    userInput = GetUserInput();
+                    valid = ValidateUserInput(userInput);
+                }
+            }
+        }
+
+        private void DisplayFoodGroupOptions()
+        {
             for (int i = 0; i < FoodGroupList.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {FoodGroupList[i]}");
             }
             Console.WriteLine($"{FoodGroupList.Count + 1}. Back");
             Console.Write(">");
+        }
 
-            userInput = Console.ReadLine();
+        private string GetUserInput()
+        {
+            return Console.ReadLine();
+        }
 
-            do
+        private bool ValidateUserInput(string userInput)
+        {
+            if (int.TryParse(userInput, out int userChoice))
             {
-                if (int.TryParse(userInput, out int userChoice))
-                {
-                    if (userChoice >= 1 && userChoice <= FoodGroupList.Count)
-                    {
-                        int recipeIndex = userChoice - 1;
+                return userChoice >= 1 && userChoice <= FoodGroupList.Count + 1;
+            }
+            return false;
+        }
 
-                        if (recipeIndex >= 0 && recipeIndex < FoodGroupList.Count)
-                        {
-                            valid = true;
-                            Console.WriteLine();
-                            switch (recipeIndex)
-                            {
-                                case 0:
-                                    displayClass.DisplayLine();
-                                    Console.WriteLine("\r\nStarchy foods:" +
-                                        "\r\nThese are foods rich in carbohydrates and provide energy." +
-                                        "\r\nThey typically include grains, cereals, potatoes, and root vegetables." +
-                                        "\r\nFor example, rice, bread, pasta, and sweet potatoes are considered starchy foods.");
-                                    displayClass.DisplayLine();
-                                    break;
-                                case 1:
-                                    displayClass.DisplayLine();
-                                    Console.WriteLine("\r\nVegetables and fruits:" +
-                                        "\r\nThis food group consists of plant-based foods that are rich in vitamins, minerals, and dietary fiber." +
-                                        "\r\nIt includes a wide variety of vegetables (leafy greens, cruciferous vegetables, etc.) and " +
-                                        "\r\nfruits (apples, bananas, berries, etc.)." +
-                                        "\r\nFor instance, spinach, broccoli, oranges, and strawberries are part of this group.");
-                                    displayClass.DisplayLine();
-                                    break;
-                                case 2:
-                                    displayClass.DisplayLine();
-                                    Console.WriteLine("\r\nDry beans, peas, lentils, and soya:" +
-                                        "\r\nThis group includes legumes that are high in protein, fiber, and various nutrients." +
-                                        "\r\nExamples of dry beans include kidney beans, black beans, and chickpeas. Lentils and peas," +
-                                        "\r\nsuch as green lentils and split peas, also fall into this category. Soybeans are used to make" +
-                                        "\r\nsoy products like tofu and soy milk.");
-                                    displayClass.DisplayLine();
-                                    break;
-                                case 3:
-                                    displayClass.DisplayLine();
-                                    Console.WriteLine("\r\nChicken, fish, meat, and eggs: " +
-                                        "\r\nThis food group comprises animal-based protein sources." +
-                                        "\r\nIt includes poultry (chicken, turkey), fish (salmon, tuna), red meat (beef, pork), and eggs. " +
-                                        "\r\nThese foods are rich in protein, vitamins, and minerals and serve as important sources of nutrition.");
-                                    displayClass.DisplayLine();
-                                    break;
-                                case 4:
-                                    displayClass.DisplayLine();
-                                    Console.WriteLine("\r\nMilk and dairy products: " +
-                                        "\r\nThis group encompasses milk and various dairy products derived from it, such as cheese, yogurt, and butter." +
-                                        "\r\nThese foods are excellent sources of calcium, protein, and vitamins like vitamin D. " +
-                                        "\r\nExamples include cow's milk, cheddar cheese, and Greek yogurt.");
-                                    displayClass.DisplayLine();
-                                    break;
-                                case 5:
-                                    displayClass.DisplayLine();
-                                    Console.WriteLine("\r\nFats and oil: " +
-                                        "\r\nThis food group includes fats and oils that are consumed in moderation. " +
-                                        "\r\nIt comprises sources of healthy fats like vegetable oils (olive oil, canola oil), nuts, seeds, and avocados." +
-                                        "\r\n While fats are high in calories, they play essential roles in providing energy and carrying fat-soluble vitamins.");
-                                    displayClass.DisplayLine();
-                                    break;
-                                default:
-                                    displayClass.DisplayLine();
-                                    Console.WriteLine("\r\nWater:" +
-                                        "\r\nWater is not a food group but an essential component of a healthy diet." +
-                                        "\r\nIt is crucial for hydration and the proper functioning of the body." +
-                                        "\r\n Drinking sufficient water helps maintain bodily functions, supports digestion, and aids in temperature regulation.");
-                                    displayClass.DisplayLine();
-                                    break;
-                            }
-                            Console.WriteLine();
-                        }
-                        else
-                        {
-                            valid = false;
-                            clockTimerClass.ChangeToErrorColor();
-                            Console.WriteLine("\r\nPlease select a food group to view by entering its corresponding number: ");
-                            clockTimerClass.ChangeBack();
+        private void DisplayFoodGroupInformation(int recipeIndex)
+        {
+            DisplayClass displayClass = new DisplayClass();
 
-                            for (int i = 0; i < FoodGroupList.Count; i++)
-                            {
-                                Console.WriteLine($"{i + 1}. {FoodGroupList[i]}");
-                            }
-                            Console.WriteLine($"{FoodGroupList.Count + 1}. Back");
-                            Console.Write(">");
-
-                            userInput = Console.ReadLine();
-                        }
-                    }
-                    else
-                    {
-                        if (userChoice == FoodGroupList.Count + 1)
-                        {
-                            valid = true;
-                        }
-                        else
-                        {
-                            valid = false;
-                            clockTimerClass.ChangeToErrorColor();
-                            Console.WriteLine("\r\nPlease select a food group by entering its corresponding number: ");
-                            clockTimerClass.ChangeBack();
-
-                            for (int i = 0; i < FoodGroupList.Count; i++)
-                            {
-                                Console.WriteLine($"{i + 1}. {FoodGroupList[i]}");
-                            }
-                            Console.WriteLine($"{FoodGroupList.Count + 1}. Back");
-                            Console.Write(">");
-
-                            userInput = Console.ReadLine();
-                        }
-                    }
-                }
-                else
-                {
-                    valid = false;
-                    clockTimerClass.ChangeToErrorColor();
-                    Console.WriteLine("\r\nPlease select a food group by entering its corresponding number: ");
-                    clockTimerClass.ChangeBack();
-
-                    for (int i = 0; i < FoodGroupList.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}. {FoodGroupList[i]}");
-                    }
-                    Console.WriteLine($"{FoodGroupList.Count + 1}. Back");
-                    Console.Write(">");
-
-                    userInput = Console.ReadLine();
-                }
-            } while (valid == false);
+            displayClass.DisplayLine();
+            switch (recipeIndex)
+            {
+                case 0:
+                    Console.WriteLine("\r\nStarchy foods:" +
+                        "\r\nThese are foods rich in carbohydrates and provide energy." +
+                        "\r\nThey typically include grains, cereals, potatoes, and root vegetables." +
+                        "\r\nFor example, rice, bread, pasta, and sweet potatoes are considered starchy foods.");
+                    break;
+                case 1:
+                    Console.WriteLine("\r\nVegetables and fruits:" +
+                        "\r\nThis food group consists of plant-based foods that are rich in vitamins, minerals, and dietary fiber." +
+                        "\r\nIt includes a wide variety of vegetables (leafy greens, cruciferous vegetables, etc.) and " +
+                        "\r\nfruits (apples, bananas, berries, etc.)." +
+                        "\r\nFor instance, spinach, broccoli, oranges, and strawberries are part of this group.");
+                    break;
+                case 2:
+                    Console.WriteLine("\r\nDry beans, peas, lentils, and soya:" +
+                        "\r\nThis group includes legumes that are high in protein, fiber, and various nutrients." +
+                        "\r\nExamples of dry beans include kidney beans, black beans, and chickpeas. Lentils and peas," +
+                        "\r\nsuch as green lentils and split peas, also fall into this category. Soybeans are used to make" +
+                        "\r\nsoy products like tofu and soy milk.");
+                    break;
+                case 3:
+                    Console.WriteLine("\r\nChicken, fish, meat, and eggs: " +
+                        "\r\nThis food group comprises animal-based protein sources." +
+                        "\r\nIt includes poultry (chicken, turkey), fish (salmon, tuna), red meat (beef, pork), and eggs. " +
+                        "\r\nThese foods are rich in protein, vitamins, and minerals and serve as important sources of nutrition.");
+                    break;
+                case 4:
+                    Console.WriteLine("\r\nMilk and dairy products: " +
+                        "\r\nThis group encompasses milk and various dairy products derived from it, such as cheese, yogurt, and butter." +
+                        "\r\nThese foods are excellent sources of calcium, protein, and vitamins like vitamin D. " +
+                        "\r\nExamples include cow's milk, cheddar cheese, and Greek yogurt.");
+                    break;
+                case 5:
+                    Console.WriteLine("\r\nFats and oil: " +
+                        "\r\nThis food group includes fats and oils that are consumed in moderation. " +
+                        "\r\nIt comprises sources of healthy fats like vegetable oils (olive oil, canola oil), nuts, seeds, and avocados." +
+                        "\r\n While fats are high in calories, they play essential roles in providing energy and carrying fat-soluble vitamins.");
+                    break;
+                default:
+                    Console.WriteLine("\r\nWater:" +
+                        "\r\nWater is not a food group but an essential component of a healthy diet." +
+                        "\r\nIt is crucial for hydration and the proper functioning of the body." +
+                        "\r\n Drinking sufficient water helps maintain bodily functions, supports digestion, and aids in temperature regulation.");
+                    break;
+            }
+            displayClass.DisplayLine();
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

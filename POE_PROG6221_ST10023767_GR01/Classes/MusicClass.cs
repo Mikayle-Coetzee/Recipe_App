@@ -34,6 +34,11 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         
         }
 
+        private string GetUserInput()
+        {
+            return Console.ReadLine();
+        }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method plays the given audio file in a new thread and updates the console color using the
@@ -88,7 +93,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                 "7.  Nightbirde – It’s Okay\r\n8.  Bellamy Brothers - Old Hippie\r\n" +
                 "9.  Bellamy Brothers - We Dared The Lightning\r\n10. Smokie - Living next door to Alice\r\n" +
                 "11. Sia - Madilyn Paige - The Greatest\r\n12. Piano background song\r\n13. Nothing\r\n> ");
-            userInput = Console.ReadLine();
+            userInput = GetUserInput();
 
             do
             {
@@ -157,7 +162,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                             "7.  Nightbirde – It’s Okay\r\n8.  Bellamy Brothers - Old Hippie\r\n" +
                             "9.  Bellamy Brothers - We Dared The Lightning\r\n10. Smokie - Living next door to Alice\r\n" +
                             "11. Sia - Madilyn Paige - The Greatest\r\n12. Piano background song\r\n13. Nothing\r\n> ");
-                        userInput = Console.ReadLine();
+                        userInput = GetUserInput();
                         break;
                 }
             } while (valid == false);

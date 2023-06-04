@@ -52,6 +52,11 @@ namespace POE_PROG6221_ST10023767_GR01
             RecipeList = new List<RecipeClass>();
         }
 
+        private string GetUserInput()
+        {
+            return Console.ReadLine();
+        }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method prompts the user to enter the name of the recipe and retrieves it as a string.
@@ -66,7 +71,7 @@ namespace POE_PROG6221_ST10023767_GR01
             string name = string.Empty;
 
             Console.Write("\nPlease enter the recipe name as text (e.g. 'Cake'):   \t");
-            userInput = Console.ReadLine();
+            userInput = GetUserInput();
 
             do
             {
@@ -80,7 +85,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease re-enter the recipe name as text (e.g. 'Cake'):   \t");
-                    userInput = Console.ReadLine();
+                    userInput = GetUserInput();
                     clockTimerClass.ChangeBack();
                 }
             } while (!valid);

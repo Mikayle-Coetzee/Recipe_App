@@ -51,6 +51,11 @@ namespace POE_PROG6221_ST10023767_GR01
             this.NumOfSteps = numOfSteps;
         }
 
+        private string GetUserInput()
+        {
+            return Console.ReadLine();
+        }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method prompts the user to enter a whole number representing the number of steps, validates the input, 
@@ -67,7 +72,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             // Prompt the user to enter the number of steps
             Console.Write("\r\nPlease enter the number of steps as a whole number: ");
-            userInput = Console.ReadLine();
+            userInput = GetUserInput();
 
             // Validate the input using the Validate_Integer method
             do
@@ -91,7 +96,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease re-enter the number of steps as a whole number: ");
-                    userInput = Console.ReadLine();
+                    userInput = GetUserInput();
                     clockTimerClass.ChangeBack();
                 }
             } while (valid == false);
@@ -128,7 +133,7 @@ namespace POE_PROG6221_ST10023767_GR01
         public string GetStep()
         {
             // Get the step description from the user
-            string userInput = Console.ReadLine();
+            string userInput = GetUserInput();
 
             // Initialize an empty string for the step
             string step = string.Empty;

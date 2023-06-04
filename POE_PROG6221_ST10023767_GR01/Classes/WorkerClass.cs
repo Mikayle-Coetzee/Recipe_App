@@ -13,7 +13,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Windows.Forms;
-//using static POE_PROG6221_ST10023767_GR01.WorkerClass;
 using POE_PROG6221_ST10023767_GR01.Classes;
 using System.Runtime.InteropServices;
 
@@ -1606,6 +1605,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.WriteLine("\r\nInvalid recipe selection. Please try again.\n");
                 clockTimerClass.ChangeBack();
                 DisplayRecipeNames(clockTimerClass);
+
             }
         }
 
