@@ -633,7 +633,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     break;
                 case 2:
                     Console.WriteLine("\r\nDry beans, peas, lentils, and soya:" +
-                        "\r\nThis group includes legumes that are high in protein, fiber, and various nutrients." +
+                        "\r\nThis group includes foods that are high in protein, fiber, and various nutrients." +
                         "\r\nExamples of dry beans include kidney beans, black beans, and chickpeas. Lentils and peas," +
                         "\r\nsuch as green lentils and split peas, also fall into this category. Soybeans are used to make" +
                         "\r\nsoy products like tofu and soy milk.");

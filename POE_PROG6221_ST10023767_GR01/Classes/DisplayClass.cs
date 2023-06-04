@@ -84,7 +84,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             }
 
             Console.WriteLine("\r\nThe total number of calories is: " + Convert.ToString(TotalCaloriesList[recipeIndex])
-                + "\r\n\t(Range: "+ CalorieRangeInformation(TotalCaloriesList[recipeIndex]) +")");
+                + "\r\n\tRange: "+ CalorieRangeInformation(TotalCaloriesList[recipeIndex]));
         }
 
         private string CalorieRangeInformation(double totalNumberOfCalories)
@@ -93,23 +93,41 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
             switch (totalNumberOfCalories)
             {
-                case 0:
-                    information = "0 - There is no number of calories in the recipe.";
+                case double n when (n > 0 && n <= 100):
+                    information = "Between 0 and 100 calories: A gust of wind would burn more calories than this!\r\n" +
+                                "\tBut hey, every little bit counts, right? So keep those legs moving!";
                     break;
-                case double n when (n > 0 && n <= 150):
-                    information = "Between 0 and 150 - This recipe is perfect for a snack.";
-                    break;
-                case double n when (n > 150 && n <= 300):
-                    information = "Between 150 and 300 - This recipe is perfect for a breakfast.";
+                case double n when (n > 100 && n <= 300):
+                    information = "Between 100 and 300: You're in the snacking zone!\r\n" +
+                                "\tThis range is perfect for satisfying your cravings without going overboard.";
                     break;
                 case double n when (n > 300 && n <= 500):
-                    information = "Between 300 and 500 - This recipe is perfect for a lunch.";
+                    information = "Between 300 and 500: Your taste buds are in for a sizzling adventure!\r\n" +
+                                "\tThis range offers you a delicious dishes while still keeping your calorie count in check.\r\n" +
+                                "\tBon appétit!";
                     break;
                 case double n when (n > 500 && n <= 800):
-                    information = "Between 500 and 800 - This recipe is perfect for a dinner.";
+                    information = "Between 500 and 800: You're burning it up!\r\n" +
+                                "\tThis range is for those who enjoy their fair share of physical activities, keep burning those calories!";
+                    break;
+                case double n when (n > 800 && n <= 1200):
+                    information = "Between 800 and 1200: Your body is a well-oiled machine!\r\n" +
+                                "\tThis range is ideal for those who engage in intense workouts and need extra fuel to power through.\r\n" +
+                                "\tYou're like a calorie-burning furnace!";
+                    break;
+                case double n when (n > 1200 && n <= 1500):
+                    information = "Between 1200 and 1500: You've got a hearty appetite!\r\n" +
+                                "\tIn this range, you can savor a variety of delicious meals while still maintaining a balanced intake.\r\n" +
+                                "\tIt's time to explore the flavors of the world!";
+                    break;
+                case double n when (n > 1500 && n <= 2000):
+                    information = "Between 1500 and 2000: You're the reigning food champion!\r\n" +
+                                "\tThis range allows you to enjoy a wide range of tasty treats.";
                     break;
                 default:
-                    information = "More than 800 - This recipe is perfect to share.";
+                    information = "More than 2000: Prepare for an explosion of energy!\r\n" +
+                                "\tThis range offers you the opportunity to embrace your inner foodie to the fullest.\r\n" +
+                                "\tRemember, with great food comes great enjoyment!";
                     break;
             }
 
@@ -247,8 +265,10 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// numbers, followed by an option to go back. 
         /// </summary>
         /// <param name="recipeNames">The list of recipe names</param>
-        public void PrintRecipeNames(List<string> recipeNames)
+        public void PrintRecipeNames(List<string> recipeNames, ClockTimerClass clockTimerClass)
         {
+            clockTimerClass.ChangeBack();
+
             for (int i = 0; i < recipeNames.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {recipeNames[i]}");

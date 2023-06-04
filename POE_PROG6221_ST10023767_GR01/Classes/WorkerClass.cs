@@ -247,7 +247,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 // Sort the recipe names in alphabetical order
                 List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
-                DisplayRecipeNames(sortedRecipeNames, clockTimerClass);
+                displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
 
                 string userInput = GetUserInput();
 
@@ -808,7 +808,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 //// Sort the recipe names in alphabetical order
                 List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
-                DisplayRecipeNames(sortedRecipeNames, clockTimerClass);
+                displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
                 userInput2 = GetUserInput();
 
                 if (int.TryParse(userInput2, out int userChoice))
@@ -1155,19 +1155,6 @@ namespace POE_PROG6221_ST10023767_GR01
                     TotalCaloriesList[recipeIndex2] = numberOfCalories;
                 }
             }
-        }
-
-        private void DisplayRecipeNames(List<string> recipeNames, ClockTimerClass clockTimerClass)
-        {
-            clockTimerClass.ChangeBack();
-
-            for (int i = 0; i < recipeNames.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {recipeNames[i]}");
-            }
-
-            Console.WriteLine($"{recipeNames.Count + 1}. Back");
-            Console.Write(">");
         }
 
         private string GetUserInput()
@@ -1595,7 +1582,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 // Sort the recipe names in alphabetical order
                 List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
-                displayClass.PrintRecipeNames(sortedRecipeNames);
+                displayClass.PrintRecipeNames(sortedRecipeNames,clockTimerClass);
 
                 string userInput = GetUserInput();
 
@@ -1618,7 +1605,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 int recipeIndex = userChoice - 1;
                 string selectedRecipeName = sortedRecipeNames[recipeIndex];
                 int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
-                if (recipeIndex2 >= 0 && recipeIndex2 < stepCollections.Count)
+                if (recipeIndex2 >= 0 && recipeIndex2 < RecipeList.Count)///<-----------------------------------------------------------------------------------------
                 {
                     //string selectedRecipeName = sortedRecipeNames[recipeIndex2];
                     RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
@@ -1654,7 +1641,7 @@ namespace POE_PROG6221_ST10023767_GR01
             clockTimerClass.ChangeBack();
 
             // Print the sorted recipe names again
-            displayClass.PrintRecipeNames(sortedRecipeNames);
+            displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//
