@@ -197,7 +197,7 @@ namespace POE_PROG6221_ST10023767_GR01
             switch (userChoice)
             {
                 case 1:
-                    DisplayRecipeNames(clockTimerClass);
+                    SelectRecipeNameToView(clockTimerClass);
                     PrintMenu(clockTimerClass);
                     break;
                 case 2:
@@ -211,37 +211,8 @@ namespace POE_PROG6221_ST10023767_GR01
                     break;
                 case 4:
                     // Prompt user for confirmation before clearing the recipe
-                    clockTimerClass.ChangeToErrorColor();
-                    Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
-                                    "\r\nthat this action is irreversible? (Yes/No):");
-                    string newInput = GetUserInput();
-                    clockTimerClass.ChangeBack();
-
-                    while (validate.Validate_Yes_Or_No(newInput) == false)
-                    {
-                        clockTimerClass.ChangeToErrorColor();
-                        Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
-                                        "\r\nthat this action is irreversible? (Yes/No):");
-                        newInput = GetUserInput();
-                        clockTimerClass.ChangeBack();
-                    }
-
-                    if (newInput.Trim().ToUpper().Equals("NO"))
-                    {
-                        // Cancel the request to enter a new recipe
-                        clockTimerClass.ChangeToErrorColor();
-                        Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
-                        clockTimerClass.ChangeBack();
-                        PrintMenu(clockTimerClass);
-                    }
-                    else
-                    {
-                        // Clear the selected generic collections 
-                        ClearRecipe(clockTimerClass);
-
-                        //Application(clockTimerClass);
-                        PrintMenu(clockTimerClass);
-                    }
+                    ClearRecipe(clockTimerClass);
+                    PrintMenu(clockTimerClass);
                     break;
                 case 5:
                     // Print the quit message and exit the program
@@ -259,6 +230,8 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <param name="clockTimerClass"></param>
         private void ClearRecipe(ClockTimerClass clockTimerClass)
         {
+            bool valid = false;
+
             // Retrieve and display the recipe names in alphabetical order
             List<string> recipeNames = GetRecipeNames();
             List<List<string>> stepCollections = GetStepCollections();
@@ -267,36 +240,82 @@ namespace POE_PROG6221_ST10023767_GR01
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\nPlease select the recipe to clear by entering its corresponding number: ");
-            clockTimerClass.ChangeBack();
 
-            // Sort the recipe names in alphabetical order
-            List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
-            for (int i = 0; i < sortedRecipeNames.Count; i++)
+            do
             {
-                Console.WriteLine($"{i + 1}. {sortedRecipeNames[i]}");
-            }
-            Console.WriteLine($"{sortedRecipeNames.Count + 1}. Back");
-            Console.Write(">");
+                // Sort the recipe names in alphabetical order
+                List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
-            string userInput = GetUserInput();
+                DisplayRecipeNames(sortedRecipeNames, clockTimerClass);
 
-            if (int.TryParse(userInput, out int userChoice))
-            {
-                if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
+                string userInput = GetUserInput();
+
+                if (int.TryParse(userInput, out int userChoice))
                 {
-                    int recipeIndex = userChoice - 1;
-                    // Code to revert the ordered recipe to the unsorted one...
-                    string selectedRecipeName = sortedRecipeNames[recipeIndex];
-                    int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
+                    if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
+                    {
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
+                                        "\r\nthat this action is irreversible? (Yes/No):");
+                        string newInput = GetUserInput();
+                        clockTimerClass.ChangeBack();
 
-                    // Remove the selected recipe from the collections
-                    recipeNames.RemoveAt(recipeIndex2);
-                    stepCollections.RemoveAt(recipeIndex2);
-                    ingredientCollections.RemoveAt(recipeIndex2);
-                    TotalCaloriesList.RemoveAt(recipeIndex2);
+                        while (validate.Validate_Yes_Or_No(newInput) == false)
+                        {
+                            clockTimerClass.ChangeToErrorColor();
+                            Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
+                                            "\r\nthat this action is irreversible? (Yes/No):");
+                            newInput = GetUserInput();
+                            clockTimerClass.ChangeBack();
+                        }
+
+                        if (newInput.Trim().ToUpper().Equals("NO"))
+                        {
+                            // Cancel the request to enter a new recipe
+                            clockTimerClass.ChangeToErrorColor();
+                            Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
+                            clockTimerClass.ChangeBack();
+                            PrintMenu(clockTimerClass);
+                        }
+                        else
+                        {
+                            int recipeIndex = userChoice - 1;
+                            // Code to revert the ordered recipe to the unsorted one...
+                            string selectedRecipeName = sortedRecipeNames[recipeIndex];
+                            int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
+
+                            // Remove the selected recipe from the collections
+                            recipeNames.RemoveAt(recipeIndex2);
+                            stepCollections.RemoveAt(recipeIndex2);
+                            ingredientCollections.RemoveAt(recipeIndex2);
+                            TotalCaloriesList.RemoveAt(recipeIndex2);
+
+                            Console.WriteLine("\r\nRecipe '" + selectedRecipeName + "' was sucsessfully deleted.");
+                        }
+                        valid = true;
+                    }
+                    else if (userChoice == sortedRecipeNames.Count + 1)
+                    {
+                        PrintMenu(clockTimerClass);
+                        valid = true;
+                    }
+                    else
+                    {
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.WriteLine("\r\nPlease re-select the recipe to clear by entering its corresponding number: ");
+                        clockTimerClass.ChangeBack();
+                        valid = false;
+                    }
                 }
-            }
+                else
+                {
+                    clockTimerClass.ChangeToErrorColor();
+                    Console.WriteLine("\r\nPlease re-select the recipe to clear by entering its corresponding number: ");
+                    clockTimerClass.ChangeBack();
+                    valid = false;
+                }
+            } while (valid == false);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -1558,7 +1577,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Displays the list of recipe names and allows the user to select a recipe to view its details.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
-        private void DisplayRecipeNames(ClockTimerClass clockTimerClass)
+        private void SelectRecipeNameToView(ClockTimerClass clockTimerClass)
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
