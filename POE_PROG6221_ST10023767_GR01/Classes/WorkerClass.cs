@@ -22,7 +22,7 @@ namespace POE_PROG6221_ST10023767_GR01
     /// Delegate for notifying the user about the calories of a recipe.
     /// </summary>
     /// <param name="recipeName">The name of the recipe.</param>
-    public delegate void RecipeNotificationDelegate(string recipeName);
+    public delegate void RecipeNotificationDelegate(double calories);
 
     public class WorkerClass
     {
@@ -427,7 +427,14 @@ namespace POE_PROG6221_ST10023767_GR01
                             TotalCaloriesList, recipeIndex2);
 
                         displayClass.PrintSteps(clockTimerClass, steps);
-                        valid = true;
+
+                        double totalCalories = TotalCaloriesList[recipeIndex2]; // Get the total calories of the last added recipe
+
+
+                        
+                        NotifyUser(totalCalories);
+
+                        break;
                     }
                     else if (userChoice == sortedRecipeNames.Count + 1)
                     {
@@ -1063,9 +1070,9 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Notifies the user about a recipe.//event handeler
         /// </summary>
         /// <param name="recipeName">The name of the recipe.</param>
-        protected virtual void NotifyUser(string recipeName)
+        protected virtual void NotifyUser(double calories)
         {
-            RecipeExceedsCaloriesEvent?.Invoke(recipeName);
+            RecipeExceedsCaloriesEvent?.Invoke(calories);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -1073,10 +1080,13 @@ namespace POE_PROG6221_ST10023767_GR01
         /// Handles the event when a recipe exceeds the calorie limit.
         /// </summary>
         /// <param name="recipeName">The name of the recipe.</param>
-        private void HandleRecipeExceedsCalories(string recipeName)
+        private void HandleRecipeExceedsCalories(double calories)
         {
-            DialogResult result = MessageBox.Show($"The recipe '{recipeName}' exceeds 300 calories.", "Recipe Notification",
+            if (calories > 300)
+            {
+                DialogResult result = MessageBox.Show($"The recipe exceeds 300 calories. Total calories are {calories}", "Recipe Notification",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -1105,11 +1115,10 @@ namespace POE_PROG6221_ST10023767_GR01
 
             double totalCalories = TotalCaloriesList.LastOrDefault(); // Get the total calories of the last added recipe
 
-            if (totalCalories > 300)
-            {
-                RecipeExceedsCaloriesEvent += HandleRecipeExceedsCalories;
-                NotifyUser(newRecipeName);
-            }
+
+            RecipeExceedsCaloriesEvent += HandleRecipeExceedsCalories;
+            NotifyUser(totalCalories);
+
 
             StoreRecipes(StepCollections, IngredientCollections);
         }
@@ -1165,7 +1174,6 @@ namespace POE_PROG6221_ST10023767_GR01
 
             do
             {
-
                 // Sort the recipe names in alphabetical order
                 List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
