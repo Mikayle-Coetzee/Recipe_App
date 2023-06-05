@@ -45,15 +45,15 @@ namespace UnitTestCalories
         {
             WorkerClass workerClass = new WorkerClass(new ClockTimerClass());
             List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections = new List<List<(string, double, string, double, string, double, double, string)>>()
-        {
-            new List<(string, double, string, double, string, double, double, string)>
             {
-                ("Ingredient1", 0.0, "", 100.0, "", 0.0, 100.0, ""),
-                ("Ingredient2", 0.0, "", 50.0 , "", 0.0, 50.0 , ""),
-                ("Ingredient3", 0.0, "", 75.0 , "", 0.0, 75.0 , ""),
-                ("Ingredient4", 0.0, "", 120.0, "", 0.0, 120.0, "")
-            }
-        };
+                new List<(string, double, string, double, string, double, double, string)>
+                {
+                    ("Ingredient1", 0.0, "", 100.0, "", 0.0, 100.0, ""),
+                    ("Ingredient2", 0.0, "", 50.0 , "", 0.0, 50.0 , ""),
+                    ("Ingredient3", 0.0, "", 75.0 , "", 0.0, 75.0 , ""),
+                    ("Ingredient4", 0.0, "", 120.0, "", 0.0, 120.0, "")
+                }
+            };
 
             List<double> totalCalories = workerClass.CalculateTotalCalories(ingredientCollections);
             Assert.AreEqual(1, totalCalories.Count);

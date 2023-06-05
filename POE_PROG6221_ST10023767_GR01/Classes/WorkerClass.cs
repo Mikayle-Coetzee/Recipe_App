@@ -189,7 +189,7 @@ namespace POE_PROG6221_ST10023767_GR01
             Console.Write("\r\n1. Print A Specific Recipe \r\n2. Scale Quantities \r\n3. Enter Another Recipe \r\n4. Clear Recipe \r\n5. Quit \n>");
 
             // Read user input
-            string userInput = GetUserInput();
+            string userInput = validate.GetUserInput();
 
             // Get valid user choice
             int userChoice = GetValidUserChoice(userInput, clockTimerClass);
@@ -248,7 +248,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
                 displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
 
-                string userInput = GetUserInput();
+                string userInput = validate.GetUserInput();
 
                 if (int.TryParse(userInput, out int userChoice))
                 {
@@ -257,7 +257,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         clockTimerClass.ChangeToErrorColor();
                         Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
                                         "\r\nthat this action is irreversible? (Yes/No):");
-                        string newInput = GetUserInput();
+                        string newInput = validate.GetUserInput();
                         clockTimerClass.ChangeBack();
 
                         while (validate.Validate_Yes_Or_No(newInput) == false)
@@ -265,7 +265,7 @@ namespace POE_PROG6221_ST10023767_GR01
                             clockTimerClass.ChangeToErrorColor();
                             Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
                                             "\r\nthat this action is irreversible? (Yes/No):");
-                            newInput = GetUserInput();
+                            newInput = validate.GetUserInput();
                             clockTimerClass.ChangeBack();
                         }
 
@@ -355,7 +355,7 @@ namespace POE_PROG6221_ST10023767_GR01
                     Console.Write("\r\nPlease select an option by entering its corresponding number: ");
                     clockTimerClass.ChangeBack();
                     Console.Write("\r\n1. Print A Specific Recipe \r\n2. Scale Quantities \r\n3. Enter Another Recipe \r\n4. Clear Recipe \r\n5. Quit \n>");
-                    userInput = GetUserInput();
+                    userInput = validate.GetUserInput();
                 }
 
             } while (!valid);
@@ -397,7 +397,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 List<string> sortedRecipeNames = recipeNames.OrderBy(name => name).ToList();
 
                 displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
-                userInput2 = GetUserInput();
+                userInput2 = validate.GetUserInput();
 
                 if (int.TryParse(userInput2, out int userChoice))
                 {
@@ -751,11 +751,6 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
-        private string GetUserInput()
-        {
-            return Console.ReadLine();
-        }
-
         private void DisplayScalingFactorOptions(ClockTimerClass clockTimerClass)
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
@@ -769,7 +764,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         private double GetScalingFactor(ClockTimerClass clockTimerClass)
         {
-            string userInput = GetUserInput();
+            string userInput = validate.GetUserInput();
 
             while (!IsValidScalingFactor(userInput))
             {
@@ -777,7 +772,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.Write("\r\nWhat scaling factor would you like to use? Please re-enter a number to indicate the desired factor: ");
                 clockTimerClass.ChangeBack();
                 Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-                userInput = GetUserInput();
+                userInput = validate.GetUserInput();
             }
 
             return GetScalingFactorValue(userInput);
@@ -849,7 +844,7 @@ namespace POE_PROG6221_ST10023767_GR01
             Console.Write("\r\nPlease select an option by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
             Console.Write("\r\n1. Enter a new Recipe \r\n2. Quit \r\n>");
-            userInput = GetUserInput();
+            userInput = validate.GetUserInput();
 
             while (!int.TryParse(userInput, out userChoice) || userChoice < 1 || userChoice > 2)
             {
@@ -857,7 +852,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.Write("\r\nPlease select an option by entering its corresponding number: ");
                 clockTimerClass.ChangeBack();
                 Console.Write("\r\n1. Enter a new Recipe \r\n2. Quit \r\n>");
-                userInput = GetUserInput();
+                userInput = validate.GetUserInput();
             }
 
             return userChoice;
@@ -879,14 +874,14 @@ namespace POE_PROG6221_ST10023767_GR01
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.Write(message);
-            userInput = GetUserInput();
+            userInput = validate.GetUserInput();
             clockTimerClass.ChangeBack();
 
             while (validate.Validate_Yes_Or_No(userInput) == false)
             {
                 clockTimerClass.ChangeToErrorColor();
                 Console.Write(message);
-                userInput = GetUserInput();
+                userInput = validate.GetUserInput();
                 clockTimerClass.ChangeBack();
             }
 
@@ -1179,14 +1174,14 @@ namespace POE_PROG6221_ST10023767_GR01
 
                 displayClass.PrintRecipeNames(sortedRecipeNames,clockTimerClass);
 
-                string userInput = GetUserInput();
+                string userInput = validate.GetUserInput();
 
-                bool valid = validate.ValidateUserInput(userInput, sortedRecipeNames.Count, clockTimerClass);
+                bool valid = validate.ValidateUserInput(userInput,1, sortedRecipeNames.Count+1);
                 while (!valid)
                 {
                     PrintErrorSelection(clockTimerClass, sortedRecipeNames);
-                    userInput = GetUserInput();
-                    valid = validate.ValidateUserInput(userInput, sortedRecipeNames.Count, clockTimerClass);
+                    userInput = validate.GetUserInput();
+                    valid = validate.ValidateUserInput(userInput,1, sortedRecipeNames.Count+1);
                 }
 
                 int userChoice = int.Parse(userInput);

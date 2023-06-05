@@ -26,8 +26,8 @@ namespace POE_PROG6221_ST10023767_GR01
         public string Step = string.Empty;
 
         /// <summary>
-        /// Instantiates a new instance of the Validation class. The Validation class
-        /// can now be used to perform validation tasks throughout the rest of your code.
+        /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
+        /// perform validation tasks throughout the rest of the code.
         /// /// </summary>
         public Validation validate = new Validation();
 
@@ -35,14 +35,10 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Default constructor for StepClass.
         /// </summary>
-        public StepClass() 
-        { 
-        
-        }
+        public StepClass() { }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// PART 2
         /// Constructor for StepClass that initializes the object with the provided step and number of steps.
         /// </summary>
         public StepClass(string step, int numOfSteps)
@@ -51,17 +47,12 @@ namespace POE_PROG6221_ST10023767_GR01
             this.NumOfSteps = numOfSteps;
         }
 
-        private string GetUserInput()
-        {
-            return Console.ReadLine();
-        }
-
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method prompts the user to enter a whole number representing the number of steps, validates the input, 
         /// and returns the value as an integer.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         /// <returns>An integer value representing the number of steps entered by the user</returns>
         public int GetNumOfSteps(ClockTimerClass clockTimerClass)
         {
@@ -72,7 +63,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             // Prompt the user to enter the number of steps
             Console.Write("\r\nPlease enter the number of steps as a whole number: ");
-            userInput = GetUserInput();
+            userInput = validate.GetUserInput();
 
             // Validate the input using the Validate_Integer method
             do
@@ -96,7 +87,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease re-enter the number of steps as a whole number: ");
-                    userInput = GetUserInput();
+                    userInput = validate.GetUserInput();
                     clockTimerClass.ChangeBack();
                 }
             } while (valid == false);
@@ -107,11 +98,10 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// PART 2
         /// Method prompts the user to enter a number of steps and a step description, creates a new StepClass 
         /// object with those values, and returns it.
         /// </summary>
-        /// <param name="clockTimerClass">An instance of the ClockTimerClass, control the color of the console</param>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         /// <returns>A new StepClass object with the entered step and number of steps</returns>
         public StepClass GetStepData(ClockTimerClass clockTimerClass)
         {
@@ -133,7 +123,7 @@ namespace POE_PROG6221_ST10023767_GR01
         public string GetStep()
         {
             // Get the step description from the user
-            string userInput = GetUserInput();
+            string userInput = validate.GetUserInput();
 
             // Initialize an empty string for the step
             string step = string.Empty;

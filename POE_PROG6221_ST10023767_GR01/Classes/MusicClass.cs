@@ -25,19 +25,17 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// </summary>
         private readonly ClockTimerClass clockTimerClass = new ClockTimerClass();
 
+        /// <summary>
+        /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
+        /// perform validation tasks throughout the rest of the code.
+        /// /// </summary>
+        public Validation validate = new Validation();
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Default constructor for MusicClass.
         /// </summary>
-        public MusicClass() 
-        {
-        
-        }
-
-        private string GetUserInput()
-        {
-            return Console.ReadLine();
-        }
+        public MusicClass() { }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -93,22 +91,17 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                 "7.  Nightbirde – It’s Okay\r\n8.  Bellamy Brothers - Old Hippie\r\n" +
                 "9.  Bellamy Brothers - We Dared The Lightning\r\n10. Smokie - Living next door to Alice\r\n" +
                 "11. Sia - Madilyn Paige - The Greatest\r\n12. Piano background song\r\n13. Nothing\r\n> ");
-            userInput = GetUserInput();
+            userInput = validate.GetUserInput();
 
             do
             {
-                if (Int32.TryParse(userInput, out int selection) == true)
+                valid = validate.ValidateUserInput(userInput, 1, 13);
+                
+                if (valid)
                 {
-                    selection = Convert.ToInt32(userInput);
-                    if (selection > 0 && selection < 14)
-                    {
-                        valid = true;
-                    }
+                    int selection = Convert.ToInt32(userInput);
                 }
-                else
-                {
-                    valid = false;
-                }
+
                 switch (userInput)
                 {
                     case "1":
@@ -162,10 +155,12 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                             "7.  Nightbirde – It’s Okay\r\n8.  Bellamy Brothers - Old Hippie\r\n" +
                             "9.  Bellamy Brothers - We Dared The Lightning\r\n10. Smokie - Living next door to Alice\r\n" +
                             "11. Sia - Madilyn Paige - The Greatest\r\n12. Piano background song\r\n13. Nothing\r\n> ");
-                        userInput = GetUserInput();
+                        userInput = validate.GetUserInput();
                         break;
                 }
+
             } while (valid == false);
+
             Play(audio);
         }
 

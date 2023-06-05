@@ -50,10 +50,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Default constructor for Validation.
         /// </summary>
-        public Validation()
-        {
-
-        }
+        public Validation() { }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -108,7 +105,7 @@ namespace POE_PROG6221_ST10023767_GR01
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Line 111: " + ex.Message);
+                Console.WriteLine("Line 108: " + ex.Message);
                 valid = false;
             }
             return valid;
@@ -348,7 +345,7 @@ namespace POE_PROG6221_ST10023767_GR01
             catch (Exception ex)
             {
                 // If an exception occurred, print the error message and set the number to 0
-                Console.WriteLine("Line 352: " + ex.Message);
+                Console.WriteLine("Line 348: " + ex.Message);
                 number = -9999;
             }
 
@@ -511,17 +508,31 @@ namespace POE_PROG6221_ST10023767_GR01
             return valid;
         }
 
-
-        public bool ValidateUserInput(string userInput, int recipeCount, ClockTimerClass clockTimerClass)
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method validates that the users input is between min and max
+        /// </summary>
+        /// <param name="userInput"></param>
+        /// <returns>True if it is a valid integer and in the valid range, else False</returns>
+        public bool ValidateUserInput(string userInput, int min, int max)
         {
-            if (int.TryParse(userInput, out int userChoice))
+            if (Validate_Integer(userInput))
             {
-                if (userChoice >= 1 && userChoice <= (recipeCount+1))
-                {
-                    return true;
-                }
+                int userChoice = Convert.ToInt32(userInput);    
+                return (userChoice >= min && userChoice <= max);
             }
             return false;
+        }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method is used to get the user input. (I just wanted to create a private method to use every time 
+        /// I need to get user input)
+        /// </summary>
+        /// <returns>The users input</returns>
+        public string GetUserInput()//add code so that when the user input is given I type in it should be a string and if it is a string it should validate the string
+        {
+            return Console.ReadLine();
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

@@ -69,9 +69,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Default constructor for ClockTimerClass.
         /// </summary>
-        public ClockTimerClass()
-        {
-        }
+        public ClockTimerClass() { }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -151,7 +149,7 @@ namespace POE_PROG6221_ST10023767_GR01
             Console.Write("1. Dark theme \r\n2. Light theme \r\n>");
 
             // read the user's input
-            string userInput = Console.ReadLine();
+            string userInput = validate.GetUserInput();
 
             // validate the user's input
             while (!valid)
@@ -164,7 +162,6 @@ namespace POE_PROG6221_ST10023767_GR01
                     // if the user's input is within the range of valid options, return the selection
                     if (selection > 0 && selection < 3)
                     {
-                        valid = true;
                         return selection;
                     }
                 }
@@ -178,10 +175,10 @@ namespace POE_PROG6221_ST10023767_GR01
 
                 Console.Write("1. Dark theme \r\n2. Light theme \r\n>");
 
-                userInput = Console.ReadLine();
+                userInput = validate.GetUserInput();
             }
 
-            // this will never happen, but the compiler needs it to be here
+            // this will never happen, but it needs it to be here
             return 2;
         }
 

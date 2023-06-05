@@ -24,7 +24,7 @@ namespace POE_PROG6221_ST10023767_GR01
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// Holds the quantity of the ingredient in string format e.g. 1 = 'one'
+        /// Holds the quantity of the ingredient.
         /// </summary>
         public double Quantity { get; set; } = (double)0.0;
 
@@ -97,17 +97,12 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Default constructor for IngredientClass.
         /// </summary>
-        public IngredientClass()
-        {
-        }
+        public IngredientClass() { }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// This method prompts the user to enter ingredient data and returns an IngredientClass object with the 
-        /// data entered. The method first calls GetNumOfIngredients to get the number of ingredients to be 
-        /// entered. It then calls GetIngredientName, GetIngredientQuantity, GetIngredientUnit, GetIngredientCalories,
-        /// and the GetFoodGroup to get the name, quantity, unit, calories and food group of each ingredient. It 
-        /// creates and returns a new IngredientClass object with the data entered.
+        /// data entered. It creates and returns a new IngredientClass object with the data entered.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         /// <returns>a new IngredientClass object with the data entered</returns>
@@ -142,7 +137,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             // Prompt the user to enter the number of ingredients as a whole number
             Console.Write("\r\nPlease enter the number of ingredients as a whole number: ");
-            userInput = GetUserInput();
+            userInput = validate.GetUserInput();
             // Validate the user's input
             do
             {
@@ -165,7 +160,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease re-enter the number of ingredients as a whole number: ");
-                    userInput = GetUserInput();
+                    userInput = validate.GetUserInput();
                     clockTimerClass.ChangeBack();
                 }
             } while (!valid);
@@ -189,7 +184,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             // Prompt the user to enter the ingredient name as text
             Console.Write("Please enter the ingredient name as text (e.g. 'Sugar'):   \t");
-            userInput = GetUserInput();
+            userInput = validate.GetUserInput();
 
             // Validate the user's input
             do
@@ -206,7 +201,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease re-enter the ingredient name as text (e.g. 'Sugar'):   \t");
-                    userInput = GetUserInput();
+                    userInput = validate.GetUserInput();
                     clockTimerClass.ChangeBack();
                 }
             } while (!valid);
@@ -232,7 +227,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             // Prompt the user to enter the ingredient unit as text
             Console.Write("Please enter the ingredient unit as text (e.g. 'cup'):   \t");
-            userInput = GetUserInput();
+            userInput = validate.GetUserInput().ToLower();
 
             // Validate the user's input
             do
@@ -250,7 +245,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.Write("\r\nPlease re-enter the ingredient unit as text (e.g. 'cup'):   \t");
-                    userInput = GetUserInput();
+                    userInput = validate.GetUserInput().ToLower();
                     clockTimerClass.ChangeBack();
                 }
             } while (!valid1 || !valid2);
@@ -281,7 +276,7 @@ namespace POE_PROG6221_ST10023767_GR01
             clockTimerClass.ChangeBack();
             Console.Write("\r\n1. Enter the ingredient quantity as text (e.g. 'one')" +
                 "\r\n2. Enter the ingredient quantity as a numerical number (e.g. 1)\r\n>");
-            userInput = GetUserInput();
+            userInput = validate.GetUserInput();
 
             while (!int.TryParse(userInput, out userChoice) || userChoice < 1 || userChoice > 2)
             {
@@ -290,7 +285,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 clockTimerClass.ChangeBack();
                 Console.Write("\r\n1. Enter the ingredient quantity as text (e.g. 'one')" +
                     "\r\n2. Enter the ingredient quantity as a numerical number (e.g. 1)\r\n>");
-                userInput = GetUserInput();
+                userInput = validate.GetUserInput();
             }
 
             // Validate the user's input
@@ -299,7 +294,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 clockTimerClass.ChangeBackColor(clockTimerClass.selectedColor);
                 clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
                 Console.Write("\r\nPlease enter the ingredient quantity as text (e.g. 'one'): \t");
-                userInput = GetUserInput();
+                userInput = validate.GetUserInput();
                 clockTimerClass.ChangeBack();
                 do
                 {
@@ -311,7 +306,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         valid = false;
                         clockTimerClass.ChangeToErrorColor();
                         Console.Write("\r\nPlease re-enter the ingredient quantity as text (e.g. 'one'): \t");
-                        userInput = GetUserInput();
+                        userInput = validate.GetUserInput();
                         clockTimerClass.ChangeBack();
                     }
                     else
@@ -322,7 +317,7 @@ namespace POE_PROG6221_ST10023767_GR01
                             valid = false;
                             clockTimerClass.ChangeToErrorColor();
                             Console.Write("\r\nPlease re-enter the ingredient quantity as text (e.g. 'one'): \t");
-                            userInput = GetUserInput();
+                            userInput = validate.GetUserInput();
                             clockTimerClass.ChangeBack();
                         }
                         else
@@ -337,7 +332,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 clockTimerClass.ChangeBackColor(clockTimerClass.selectedColor);
                 clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
                 Console.Write("\r\nPlease enter the ingredient quantity as a numerical number (e.g. 1): \t");
-                userInput = GetUserInput();
+                userInput = validate.GetUserInput();
                 clockTimerClass.ChangeBack();
                 do
                 {
@@ -351,7 +346,7 @@ namespace POE_PROG6221_ST10023767_GR01
                         clockTimerClass.ChangeToErrorColor();
                         Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical number " +
                             "(e.g. 1): \t");
-                        userInput = GetUserInput();
+                        userInput = validate.GetUserInput();
                         clockTimerClass.ChangeBack();
                     }
                     else
@@ -364,7 +359,7 @@ namespace POE_PROG6221_ST10023767_GR01
                             clockTimerClass.ChangeToErrorColor();
                             Console.Write("\r\nPlease re-enter the ingredient quantity as a numerical " +
                                 "number (e.g. 1): \t");
-                            userInput = GetUserInput();
+                            userInput = validate.GetUserInput();
                             clockTimerClass.ChangeBack();
                         }
                         else
@@ -388,6 +383,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>The numerical value of the entered ingredient calories.</returns>
         public double GetIngredientCalories(ClockTimerClass clockTimerClass)
         {
+            // Initialize variables
             bool valid;
             string userInput;
             double calories = 0.0;
@@ -401,10 +397,11 @@ namespace POE_PROG6221_ST10023767_GR01
                 clockTimerClass.ChangeBack();
                 Console.Write("\r\n1. Enter the number of calories as a numerical number (e.g. 25)" +
                     "\r\n2. More information about calories\r\n>");
-                userInput = GetUserInput();
+                userInput = validate.GetUserInput();
 
-                valid = ValidateUserInput(userInput);
+                valid = validate.ValidateUserInput(userInput,1, 2);
 
+                // Validate the user's input
                 while (!valid)
                 {
                     clockTimerClass.ChangeToErrorColor();
@@ -412,8 +409,8 @@ namespace POE_PROG6221_ST10023767_GR01
                     clockTimerClass.ChangeBack();
                     Console.Write("\r\n1. Enter the number of calories as a numerical number (e.g. 25)" +
                         "\r\n2. More information about calories\r\n>");
-                    userInput = GetUserInput();
-                    valid = ValidateUserInput(userInput);
+                    userInput = validate.GetUserInput();
+                    valid = validate.ValidateUserInput(userInput,1, 2);
                 }
 
                 userChoice = int.Parse(userInput);
@@ -423,16 +420,16 @@ namespace POE_PROG6221_ST10023767_GR01
                     clockTimerClass.ChangeBackColor(clockTimerClass.selectedColor);
                     clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
                     Console.Write("\r\nPlease enter the number of calories as a numerical number (e.g. 25): \t");
-                    userInput = GetUserInput();
+                    userInput = validate.GetUserInput();
                     clockTimerClass.ChangeBack();
                     do
                     {
-                        if (!ValidateCaloriesInput(userInput))
+                        if (!(validate.Validate_String(userInput) && validate.Validate_Float(userInput)))
                         {
                             valid = false;
                             clockTimerClass.ChangeToErrorColor();
                             Console.Write("\r\nPlease enter the number of calories as a numerical number (e.g. 25): \t");
-                            userInput = GetUserInput();
+                            userInput = validate.GetUserInput();
                             clockTimerClass.ChangeBack();
                         }
                         else
@@ -467,11 +464,6 @@ namespace POE_PROG6221_ST10023767_GR01
             return calories;
         }
 
-        private bool ValidateCaloriesInput(string userInput)
-        {
-            return validate.Validate_String(userInput) && validate.Validate_Float(userInput);
-        }
-
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method prompts the user to select a food group from the list and returns the selected food group 
@@ -481,6 +473,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>The selected food group as a string</returns>
         public string GetFoodGroup(ClockTimerClass clockTimerClass)
         {
+            // Initialize variables
             string userInput, foodGroup = string.Empty;
             bool valid = false;
 
@@ -498,9 +491,13 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.WriteLine($"{FoodGroupList.Count + 1}. More information on a specific food group.");
                 Console.Write(">");
 
-                userInput = GetUserInput();
-                if (int.TryParse(userInput, out int userChoice))
+                userInput = validate.GetUserInput();
+
+                // Validate the user's input
+                if (validate.Validate_Integer(userInput))
                 {
+                    int userChoice = Convert.ToInt32(userInput);
+
                     if (userChoice >= 1 && userChoice <= FoodGroupList.Count)
                     {
                         int foodGroupIndex = userChoice - 1;
@@ -528,7 +525,6 @@ namespace POE_PROG6221_ST10023767_GR01
             return foodGroup;
         }
 
-
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method displays information about a specific food group based on the users selection.
@@ -541,23 +537,26 @@ namespace POE_PROG6221_ST10023767_GR01
             Console.WriteLine("\r\nPlease select a food group to view by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
 
-            DisplayFoodGroupOptions();
+            displayClass.DisplayFoodGroupOptions(FoodGroupList);
 
-            string userInput = GetUserInput();
-            bool valid = ValidateUserInput(userInput);
+            // Initialize variables
+            string userInput = validate.GetUserInput();
+            bool valid = validate.ValidateUserInput(userInput,0, FoodGroupList.Count +1);
 
+            // Validate the user's input
             while (!valid)
             {
                 clockTimerClass.ChangeToErrorColor();
                 Console.WriteLine("\r\nPlease re-select a food group by entering its corresponding number: ");
                 clockTimerClass.ChangeBack();
 
-                DisplayFoodGroupOptions();
-                userInput = GetUserInput();
-                valid = ValidateUserInput(userInput);
+                displayClass.DisplayFoodGroupOptions(FoodGroupList);
+                userInput = validate.GetUserInput();
+                valid = validate.ValidateUserInput(userInput,1, FoodGroupList.Count + 1);
             }
 
-            int userChoice = int.Parse(userInput);
+            // Initialize variables
+            int userChoice = Convert.ToInt32(userInput);
             int recipeIndex = userChoice - 1;
 
             if (recipeIndex >= 0 && recipeIndex < FoodGroupList.Count)
@@ -570,47 +569,22 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.WriteLine("\r\nPlease re-select a food group to view by entering its corresponding number: ");
                 clockTimerClass.ChangeBack();
 
-                DisplayFoodGroupOptions();
-                userInput = GetUserInput();
-                valid = ValidateUserInput(userInput);
+                displayClass.DisplayFoodGroupOptions(FoodGroupList);
+                userInput = validate.GetUserInput();
+                valid = validate.ValidateUserInput(userInput,1, FoodGroupList.Count + 1);
 
-                while (!valid || int.Parse(userInput) != FoodGroupList.Count + 1)
+                // Validate the user's input
+                while (!valid || Convert.ToInt32(userInput) != FoodGroupList.Count + 1)
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.WriteLine("\r\nPlease re-select a food group by entering its corresponding number: ");
                     clockTimerClass.ChangeBack();
 
-                    DisplayFoodGroupOptions();
-                    userInput = GetUserInput();
-                    valid = ValidateUserInput(userInput);
+                    displayClass.DisplayFoodGroupOptions(FoodGroupList);
+                    userInput = validate.GetUserInput();
+                    valid = validate.ValidateUserInput(userInput,1, FoodGroupList.Count + 1);
                 }
             }
         }
-
-        private void DisplayFoodGroupOptions()
-        {
-            for (int i = 0; i < FoodGroupList.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {FoodGroupList[i]}");
-            }
-            Console.WriteLine($"{FoodGroupList.Count + 1}. Back");
-            Console.Write(">");
-        }
-
-        private string GetUserInput()
-        {
-            return Console.ReadLine();
-        }
-
-        private bool ValidateUserInput(string userInput)
-        {
-            if (int.TryParse(userInput, out int userChoice))
-            {
-                return userChoice >= 1 && userChoice <= FoodGroupList.Count + 1;
-            }
-            return false;
-        }
-
-        
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

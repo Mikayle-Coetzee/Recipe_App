@@ -21,7 +21,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// <summary>
         /// Instantiates a new instance of the Validation class. The Validation class can now be used to 
         /// perform validation tasks throughout the rest of the code.
-        /// /// </summary>
+        /// </summary>
         public Validation validate = new Validation();
 
         /// <summary>
@@ -38,14 +38,11 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// <summary>
         /// Default constructor for DisplayClass.
         /// </summary>
-        public DisplayClass()
-        {
-
-        }
+        public DisplayClass() { }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prints the ingredients of a selected recipe. 
+        /// Method displays the ingredients of a selected recipe. 
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
         /// <param name="selectedRecipe">The name of the selected recipe</param>
@@ -60,12 +57,17 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             string recipe = "Recipe: " + selectedRecipe;
 
             Console.WriteLine();
+
             DisplayLine();
+
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+
             Console.WriteLine();
             Console.WriteLine(recipe);
+
             DisplayBlock(recipe);
+
             Console.WriteLine();
             Console.WriteLine("\r\nIngredients:\r\n");
            
@@ -87,6 +89,12 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                 + "\r\n\tRange: "+ CalorieRangeInformation(TotalCaloriesList[recipeIndex]));
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method displays the calorie range information
+        /// </summary>
+        /// <param name="totalNumberOfCalories">The total calories of the selected recipe</param>
+        /// <returns></returns>
         private string CalorieRangeInformation(double totalNumberOfCalories)
         {
             string information;
@@ -136,7 +144,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prints the steps of a recipe. Changes the console background and foreground colors to highlight 
+        /// Method displays the steps of a recipe. Changes the console background and foreground colors to highlight 
         /// the steps. Prints each step with its corresponding index.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass</param>
@@ -145,7 +153,9 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+
             Console.WriteLine("\r\nSteps:\r\n");
+
             clockTimerClass.ChangeBack();
 
             for (int i = 0; i < steps.Count; i++)
@@ -160,7 +170,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prints a thank you message and sets the console color to black with white text. Also calls 
+        /// Method displays a thank you message and sets the console color to black with white text. Also calls 
         /// DisplayBlock() method to display a horizontal line. After printing the message, the console 
         /// color is reset to its previous state and waits for user input.
         /// </summary>
@@ -169,6 +179,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         {
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+
             Console.WriteLine("\r\n" + FAREWELL);
 
             string farewell = "farewell";
@@ -178,7 +189,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             clockTimerClass.ChangeBack();
 
             Console.WriteLine();
-            Console.ReadLine();
+            validate.GetUserInput();
 
             Environment.Exit(0);
         }
@@ -188,10 +199,10 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
         /// Method is used to display a block of white spaces on the console at a specific position.
         /// If the argument "length" is equal to "welcome", it sets the cursor position to the end of the welcome 
         /// message. Otherwise, it calculates the end line of the console output and sets the cursor position to 
-        /// the beginning of the "BYE" message, then displays a block of 60 white spaces to overwrite any previous
+        /// the beginning of the "farewell" message, then displays a block of 60 white spaces to overwrite any previous
         /// text in that line.
         /// </summary>
-        /// <param name="length"></param>
+        /// <param name="length">The length of the recipe name</param>
         public void DisplayBlock(string length)
         {
             if (length == "welcome")
@@ -218,7 +229,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prints a horizontal line made of Unicode character "\u2500". The length of the line is 100 
+        /// Method displays a horizontal line made of Unicode character "\u2500". The length of the line is 100 
         /// characters.
         /// </summary>
         public void DisplayLine()
@@ -261,7 +272,7 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Method prints the names of the recipes in the given list. Displays the recipe names with corresponding 
+        /// Method displays the names of the recipes in the given list. Displays the recipe names with corresponding 
         /// numbers, followed by an option to go back. 
         /// </summary>
         /// <param name="recipeNames">The list of recipe names</param>
@@ -277,9 +288,15 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             Console.Write(">");
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method displays the information of a spesific food group that is selected by the user
+        /// </summary>
+        /// <param name="recipeIndex">The food group index/number selected by the user</param>
         public void DisplayFoodGroupInformation(int recipeIndex)
         {
             DisplayLine();
+
             switch (recipeIndex)
             {
                 case 0:
@@ -327,7 +344,22 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
                         "\r\n Drinking sufficient water helps maintain bodily functions, supports digestion, and aids in temperature regulation.");
                     break;
             }
+
             DisplayLine();
+        }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method displays the food group options using the FoodGroupList
+        /// </summary>
+        public void DisplayFoodGroupOptions(List<string> FoodGroupList)
+        {
+            for (int i = 0; i < FoodGroupList.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {FoodGroupList[i]}");
+            }
+            Console.WriteLine($"{FoodGroupList.Count + 1}. Back");
+            Console.Write(">");
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//
