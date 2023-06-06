@@ -249,7 +249,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
 
                 string userInput = validate.GetUserInput();
-                int userChoice = sortedRecipeNames.Count + 1;
+                int userChoice = 0;
 
                 if (validate.ValidateUserInput(userInput, 1, sortedRecipeNames.Count))
                 {
@@ -381,7 +381,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
                 displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
                 userInput2 = validate.GetUserInput();
-                int userChoice =  sortedRecipeNames.Count + 1;
+                int userChoice =  0;
 
                 if (validate.ValidateUserInput(userInput2, 1, sortedRecipeNames.Count))
                 {

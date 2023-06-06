@@ -508,13 +508,26 @@ namespace POE_PROG6221_ST10023767_GR01
                             foodGroup = FoodGroupList[foodGroupIndex];
                         }
                     }
-                    else if (userChoice == FoodGroupList.Count + 1)
+                    else
                     {
-                        FoodGroupInformation(clockTimerClass);
+                        if (userChoice == FoodGroupList.Count + 1)
+                        {
+                            FoodGroupInformation(clockTimerClass);
+                            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+                            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+                            Console.WriteLine("\r\nPlease select a food group by entering its corresponding number: ");
+                            clockTimerClass.ChangeBack();
+                            valid = false;
+                        }
+                        else
+                        {
+                            clockTimerClass.ChangeToErrorColor();
+                            Console.WriteLine("\r\nPlease re-select a food group by entering its corresponding number: ");
+                            clockTimerClass.ChangeBack();
+                        }
                     }
                 }
-
-                if (!valid)
+                else
                 {
                     clockTimerClass.ChangeToErrorColor();
                     Console.WriteLine("\r\nPlease re-select a food group by entering its corresponding number: ");
