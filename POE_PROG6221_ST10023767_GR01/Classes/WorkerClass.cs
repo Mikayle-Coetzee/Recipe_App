@@ -241,6 +241,8 @@ namespace POE_PROG6221_ST10023767_GR01
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\nPlease select the recipe to clear by entering its corresponding number: ");
 
+            int userChoice = 0;
+
             do
             {
                 // Sort the recipe names in alphabetical order
@@ -249,7 +251,6 @@ namespace POE_PROG6221_ST10023767_GR01
                 displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
 
                 string userInput = validate.GetUserInput();
-                int userChoice = 0;
 
                 if (validate.ValidateUserInput(userInput, 1, sortedRecipeNames.Count))
                 {
@@ -297,7 +298,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 }
                 else
                 {
-                    if (userChoice == sortedRecipeNames.Count + 1)
+                    if ((int.TryParse(userInput, out userChoice)) && userChoice == sortedRecipeNames.Count + 1)
                     {
                         PrintMenu(clockTimerClass);
                         valid = true;
@@ -374,6 +375,8 @@ namespace POE_PROG6221_ST10023767_GR01
             Console.WriteLine("\r\nPlease select the recipe to scale by entering its corresponding number: ");
             clockTimerClass.ChangeBack();
 
+            int userChoice =  0;
+
             do
             {
                 //// Sort the recipe names in alphabetical order
@@ -381,7 +384,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
                 displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
                 userInput2 = validate.GetUserInput();
-                int userChoice =  0;
+
 
                 if (validate.ValidateUserInput(userInput2, 1, sortedRecipeNames.Count))
                 {
@@ -411,25 +414,28 @@ namespace POE_PROG6221_ST10023767_GR01
 
                     displayClass.PrintSteps(clockTimerClass, steps);
 
-                    double totalCalories = TotalCaloriesList[recipeIndex2]; 
+                    double totalCalories = TotalCaloriesList[recipeIndex2];
 
-                    NotifyUser(totalCalories);
+                    // Handle the event
+                    HandleRecipeExceedsCaloriesEvent(totalCalories);
 
                     break;
                 }
-                else if (userChoice == sortedRecipeNames.Count + 1)
-                {
-                    PrintMenu(clockTimerClass);
-                    valid = true;
-                }
                 else
                 {
-                    clockTimerClass.ChangeToErrorColor();
-                    Console.WriteLine("\r\nPlease re-select the recipe to scale by entering its corresponding number: ");
-                    clockTimerClass.ChangeBack();
-                    valid = false;
+                    if ((int.TryParse(userInput2, out userChoice)) && userChoice == sortedRecipeNames.Count + 1)
+                    {
+                        PrintMenu(clockTimerClass);
+                        valid = true;
+                    }
+                    else
+                    {
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.WriteLine("\r\nPlease re-select the recipe to scale by entering its corresponding number: ");
+                        clockTimerClass.ChangeBack();
+                        valid = false;
+                    }
                 }
-            
             } while (valid == false);
         }
 
@@ -890,18 +896,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 IngredientCollections = new List<List<(string, double, string, double, string, double, double, string)>>();
             }
 
-            string userInput = GetValidYesOrNoInput(clockTimerClass, "\r\nDo you want to enter a recipe? " +
-                    "(Yes or No): ");
-
-            if (userInput.Trim().ToUpper().Equals("NO"))
-            {
-                AnotherRecipe = false;
-                PrintMenu(clockTimerClass);
-            }
-            else
-            {
-                AddRecipe(clockTimerClass);
-            }
+            AddRecipe(clockTimerClass);
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -1046,23 +1041,27 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Notifies the user about a recipe.
         /// </summary>
-        /// <param name="recipeName">The name of the recipe.</param>
+        /// <param name="calories">The calories of the recipe.</param>
         protected virtual void NotifyUser(double calories)
         {
-            RecipeExceedsCaloriesEvent?.Invoke(calories);
+            if (calories > 300)
+            {
+                // Raise the event to notify the user
+                RecipeExceedsCaloriesEvent?.Invoke(calories);
+            }
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Handles the event when a recipe exceeds the calorie limit.
         /// </summary>
-        /// <param name="recipeName">The name of the recipe.</param>
+        /// <param name="calories">The calories of the recipe.</param>
         private void HandleRecipeExceedsCalories(double calories)
         {
             if (calories > 300)
             {
-                DialogResult result = MessageBox.Show($"The recipe exceeds 300 calories. Total calories are {calories}", "Recipe Notification",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"The recipe exceeds 300 calories. Total calories are {calories}", "Recipe Notification",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -1091,12 +1090,42 @@ namespace POE_PROG6221_ST10023767_GR01
 
             double totalCalories = TotalCaloriesList.LastOrDefault(); // Get the total calories of the last added recipe
 
-            RecipeExceedsCaloriesEvent += HandleRecipeExceedsCalories;
-            NotifyUser(totalCalories);
+            // Handle the event
+            HandleRecipeExceedsCaloriesEvent(totalCalories);
 
             StoreRecipes(StepCollections, IngredientCollections);
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Subscribes the event handler to the RecipeExceedsCaloriesEvent.
+        /// </summary>
+        private void SubscribeToRecipeExceedsCaloriesEvent()
+        {
+            RecipeExceedsCaloriesEvent += HandleRecipeExceedsCalories;
+        }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Unsubscribes the event handler from the RecipeExceedsCaloriesEvent.
+        /// </summary>
+        private void UnsubscribeFromRecipeExceedsCaloriesEvent()
+        {
+            RecipeExceedsCaloriesEvent -= HandleRecipeExceedsCalories;
+        }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Handles the event when a recipe exceeds the calorie limit by subscribing, notifying the user,
+        /// and unsubscribing from the event.
+        /// </summary>
+        /// <param name="totalCalories">The total calories of the recipe.</param>
+        private void HandleRecipeExceedsCaloriesEvent(double totalCalories)
+        {
+            SubscribeToRecipeExceedsCaloriesEvent(); // Subscribe to the event
+            NotifyUser(totalCalories); // Notify the user
+            UnsubscribeFromRecipeExceedsCaloriesEvent(); // Unsubscribe from the event
+        }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
