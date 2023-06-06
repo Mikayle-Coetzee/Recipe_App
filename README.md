@@ -1,14 +1,18 @@
 # POE_PROG6221_ST10023767_GR01
 
-This C# application allows users to enter a single recipe, scale the recipe ingredients quantities, and display the recipe. The project is designed to be user-friendly and intuitive, making it accessible to anyone who wants to enter and scale their recipes.
+This C# application allows users to enter an unlimited number of recipes, scale the recipe (including the ingredients quantities, total calories and the unit of measurement will change accordingly), Print A Specific Recipe, Enter Another Recipe , Clear Recipe, or Quit. The project is designed to be user-friendly and intuitive, making it accessible to anyone who wants to enter and scale their recipes.
 
 The main features of the application are:
 
-- Single recipe entry: Users can easily enter a recipe with its ingredients and quantities.
+- Enter an unlimited number of recipes: Users can easily enter a recipe with its ingredients and steps.
 
-- Recipe scaling: Users can scale the recipe ingredients quantities by entering a scaling factor.
+- Recipe scaling: Users can scale a selected recipe ingredients by entering a scaling factor.
 
-- Recipe display: Users can view the recipe with the original or scaled ingredient quantities.
+- Recipe display: Users can select a recipe to view from a list of recipes added and displayed in alphabetical order.
+
+- Calculate the total calories: It would calculate the total calories and check if it is more than three hundred, if it is an alert will display. When displaying the recipe, it should add information about the calorie range. 
+
+- Get information: The user will be able to get information on the calories and the food groups.
 
 This project is specifically developed for a POE and will be used by a lecturer for evaluation purposes. However, it can be used by anyone who wants to enter and scale their recipes.
 
@@ -54,17 +58,18 @@ To use this application, follow these steps:
 2. Enter the number for the theme that you would like to be applied.
 3. Enter the number 1 if you would like to enter a recipe, and number 2 if you like to quit the application.
 4. If you entered one:
+- Enter yes or no if you like to go back to the menu.
 - Enter yes or no if you like to enter a recipe or not.
-- if you entered yes: you then must enter the number of ingredient that you would like to enter, followed with the ingredient details. You them must enter the number of steps that you would like to enter, followed with the steps.
-5. If tou entered two: 
+- if you entered yes: you must then enter the recipe name, followed with the number of ingredients that you would like to enter and the ingredient details. You then must enter the number of steps that you would like to enter, followed with the steps. If the total calorie of a recipe is more than three hundred, an alert will be displayed. 
+5. If you entered two: 
 - The application will close.
-6. You can then choose if you would like to (Print Recipe, Scale Quantities, Clear Recipe, or Quit)
-7. If you entered the number for 'Print Recipe', the recipe you entered will be displayed 
-8. If you entered the number for 'Scale Quantities', you must enter to what factor you would like to scale the quantities it includes half, double, triple, reset. 
+6. You can then choose if you would like to (Print A Specific Recipe, Scale Quantities, Enter Another Recipe, Clear Recipe, or Quit)
+7. If you entered the number for 'Print A Specific Recipe', the recipe list in alphabetical order will display and allow you to go back to the main menu or to display a recipe by entering its corresponding number. If the input is valid, it would display the correct recipe that was selected.
+8. If you entered the number for 'Scale Quantities’, the recipe list in alphabetical order will display and allow you to go back to the main menu or to scale a recipe by entering its corresponding number. You must enter to what factor you would like to scale the quantities to it includes half, double, triple, reset After entering the factor, it would display the scaled recipe. 
 - If you then select that you would like to print the recipe, the updated recipe will be printed. 
-9. If you entered the number for 'Clear Recipe', you will be asked to comfirm with entering yes or no. 
-- you will then have a option to enter a new recipe or quit. 
-10. If you entered the number for 'Quit', the application will close. 
+9. If you entered the number for 'Enter Another Recipe', You are required to enter Yes or No if you would like to enter a recipe. If no it would go back to the main menu, if yes, the recipe list in alphabetical order will display and allow you to go back to the main menu or to enter another recipe.
+10. If you entered the number for 'Clear Recipe', the recipe list in alphabetical order will display and allow you to go back to the main menu or to clear a recipe by entering its corresponding number. You are required to enter Yes or No if you would like to clear the selected recipe. If no it would not clear the recipe and display that the clear recipe request has been cancelled and it will go back to the main menu, if yes, it would clear the recipe and display a message that the recipe was successfully deleted.
+11. If you entered the number for 'Quit', the application will close after displaying a message. 
 
 ## Enhancements and Key Focus Areas in my Part 1 Submission
 
