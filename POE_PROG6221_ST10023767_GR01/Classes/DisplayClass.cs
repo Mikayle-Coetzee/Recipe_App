@@ -361,5 +361,21 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
             Console.WriteLine($"{FoodGroupList.Count + 1}. Back");
             Console.Write(">");
         }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method displays the scaling factor options
+        /// </summary>
+        /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
+        public void DisplayScalingFactorOptions(ClockTimerClass clockTimerClass)
+        {
+            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
+            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
+
+            Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
+
+            clockTimerClass.ChangeBack();
+            Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
+        }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

@@ -225,7 +225,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// 
+        /// Method clears a selected recipe 
         /// </summary>
         /// <param name="clockTimerClass"></param>
         private void ClearRecipe(ClockTimerClass clockTimerClass)
@@ -249,75 +249,66 @@ namespace POE_PROG6221_ST10023767_GR01
                 displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
 
                 string userInput = validate.GetUserInput();
+                int userChoice = sortedRecipeNames.Count + 1;
 
-                if (int.TryParse(userInput, out int userChoice))
+                if (validate.ValidateUserInput(userInput, 1, sortedRecipeNames.Count))
                 {
-                    if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
+                    userChoice = Convert.ToInt32(userInput);
+                    clockTimerClass.ChangeToErrorColor();
+                    Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
+                                    "\r\nthat this action is irreversible? (Yes/No):");
+                    string newInput = validate.GetUserInput();
+                    clockTimerClass.ChangeBack();
+
+                    while (validate.Validate_Yes_Or_No(newInput) == false)
                     {
                         clockTimerClass.ChangeToErrorColor();
                         Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
                                         "\r\nthat this action is irreversible? (Yes/No):");
-                        string newInput = validate.GetUserInput();
+                        newInput = validate.GetUserInput();
                         clockTimerClass.ChangeBack();
+                    }
 
-                        while (validate.Validate_Yes_Or_No(newInput) == false)
-                        {
-                            clockTimerClass.ChangeToErrorColor();
-                            Console.Write("\r\nDo you still want to proceed with clearing your recipe, considering " +
-                                            "\r\nthat this action is irreversible? (Yes/No):");
-                            newInput = validate.GetUserInput();
-                            clockTimerClass.ChangeBack();
-                        }
+                    if (newInput.Trim().ToUpper().Equals("NO"))
+                    {
+                        // Cancel the request to enter a new recipe
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
+                        clockTimerClass.ChangeBack();
+                        PrintMenu(clockTimerClass);
+                    }
+                    else
+                    {
+                        int recipeIndex = userChoice - 1;
+                        // Code to revert the ordered recipe to the unsorted one...
+                        string selectedRecipeName = sortedRecipeNames[recipeIndex];
+                        int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
 
-                        if (newInput.Trim().ToUpper().Equals("NO"))
-                        {
-                            // Cancel the request to enter a new recipe
-                            clockTimerClass.ChangeToErrorColor();
-                            Console.WriteLine("\r\nThe request to enter a new recipe has been canceled.");
-                            clockTimerClass.ChangeBack();
-                            PrintMenu(clockTimerClass);
-                        }
-                        else
-                        {
-                            int recipeIndex = userChoice - 1;
-                            // Code to revert the ordered recipe to the unsorted one...
-                            string selectedRecipeName = sortedRecipeNames[recipeIndex];
-                            int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
+                        // Remove the selected recipe from the collections
+                        recipeNames.RemoveAt(recipeIndex2);
+                        stepCollections.RemoveAt(recipeIndex2);
+                        ingredientCollections.RemoveAt(recipeIndex2);
+                        TotalCaloriesList.RemoveAt(recipeIndex2);
+                        RecipeList.RemoveAt(recipeIndex2);
 
-                            // Remove the selected recipe from the collections
-                            recipeNames.RemoveAt(recipeIndex2);
-                            stepCollections.RemoveAt(recipeIndex2);
-                            ingredientCollections.RemoveAt(recipeIndex2);
-                            TotalCaloriesList.RemoveAt(recipeIndex2);
-                            RecipeList.RemoveAt(recipeIndex2);
-
-                            Console.WriteLine("\r\nRecipe '" + selectedRecipeName + "' was sucsessfully deleted.");
-                        }
+                        Console.WriteLine("\r\nRecipe '" + selectedRecipeName + "' was sucsessfully deleted.");
+                    }
+                    valid = true;
+                }
+                else
+                {
+                    if (userChoice == sortedRecipeNames.Count + 1)
+                    {
+                        PrintMenu(clockTimerClass);
                         valid = true;
                     }
                     else
                     {
-                        if (userChoice == sortedRecipeNames.Count + 1)
-                        {
-                            PrintMenu(clockTimerClass);
-                            valid = true;
-                        }
-                        else
-                        {
-                            clockTimerClass.ChangeToErrorColor();
-                            Console.WriteLine("\r\nPlease re-select the recipe to clear by entering its corresponding number: ");
-                            clockTimerClass.ChangeBack();
-                            valid = false;
-                        }
+                        clockTimerClass.ChangeToErrorColor();
+                        Console.WriteLine("\r\nPlease re-select the recipe to clear by entering its corresponding number: ");
+                        clockTimerClass.ChangeBack();
+                        valid = false;
                     }
-
-                }
-                else
-                {
-                    clockTimerClass.ChangeToErrorColor();
-                    Console.WriteLine("\r\nPlease re-select the recipe to clear by entering its corresponding number: ");
-                    clockTimerClass.ChangeBack();
-                    valid = false;
                 }
             } while (valid == false);
         }
@@ -325,13 +316,13 @@ namespace POE_PROG6221_ST10023767_GR01
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// This method takes in a user input, a validation object, and a clock timer object, and returns a valid 
-        /// user choice as an integer between 1 and 4. It validates the user input to ensure that it is a positive 
-        /// integer between 1 and 4, and prompts the user for valid input if necessary.It also changes the console 
+        /// user choice as an integer between 1 and 5. It validates the user input to ensure that it is a positive 
+        /// integer between 1 and 5, and prompts the user for valid input if necessary.It also changes the console 
         /// color to indicate an error if the user enters invalid input.
         /// </summary>
         /// <param name="userInput">The user input to validate.</param>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
-        /// <returns></returns>
+        /// <returns>The valid user choice</returns>
         private int GetValidUserChoice(string userInput, ClockTimerClass clockTimerClass)
         {
             // Initialize variables
@@ -340,13 +331,10 @@ namespace POE_PROG6221_ST10023767_GR01
 
             do
             {
-                if (validate.Validate_Integer(userInput))
+                if (validate.ValidateUserInput(userInput, 1, 5))
                 {
                     number = Convert.ToInt32(userInput);
-                    if ((number > 0) && (number < 6))
-                    {
-                        valid = true;
-                    }
+                    valid = true;
                 }
 
                 if (!valid)
@@ -364,12 +352,8 @@ namespace POE_PROG6221_ST10023767_GR01
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
-
         /// <summary>
         /// Method that takes a ClockTimerClass object as an argument and prompts the user to enter a scaling factor.
-        /// It then adjusts the quantity and unit of each ingredient in a list based on the selected factor.
-        /// The method uses a loop to iterate through the list of ingredients and a switch statement to determine how
-        /// to adjust each ingredients unit based on its current unit and quantity.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void ScaleQuantities(ClockTimerClass clockTimerClass)
@@ -383,13 +367,12 @@ namespace POE_PROG6221_ST10023767_GR01
             // Retrieve and display the recipe names in alphabetical order
             List<string> recipeNames = GetRecipeNames();
             List<List<string>> stepCollections = GetStepCollections();
-
             List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections = GetIngredientCollections();
 
             clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
             clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
             Console.WriteLine("\r\nPlease select the recipe to scale by entering its corresponding number: ");
-            //clockTimerClass.ChangeBack();
+            clockTimerClass.ChangeBack();
 
             do
             {
@@ -398,56 +381,46 @@ namespace POE_PROG6221_ST10023767_GR01
 
                 displayClass.PrintRecipeNames(sortedRecipeNames, clockTimerClass);
                 userInput2 = validate.GetUserInput();
+                int userChoice =  sortedRecipeNames.Count + 1;
 
-                if (int.TryParse(userInput2, out int userChoice))
+                if (validate.ValidateUserInput(userInput2, 1, sortedRecipeNames.Count))
                 {
-                    if (userChoice >= 1 && userChoice <= sortedRecipeNames.Count)
-                    {
-                        recipeIndex = userChoice - 1;
-                        //Code that can revert the ordered recipe to the unsorted one...
-                        string selectedRecipeName = sortedRecipeNames[recipeIndex];
-                        int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
+                    userChoice = Convert.ToInt32(userInput2);
 
-                        DisplayScalingFactorOptions(clockTimerClass);
+                    recipeIndex = userChoice - 1;
 
-                        factor = GetScalingFactor(clockTimerClass);
+                    string selectedRecipeName = sortedRecipeNames[recipeIndex];
+                    int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
 
+                    displayClass.DisplayScalingFactorOptions(clockTimerClass);
 
-                        int listLength = ingredientCollections[recipeIndex2].Count;
-                        TotalCaloriesList[recipeIndex2] = Math.Round((TotalCaloriesList[recipeIndex2] * factor), 2);
+                    factor = GetScalingFactor(clockTimerClass);
 
-                        ApplyScalingFactor(recipeIndex2, factor, ingredientCollections);
+                    int listLength = ingredientCollections[recipeIndex2].Count;
+                    TotalCaloriesList[recipeIndex2] = Math.Round((TotalCaloriesList[recipeIndex2] * factor), 2);
 
-
-                        RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
-                        List<string> steps = stepCollections[recipeIndex2];
-
-                        List<(string, double, string, double, string, double, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];
-                        displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples,
-                            TotalCaloriesList, recipeIndex2);
-
-                        displayClass.PrintSteps(clockTimerClass, steps);
-
-                        double totalCalories = TotalCaloriesList[recipeIndex2]; // Get the total calories of the last added recipe
+                    ApplyScalingFactor(recipeIndex2, factor, ingredientCollections);
 
 
-                        
-                        NotifyUser(totalCalories);
+                    RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
+                    List<string> steps = stepCollections[recipeIndex2];
 
-                        break;
-                    }
-                    else if (userChoice == sortedRecipeNames.Count + 1)
-                    {
-                        PrintMenu(clockTimerClass);
-                        valid = true;
-                    }
-                    else
-                    {
-                        clockTimerClass.ChangeToErrorColor();
-                        Console.WriteLine("\r\nPlease re-select the recipe to scale by entering its corresponding number: ");
-                        clockTimerClass.ChangeBack();
-                        valid = false;
-                    }
+                    List<(string, double, string, double, string, double, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];
+                    displayClass.PrintIngredients(clockTimerClass, selectedRecipe.RecipeName, ingredientTuples,
+                        TotalCaloriesList, recipeIndex2);
+
+                    displayClass.PrintSteps(clockTimerClass, steps);
+
+                    double totalCalories = TotalCaloriesList[recipeIndex2]; 
+
+                    NotifyUser(totalCalories);
+
+                    break;
+                }
+                else if (userChoice == sortedRecipeNames.Count + 1)
+                {
+                    PrintMenu(clockTimerClass);
+                    valid = true;
                 }
                 else
                 {
@@ -456,10 +429,19 @@ namespace POE_PROG6221_ST10023767_GR01
                     clockTimerClass.ChangeBack();
                     valid = false;
                 }
+            
             } while (valid == false);
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method adjusts the quantity and unit of each ingredient in a list based on the selected factor.
+        /// The method uses a loop to iterate through the list of ingredients and a switch statement to determine how
+        /// to adjust each ingredients unit based on its current unit and quantity.
+        /// </summary>
+        /// <param name="recipeIndex2">The index of the selected recipe</param>
+        /// <param name="factor">The factor that the user wants to scale to</param>
+        /// <param name="ingredientCollections">The list of ingredients</param>
         private void ApplyScalingFactor(int recipeIndex2, double factor,
             List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
         {
@@ -751,22 +733,18 @@ namespace POE_PROG6221_ST10023767_GR01
             }
         }
 
-        private void DisplayScalingFactorOptions(ClockTimerClass clockTimerClass)
-        {
-            clockTimerClass.ChangeBackColor(clockTimerClass.selectedTextBackgroundColor);
-            clockTimerClass.ChangeForeColor(clockTimerClass.selectedForeColor);
 
-            Console.Write("\r\nWhat scaling factor would you like to use? Please enter a number to indicate the desired factor: ");
-
-            clockTimerClass.ChangeBack();
-            Console.Write("\n1. Half\n2. Double\n3. Triple\n4. Reset\n>");
-        }
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method will get the scaling factor selected from the user
+        /// </summary>
+        /// <param name="clockTimerClass"></param>
+        /// <returns>The scaling factor</returns>
         private double GetScalingFactor(ClockTimerClass clockTimerClass)
         {
             string userInput = validate.GetUserInput();
 
-            while (!IsValidScalingFactor(userInput))
+            while (!validate.ValidateUserInput(userInput,1,4))
             {
                 clockTimerClass.ChangeToErrorColor();
                 Console.Write("\r\nWhat scaling factor would you like to use? Please re-enter a number to indicate the desired factor: ");
@@ -778,17 +756,19 @@ namespace POE_PROG6221_ST10023767_GR01
             return GetScalingFactorValue(userInput);
         }
 
-        private bool IsValidScalingFactor(string userInput)
-        {
-            return int.TryParse(userInput, out int number) && number >= 1 && number <= 4;
-        }
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Method will return the scaling factor 
+        /// </summary>
+        /// <param name="userInput"></param>
+        /// <returns>The scaling factor</returns>
         private double GetScalingFactorValue(string userInput)
         {
             double[] arrFactor = { 0.5, 2, 3, 4 };
-            int number = int.Parse(userInput);
+            int number = Convert.ToInt32(userInput);
             return arrFactor[number - 1];
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method is the main entry point for the recipe application. It prompts the user to select between two 
@@ -845,8 +825,8 @@ namespace POE_PROG6221_ST10023767_GR01
             clockTimerClass.ChangeBack();
             Console.Write("\r\n1. Enter a new Recipe \r\n2. Quit \r\n>");
             userInput = validate.GetUserInput();
-
-            while (!int.TryParse(userInput, out userChoice) || userChoice < 1 || userChoice > 2)
+            
+            while (!validate.ValidateUserInput(userInput,1,2))
             {
                 clockTimerClass.ChangeToErrorColor();
                 Console.Write("\r\nPlease select an option by entering its corresponding number: ");
@@ -854,6 +834,8 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.Write("\r\n1. Enter a new Recipe \r\n2. Quit \r\n>");
                 userInput = validate.GetUserInput();
             }
+
+            userChoice = Convert.ToInt32(userInput);
 
             return userChoice;
         }
@@ -1062,7 +1044,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Notifies the user about a recipe.//event handeler
+        /// Notifies the user about a recipe.
         /// </summary>
         /// <param name="recipeName">The name of the recipe.</param>
         protected virtual void NotifyUser(double calories)
@@ -1086,7 +1068,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Adds a new recipe to the recipe collections.
+        /// Method adds a new recipe to the recipe collections.
         /// </summary>
         /// <param name="clockTimerClass">An instance of the ClockTimerClass.</param>
         public void AddRecipe(ClockTimerClass clockTimerClass)
@@ -1105,15 +1087,12 @@ namespace POE_PROG6221_ST10023767_GR01
                 (ingredient.Name, ingredient.Quantity, ingredient.Unit, ingredient.IngredientCalories,
                 ingredient.FoodGroup, ingredient.Quantity, ingredient.IngredientCalories, ingredient.Unit)).ToList());
 
-            // List<double> recipeCalories = CalculateTotalCalories(IngredientCollections);
             TotalCaloriesList = CalculateTotalCalories(IngredientCollections);
 
             double totalCalories = TotalCaloriesList.LastOrDefault(); // Get the total calories of the last added recipe
 
-
             RecipeExceedsCaloriesEvent += HandleRecipeExceedsCalories;
             NotifyUser(totalCalories);
-
 
             StoreRecipes(StepCollections, IngredientCollections);
         }
@@ -1150,6 +1129,7 @@ namespace POE_PROG6221_ST10023767_GR01
 
             return recipeCalories;
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Displays the list of recipe names and allows the user to select a recipe to view its details.
@@ -1192,12 +1172,12 @@ namespace POE_PROG6221_ST10023767_GR01
                     PrintMenu(clockTimerClass);
                     return;
                 }
+
                 int recipeIndex = userChoice - 1;
                 string selectedRecipeName = sortedRecipeNames[recipeIndex];
                 int recipeIndex2 = RecipeList.IndexOf(RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName));
-                if (recipeIndex2 >= 0 && recipeIndex2 < RecipeList.Count)///<-----------------------------------------------------------------------------------------
+                if (recipeIndex2 >= 0 && recipeIndex2 < RecipeList.Count)
                 {
-                    //string selectedRecipeName = sortedRecipeNames[recipeIndex2];
                     RecipeClass selectedRecipe = RecipeList.Find(recipe => recipe.RecipeName == selectedRecipeName);
                     List<string> steps = stepCollections[recipeIndex2];
                     List<(string, double, string, double, string, double, double, string)> ingredientTuples = ingredientCollections[recipeIndex2];

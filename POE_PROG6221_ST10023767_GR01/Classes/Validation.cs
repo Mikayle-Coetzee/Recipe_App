@@ -121,14 +121,17 @@ namespace POE_PROG6221_ST10023767_GR01
         public bool Validate_Integer(string userInput)
         {
             // Initialize variable
-            bool valid ;
+            bool valid = false;
             int number;
 
             try
             {
                 if (Int32.TryParse(userInput, out number) == true)
                 {
-                    valid = true;
+                    if (number >= 0)
+                    {
+                        valid = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -136,10 +139,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.WriteLine("Line 139: " + ex.Message);
                 valid = false;//maby not needed 
             }
-            finally
-            {
-                valid = Int32.TryParse(userInput, out number);
-            }
+
             return valid;
         }
 
@@ -155,14 +155,17 @@ namespace POE_PROG6221_ST10023767_GR01
         public bool Validate_Float(string userInput)
         {
             // Initialize variable
-            bool valid;
+            bool valid = false;
             float number;
 
             try
             {
                 if (float.TryParse(userInput, out number) == true)
                 {
-                    valid = true;
+                    if (number >= 0)
+                    {
+                        valid = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -170,10 +173,7 @@ namespace POE_PROG6221_ST10023767_GR01
                 Console.WriteLine("Line 173: " + ex.Message);
                 valid = false;
             }
-            finally
-            {
-                valid = float.TryParse(userInput, out number);
-            }
+
             return valid;
         }
 
