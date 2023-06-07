@@ -101,6 +101,9 @@ namespace POE_PROG6221_ST10023767_GR01.Classes
 
             switch (totalNumberOfCalories)
             {
+                case 0:
+                    information = "0 calories: Behold, the mythical recipe of calorie-free deliciousness!\r\n";
+                    break;
                 case double n when (n > 0 && n <= 100):
                     information = "Between 0 and 100 calories: A gust of wind would burn more calories than this!\r\n" +
                                 "\tBut hey, every little bit counts, right? So keep those legs moving!";
