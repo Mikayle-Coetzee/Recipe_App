@@ -59,7 +59,6 @@ To use this application, follow these steps:
 3. Enter the number 1 if you would like to enter a recipe, and number 2 if you like to quit the application.
 4. If you entered one:
 - Enter yes or no if you like to go back to the menu.
-- Enter yes or no if you like to enter a recipe or not.
 - if you entered yes: you must then enter the recipe name, followed with the number of ingredients that you would like to enter and the ingredient details. You then must enter the number of steps that you would like to enter, followed with the steps. If the total calorie of a recipe is more than three hundred, an alert will be displayed. 
 5. If you entered two: 
 - The application will close.
@@ -67,7 +66,7 @@ To use this application, follow these steps:
 7. If you entered the number for 'Print A Specific Recipe', the recipe list in alphabetical order will display and allow you to go back to the main menu or to display a recipe by entering its corresponding number. If the input is valid, it would display the correct recipe that was selected.
 8. If you entered the number for 'Scale Quantities’, the recipe list in alphabetical order will display and allow you to go back to the main menu or to scale a recipe by entering its corresponding number. You must enter to what factor you would like to scale the quantities to it includes half, double, triple, reset After entering the factor, it would display the scaled recipe. 
 - If you then select that you would like to print the recipe, the updated recipe will be printed. 
-9. If you entered the number for 'Enter Another Recipe', You are required to enter Yes or No if you would like to enter a recipe. If no it would go back to the main menu, if yes, the recipe list in alphabetical order will display and allow you to go back to the main menu or to enter another recipe.
+9. If you entered the number for 'Enter Another Recipe', The recipe list in alphabetical order will display and allow you to go back to the main menu or to enter another recipe.
 10. If you entered the number for 'Clear Recipe', the recipe list in alphabetical order will display and allow you to go back to the main menu or to clear a recipe by entering its corresponding number. You are required to enter Yes or No if you would like to clear the selected recipe. If no it would not clear the recipe and display that the clear recipe request has been cancelled and it will go back to the main menu, if yes, it would clear the recipe and display a message that the recipe was successfully deleted.
 11. If you entered the number for 'Quit', the application will close after displaying a message. 
 
