@@ -61,7 +61,7 @@ namespace PROG6221_P3.UserControls
 
                 ///go to the main page view
                 MainPageView mainPageView = new MainPageView();
-              //  MainPageView.SetWelcomeMessage(username);
+                //MainPageView.SetWelcomeMessage(username);
 
                 Window.GetWindow(this).Content = mainPageView;
             }
@@ -81,7 +81,7 @@ namespace PROG6221_P3.UserControls
 
             //if it is valid login then redirect to the main page view
             MainPageView mainPageView = new MainPageView();
-           // MainPageView.SetWelcomeMessage(username);
+            //MainPageView.SetWelcomeMessage(username);
 
             Window.GetWindow(this).Content = mainPageView;
         }

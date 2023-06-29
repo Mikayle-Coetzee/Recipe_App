@@ -4,16 +4,16 @@
              xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:PROG6221_P3.UserControls"
+             xmlns:local="clr-namespace:PROG6221_P3"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="900">
 
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundImageBrush" 
-                    ImageSource="/Images/AccountImage.jpg" 
-                    Stretch="UniformToFill" />
-        <ImageBrush x:Key="BackgroundNote" 
-                    ImageSource="/Images/Note.png"/>
+                   
+                    Stretch="UniformToFill" ImageSource="/Images/AccountImage.jpg" />
+        <ImageBrush x:Key="BackgroundNote" ImageSource="/Images/Note.png" 
+                    />
 
         <ImageBrush x:Key="gg"
                     ></ImageBrush>

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace PROG6221_P3.UserControls
 {
     /// <summary>
@@ -78,7 +79,7 @@ namespace PROG6221_P3.UserControls
             //////////////////////AddStepView addStepView = new AddStepView();
             //MainPageView.SetWelcomeMessage(username);
 
-            ////////////////////Window.GetWindow(this).Content = addStepView;
+            //////////////////Window.GetWindow(this).Content = addStepView;
         }
     }
 }
