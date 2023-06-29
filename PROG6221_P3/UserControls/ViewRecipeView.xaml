@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="PROG6221_P3.UserControls.ViewRecipeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PROG6221_P3.UserControls"
+             mc:Ignorable="d" 
+            d:DesignHeight="650" d:DesignWidth="900">
+    <UserControl.Resources>
+        <ImageBrush x:Key="BackgroundBrush"
+                    ImageSource="/Images/NoteBookFull.jpg"
+                    Stretch="Fill" />
+    </UserControl.Resources>
+
+    <Grid x:Name="MainGrid5" Background="{StaticResource BackgroundBrush}">
+
+        <Grid>
+            <TextBlock Text="View Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="43,25,21,383"/>
+            <ComboBox HorizontalAlignment="Left" Margin="109,86,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
+            <Label Content="Recipe: " HorizontalAlignment="Left" Margin="43,82,0,0" VerticalAlignment="Top"/>
+        </Grid>
+
+
+        <StackPanel Orientation="Horizontal" Margin="43,134,21,23">
+            <StackPanel>
+                <TextBlock Text="Ingredients" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,0,5"/>
+                <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0" Height="259" Width="339"/>
+            </StackPanel>
+
+            <StackPanel Margin="20,0,0,0">
+                <TextBlock Text="Steps" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,0,5"/>
+                <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0" Height="260" Width="335" SelectionChanged="lstRecipeSteps_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsCompleted}" />
+                                <TextBlock Text="{Binding StepText}" Margin="5 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
+

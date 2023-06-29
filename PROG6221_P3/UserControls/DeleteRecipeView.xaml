@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="PROG6221_P3.UserControls.DeleteRecipeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PROG6221_P3.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="900">
+    <UserControl.Resources>
+        <ImageBrush x:Key="BackgroundBrush"
+                    ImageSource="/Images/NoteBookFull.jpg"
+                    Stretch="Fill" />
+    </UserControl.Resources>
+
+    <Grid x:Name="MainGrid6" Background="{StaticResource BackgroundBrush}">
+        <TextBlock Text="Delete Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="43,25,21,383"/>
+        <ComboBox HorizontalAlignment="Left" Margin="109,86,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Recipe: " HorizontalAlignment="Left" Margin="43,82,0,0" VerticalAlignment="Top"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="43,169,400,23"/>
+        <TextBlock Text="Recipies" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="43,140,400,286"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="PROG6221_P3.UserControls.AddStepView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PROG6221_P3.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="900">
+    <UserControl.Resources>
+        <ImageBrush x:Key="BackgroundBrush"
+                    ImageSource="/Images/NoteBookFull.jpg"
+                    Stretch="Fill" />
+    </UserControl.Resources>
+
+    <Grid x:Name="MainGrid7" Background="{StaticResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Add ...st/rd step to ... recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="54,24,10,0"/>
+
+        <StackPanel Grid.Row="1" Margin="54,12,0,0">
+            <TextBlock Text="Step:" FontSize="16" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,10,0"/>
+            <TextBox x:Name="txtStep" TextWrapping="Wrap" Text="" Width="714" Height="92"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="69,12,24,37" Grid.RowSpan="2">
+            <Button Content="Add Step" FontFamily="Segoe Print" Click="Button_Click_1" Width="95"/>
+            <Button Content="Back to add ingredients" FontFamily="Segoe Print" Width="193" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <Button Grid.Row="3" Content="Save recipe" Margin="569,12,40,0" FontFamily="Segoe Print" Click="Button_Click"/>
+
+        <ListBox Grid.Row="4" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="69,12,18,30"/>
+
+    </Grid>
+</UserControl>
