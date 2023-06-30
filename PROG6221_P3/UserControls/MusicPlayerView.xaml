@@ -19,7 +19,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
+        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="10"  />
         <Grid Background="#212121">
             <!-- Your custom header design goes here -->
         </Grid>

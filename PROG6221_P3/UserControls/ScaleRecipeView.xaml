@@ -9,27 +9,31 @@
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
                     
-                    Stretch="Fill" ImageSource="/Images/black_wood.jpg" />
+                    Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid4" Background="{StaticResource BackgroundBrush}">
+    <Grid x:Name="MainGrid4" Background="#FF2E2C2C">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40" MinHeight="0"/>
             <RowDefinition Height="44"/>
             <RowDefinition Height="100" MinHeight="24"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="42"/>
+            <RowDefinition/>
+
         </Grid.RowDefinitions>
+
+
+        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="7" />
+
+
         <Grid Grid.Row="0">
             <TextBlock Text="Scale Recipe" FontSize="24" FontWeight="Bold" Margin="15,4,0,0" FontFamily="Segoe Print" Width="775" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White"/>
         </Grid>
         <Grid Margin="0,1,0,0" Grid.RowSpan="1" Grid.Row="1">
             <TextBlock Text="Recipe Name:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmbFoodGroup" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
-
-            </ComboBox>
+            <ComboBox x:Name="cmbFoodGroup" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
         </Grid>
         <Grid Grid.Row="2" Margin="0,6,0,0">
             <TextBlock Text="Scale Factor:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -40,11 +44,7 @@
                 <ComboBoxItem Content="Reset"/>
             </ComboBox>
         </Grid>
-        <Grid Grid.Row="5" Margin="0,1,0,100">
-            <TextBlock Text="Ingredients:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" FontSize="16" Margin="15,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>
-
-        </Grid>
-        <Grid Grid.Row="4" Margin="0,0,0,40" Grid.RowSpan="2">
+        <Grid Grid.Row="4">
             <DataGrid x:Name="dgIngredients" AutoGenerateColumns="False"
                       CanUserAddRows="False" CanUserDeleteRows="False" Height="93" FontFamily="Segoe Print" Margin="15,4,10,3" BorderBrush="White" Background="White" Foreground="Black">
                 <DataGrid.Columns >
@@ -56,12 +56,12 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <Grid Grid.Row="5">
-            <TextBlock Text="Steps:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" FontSize="16" Margin="15,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>
+        <Grid Grid.Row="5" Margin="0,0,0,337" Grid.RowSpan="2">
+            <TextBlock Text="Steps:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" FontSize="16" Margin="15,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White"/>
 
         </Grid>
-        <Grid Grid.Row="6" Margin="0,0,0,-301">
-            <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="15,5,10,16" SelectionChanged="lstRecipeSteps_SelectionChanged" Background="Transparent" Foreground="White" FontFamily="Segoe Print" BorderBrush="White">
+        <Grid Grid.Row="5" Grid.RowSpan="2">
+            <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="15,44,10,24" SelectionChanged="lstRecipeSteps_SelectionChanged" Background="Transparent" Foreground="White" FontFamily="Segoe Print" BorderBrush="White">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

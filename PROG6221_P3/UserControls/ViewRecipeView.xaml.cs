@@ -33,12 +33,17 @@ namespace PROG6221_P3.UserControls
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            ////
         }
 
         private void lstRecipeSteps_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ///
+        }
 
+        private void cmbFoodGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ////
         }
     }
 }

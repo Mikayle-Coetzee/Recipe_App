@@ -210,5 +210,29 @@
   <ItemGroup>
     <Resource Include="Images\tape.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\fruit.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\Footer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\Fun.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\Spice.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\BackGround.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\indian-condiments-with-copy-space-view.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\istockphoto-1169556647-612x612.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\TableView.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

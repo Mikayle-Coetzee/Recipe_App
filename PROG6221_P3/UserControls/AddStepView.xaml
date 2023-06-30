@@ -9,17 +9,17 @@
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
                     
-                    Stretch="Fill" ImageSource="/Images/black_wood.jpg" />
+                    Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid7" Background="{StaticResource BackgroundBrush}">
+    <Grid x:Name="MainGrid7" Background="#FF2E2C2C">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="650.5"/>
         </Grid.RowDefinitions>
-
+        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="10"  />
         <StackPanel Orientation="Horizontal" Margin="69,52,24,598"/>
 
     </Grid>

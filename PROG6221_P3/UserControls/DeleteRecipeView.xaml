@@ -7,9 +7,6 @@ xmlns:local="clr-namespace:PROG6221_P3"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="900">
     <UserControl.Resources>
-        <ImageBrush x:Key="BackgroundBrush"
-                    
-                    Stretch="Fill" ImageSource="/Images/black_wood.jpg" />
 
         <ImageBrush x:Key="Food"
                     ImageSource="/Images/DeleteImage.jpg"
@@ -17,10 +14,14 @@ xmlns:local="clr-namespace:PROG6221_P3"
 
         <ImageBrush x:Key="Tape"
                     Stretch="Fill" ImageSource="/Images/tape.png"  />
-    </UserControl.Resources>
+ 
+            <ImageBrush x:Key="BackgroundBrush"
+                    
+                    Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
+        </UserControl.Resources>
 
-    <Grid x:Name="MainGrid6" Background="{StaticResource BackgroundBrush}">
-        <Grid.ColumnDefinitions>
+        <Grid x:Name="MainGrid3" Background="#FF2E2C2C">
+            <Grid.ColumnDefinitions>
             <ColumnDefinition Width="577*"/>
             <ColumnDefinition Width="323*"/>
         </Grid.ColumnDefinitions>
@@ -28,6 +29,7 @@ xmlns:local="clr-namespace:PROG6221_P3"
             <RowDefinition Height="183*"/>
             <RowDefinition Height="467*"/>
         </Grid.RowDefinitions>
+        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="2" Grid.ColumnSpan="2"  />
         <TextBlock Text="Delete Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="15,25,0,0" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="11,182,21,10" SelectionChanged="ListBox_SelectionChanged" Foreground="White" BorderBrush="White" Background="Transparent" FontFamily="Segoe Print" Grid.RowSpan="2" Grid.Column="1"/>
         <TextBlock Text="Recipies" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="12,130,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="281" Grid.Column="1"/>
