@@ -8,15 +8,54 @@ xmlns:local="clr-namespace:PROG6221_P3"
              d:DesignHeight="650" d:DesignWidth="900">
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
-                    ImageSource="/Images/NoteBookFull.jpg"
-                    Stretch="Fill" />
+                    
+                    Stretch="Fill" ImageSource="/Images/black_wood.jpg" />
+
+        <ImageBrush x:Key="Food"
+                    ImageSource="/Images/DeleteImage.jpg"
+                    Stretch="Fill"  />
+
+        <ImageBrush x:Key="Tape"
+                    Stretch="Fill" ImageSource="/Images/tape.png"  />
     </UserControl.Resources>
 
     <Grid x:Name="MainGrid6" Background="{StaticResource BackgroundBrush}">
-        <TextBlock Text="Delete Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="43,25,21,573"/>
-        <ComboBox HorizontalAlignment="Left" Margin="109,86,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Recipe: " HorizontalAlignment="Left" Margin="43,82,0,0" VerticalAlignment="Top"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="43,169,400,23" SelectionChanged="ListBox_SelectionChanged"/>
-        <TextBlock Text="Recipies" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="43,140,400,286"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="577*"/>
+            <ColumnDefinition Width="323*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="183*"/>
+            <RowDefinition Height="467*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Delete Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="15,25,0,0" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="11,182,21,10" SelectionChanged="ListBox_SelectionChanged" Foreground="White" BorderBrush="White" Background="Transparent" FontFamily="Segoe Print" Grid.RowSpan="2" Grid.Column="1"/>
+        <TextBlock Text="Recipies" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="12,130,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="281" Grid.Column="1"/>
+        <ComboBox Margin="157,86,21,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2"/>
+        <Label Content="Recipe name: " HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="147"/>
+
+        <Grid Margin="0,182,0,0" Grid.RowSpan="2">
+            <Grid Background="{StaticResource Food}" Margin="15,68,10,69" Grid.Row="1"/>
+            <Grid Background="{StaticResource Tape}" Margin="0,0,29,43" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="84" Height="49" VerticalAlignment="Bottom">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-73.235"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+            </Grid>
+            <Grid Background="{StaticResource Tape}" Margin="-17,55,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="91" Height="67" VerticalAlignment="Top">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-19.915"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

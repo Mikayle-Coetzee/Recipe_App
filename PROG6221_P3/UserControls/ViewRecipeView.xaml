@@ -8,28 +8,28 @@
             d:DesignHeight="650" d:DesignWidth="900">
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
-                    ImageSource="/Images/NoteBookFull.jpg"
-                    Stretch="Fill" />
+                    
+                    Stretch="Fill" ImageSource="/Images/black_wood.jpg" />
     </UserControl.Resources>
 
     <Grid x:Name="MainGrid5" Background="{StaticResource BackgroundBrush}">
 
         <Grid>
-            <TextBlock Text="View Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="43,25,21,383"/>
-            <ComboBox HorizontalAlignment="Left" Margin="109,86,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
-            <Label Content="Recipe: " HorizontalAlignment="Left" Margin="43,82,0,0" VerticalAlignment="Top"/>
+            <TextBlock Text="View Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="15,25,21,383" Foreground="White"/>
+            <ComboBox Margin="157,86,21,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged"/>
+            <Label Content="Recipe name: " HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="90"/>
         </Grid>
 
 
-        <StackPanel Orientation="Horizontal" Margin="43,134,21,23">
+        <StackPanel Orientation="Horizontal" Margin="15,134,21,10">
             <StackPanel>
-                <TextBlock Text="Ingredients" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,0,5"/>
-                <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0" Height="259" Width="339"/>
+                <TextBlock Text="Ingredients" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,0,5" Foreground="White"/>
+                <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0" Height="259" Width="339" Background ="Transparent" Foreground="White" BorderBrush="White" FontFamily="Segoe Print"/>
             </StackPanel>
 
             <StackPanel Margin="20,0,0,0">
-                <TextBlock Text="Steps" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,0,5"/>
-                <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0" Height="260" Width="335" SelectionChanged="lstRecipeSteps_SelectionChanged">
+                <TextBlock Text="Steps" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,0,5"  Foreground="White"/>
+                <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0" Height="260" Width="335" SelectionChanged="lstRecipeSteps_SelectionChanged"  Background ="Transparent" Foreground="White" BorderBrush="White" FontFamily="Segoe Print">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

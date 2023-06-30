@@ -23,13 +23,13 @@ namespace PROG6221_P3.UserControls
     public partial class AddRecipeView : UserControl
     {
         // Create a collection to hold the ingredients
-        ////////////////private ObservableCollection<IngredientClass> ingredients = new ObservableCollection<IngredientClass>();
+        private ObservableCollection<POE_PROG6221_ST10023767_GR01.IngredientClass> ingredients = new ObservableCollection<POE_PROG6221_ST10023767_GR01.IngredientClass>();
 
         public AddRecipeView()
         {
             InitializeComponent();
             // Set the DataContext of the DataGrid to the ingredients collection
-            //////////////////dgIngredients.ItemsSource = ingredients;
+            dgIngredients.ItemsSource = ingredients;
         }
 
         private void AddIngredientButton_Click(object sender, RoutedEventArgs e)
@@ -37,27 +37,44 @@ namespace PROG6221_P3.UserControls
             // Get the values entered by the user
             string ingredientName = txtIngredientName.Text;
             string quantity = txtQuantity.Text;
-            string unit = txtUnit.Text;
+            double doubleQuantity = 0.0f;
+            string unit = ((ComboBoxItem)cmdUnits.SelectedItem).Content.ToString();
             string calories = txtCalories.Text;
             string foodGroup = ((ComboBoxItem)cmbFoodGroup.SelectedItem).Content.ToString();
+            double doubleCalories = 0.0f;
+            POE_PROG6221_ST10023767_GR01.Validation validation = new POE_PROG6221_ST10023767_GR01.Validation();
 
-            ////////////// Create a new Ingredient object with the entered values
-            ////////////IngredientClass newIngredient = new IngredientClass
-            ////////////{
-            ////////////    Name = ingredientName,
-            ////////////    Quantity = quantity,
-            ////////////    Unit = unit,
-            ////////////    Calories = calories,
-            ////////////    FoodGroup = foodGroup
-            ////////////};
+            if(validation.Validate_Float(quantity) == true && validation.Validate_Float(calories) == true && validation.Validate_String(ingredientName) == true)
+            {
+                doubleQuantity = Convert.ToDouble(quantity);
+                doubleCalories = Convert.ToDouble(calories);
 
-            ////////////// Add the new ingredient to the ingredients collection
-            ////////////ingredients.Add(newIngredient);
+            }
+            else
+            {
+                //errormessage
+                //return
+            }
+
+            
+
+            // Create a new Ingredient object with the entered values
+            POE_PROG6221_ST10023767_GR01.IngredientClass newIngredient = new POE_PROG6221_ST10023767_GR01.IngredientClass
+            {
+                Name = ingredientName,
+                Quantity = doubleQuantity,
+                Unit = unit,
+                IngredientCalories = doubleCalories,
+                FoodGroup = foodGroup
+            };
+
+            // Add the new ingredient to the ingredients collection
+            ingredients.Add(newIngredient);
 
             // Clear the input fields
             txtIngredientName.Text = string.Empty;
             txtQuantity.Text = string.Empty;
-            txtUnit.Text = string.Empty;
+            cmdUnits.SelectedIndex = 0;
             txtCalories.Text = string.Empty;
             cmbFoodGroup.SelectedIndex = 0;
         }
@@ -76,10 +93,10 @@ namespace PROG6221_P3.UserControls
         {
             ///redirect
             ///go to the add step view
-            //////////////////////AddStepView addStepView = new AddStepView();
-            //MainPageView.SetWelcomeMessage(username);
+            AddStepView addStepView = new AddStepView();
+           // MainPageView.SetWelcomeMessage(username);
 
-            //////////////////Window.GetWindow(this).Content = addStepView;
+            Window.GetWindow(this).Content = addStepView;
         }
     }
 }

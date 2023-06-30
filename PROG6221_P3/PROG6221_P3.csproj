@@ -177,19 +177,38 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\MainMenuImage.jpg" />
+    <Resource Include="Images\MainMenuImage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\AddRecipeView.jpg" />
+    <Resource Include="Images\AddRecipeView.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\AccountImage.jpg" />
+    <Resource Include="Images\AccountImage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Note.png" />
+    <Resource Include="Images\Note.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\NoteBookFull.jpg" />
+    <Resource Include="Images\NoteBookFull.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\black_wood.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DeleteImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\tape.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -46,7 +46,7 @@ namespace PROG6221_P3.UserControls
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            string stepText = txtStep.Text;
+            //string stepText = txtStep.Text;
 
             //////////////StepClass newStep = new StepClass
             //////////////{
@@ -57,7 +57,7 @@ namespace PROG6221_P3.UserControls
             //////////////recipeSteps.Add(newStep);
 
             // Optionally, you can clear the text box after adding the step
-            txtStep.Text = string.Empty;
+            //txtStep.Text = string.Empty;
         }
     }
 }

@@ -24,5 +24,15 @@ namespace PROG6221_P3.UserControls
         {
             InitializeComponent();
         }
+
+        private void lstRecipeSteps_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ////////////
+        }
+
+        private void cmbFoodGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ///////////
+        }
     }
 }

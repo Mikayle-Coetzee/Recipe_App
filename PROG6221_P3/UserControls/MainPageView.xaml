@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:PROG6221_P3.UserControls"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="900">
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,25 +15,65 @@
         </Grid.RowDefinitions>
 
         <!-- Top Header Section -->
-        <Grid Grid.Row="0" Grid.RowSpan="2"  Background="Maroon" >
+        <Grid Grid.Row="0" Grid.RowSpan="2"  Background="Black" >
 
-            <TextBlock x:Name="WelcomeTextBlock" Grid.Column="0" Margin="0,0,6,0" FontSize="18" Text="Welcome aboard! Thank you for choosing our application." Foreground="WhiteSmoke" FontFamily="Agency FB" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" />
+            <TextBlock x:Name="WelcomeTextBlock" Grid.Column="0" Margin="0,6,6,0" FontSize="20" Text="Welcome aboard ... !" Foreground="WhiteSmoke" FontFamily="Agency FB" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Width="476" Height="33" />
 
             <!-- Navigation Bar -->
-            <TabControl Grid.Column="1" Background="Maroon">
-                <TabItem Header="Add Recipe">
-                    <local:AddRecipeView/>
+            <TabControl Grid.Column="1" Background="Black">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="White" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="FontFamily" Value="Agency FB"/>
+                        <Setter Property= "FontSize" Value="15"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Grid>
+                                        <Border Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="6,4">
+                                            <ContentPresenter x:Name="ContentSite"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ContentSource="Header"
+                                                  Margin="10,2" />
+                                        </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="lightgray" />
+                                            <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+
+                <TabItem Header="Add Recipe" IsSelected="True" >
+                    <local:AddRecipeView />
                 </TabItem>
                 <TabItem Header="Scale Recipe">
-                    <local:ScaleRecipeView/>
+                    <local:ScaleRecipeView />
                 </TabItem>
                 <TabItem Header="View Recipe">
-                    <local:ViewRecipeView/>
+                    <local:ViewRecipeView />
                 </TabItem>
                 <TabItem Header="Delete Recipe">
-                    <local:DeleteRecipeView/>
+                    <local:DeleteRecipeView />
+                </TabItem>
+                <TabItem Header="Info">
+                    <local:DeleteRecipeView />
+                </TabItem>
+                <TabItem Header="Sign Out">
+                    <!--<local:MainPageView Visibility="Hidden"></local:MainPageView>-->
                 </TabItem>
             </TabControl>
+
+
         </Grid>
 
         <!-- Content Area -->

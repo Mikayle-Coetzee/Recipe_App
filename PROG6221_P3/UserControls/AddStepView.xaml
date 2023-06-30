@@ -8,34 +8,19 @@
              d:DesignHeight="650" d:DesignWidth="900">
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
-                    ImageSource="/Images/NoteBookFull.jpg"
-                    Stretch="Fill" />
+                    
+                    Stretch="Fill" ImageSource="/Images/black_wood.jpg" />
     </UserControl.Resources>
 
     <Grid x:Name="MainGrid7" Background="{StaticResource BackgroundBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="650.5"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Add ...st/rd step to ... recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="54,24,10,0"/>
-
-        <StackPanel Grid.Row="1" Margin="54,12,0,0">
-            <TextBlock Text="Step:" FontSize="16" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,10,0"/>
-            <TextBox x:Name="txtStep" TextWrapping="Wrap" Text="" Width="714" Height="92"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="69,12,24,37" Grid.RowSpan="2">
-            <Button Content="Add Step" FontFamily="Segoe Print" Click="Button_Click_1" Width="95"/>
-            <Button Content="Back to add ingredients" FontFamily="Segoe Print" Width="193" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        </StackPanel>
-
-        <Button Grid.Row="3" Content="Save recipe" Margin="569,12,40,0" FontFamily="Segoe Print" Click="Button_Click"/>
-
-        <ListBox Grid.Row="4" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="69,12,18,30"/>
+        <StackPanel Orientation="Horizontal" Margin="69,52,24,598"/>
 
     </Grid>
 </UserControl>
