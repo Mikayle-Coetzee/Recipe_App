@@ -68,6 +68,9 @@
                 <TabItem Header="Info">
                     <local:DeleteRecipeView />
                 </TabItem>
+                <TabItem Header="Music">
+                    <local:MusicPlayerView />
+                </TabItem>
                 <TabItem Header="Sign Out">
                     <!--<local:MainPageView Visibility="Hidden"></local:MainPageView>-->
                 </TabItem>

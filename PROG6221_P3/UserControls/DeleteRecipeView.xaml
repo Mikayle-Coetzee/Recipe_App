@@ -9,18 +9,15 @@ xmlns:local="clr-namespace:PROG6221_P3"
     <UserControl.Resources>
 
         <ImageBrush x:Key="Food"
-                    ImageSource="/Images/DeleteImage.jpg"
-                    Stretch="Fill"  />
+              
+                    Stretch="Fill" ImageSource="/UserControls/FoodQuote6.png"  />
 
-        <ImageBrush x:Key="Tape"
-                    Stretch="Fill" ImageSource="/Images/tape.png"  />
- 
             <ImageBrush x:Key="BackgroundBrush"
                     
                     Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
         </UserControl.Resources>
 
-        <Grid x:Name="MainGrid3" Background="#FF2E2C2C">
+    <Grid x:Name="MainGrid3" Background="Black">
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="577*"/>
             <ColumnDefinition Width="323*"/>
@@ -37,27 +34,7 @@ xmlns:local="clr-namespace:PROG6221_P3"
         <Label Content="Recipe name: " HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="147"/>
 
         <Grid Margin="0,182,0,0" Grid.RowSpan="2">
-            <Grid Background="{StaticResource Food}" Margin="15,68,10,69" Grid.Row="1"/>
-            <Grid Background="{StaticResource Tape}" Margin="0,0,29,43" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="84" Height="49" VerticalAlignment="Bottom">
-                <Grid.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-73.235"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Grid.RenderTransform>
-            </Grid>
-            <Grid Background="{StaticResource Tape}" Margin="-17,55,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="91" Height="67" VerticalAlignment="Top">
-                <Grid.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-19.915"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Grid.RenderTransform>
-            </Grid>
+            <Grid Background="{StaticResource Food}" Margin="76,0,76,10"/>
         </Grid>
     </Grid>
 </UserControl>

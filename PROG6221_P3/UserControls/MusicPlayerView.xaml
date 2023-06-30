@@ -10,48 +10,116 @@
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
                     
-                    Stretch="Fill" ImageSource="/Images/black_wood.jpg" />
+                    Stretch="UniformToFill" ImageSource="/UserControls/MusicBack.jpg"  />
     </UserControl.Resources>
 
-    <Grid x:Name="MainGridMusic" Background="{StaticResource BackgroundBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="10"  />
-        <Grid Background="#212121">
-            <!-- Your custom header design goes here -->
-        </Grid>
+    <Grid x:Name="MainGridMusic" Background="Black">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="613*"/>
+            <ColumnDefinition Width="287*"/>
+        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1" Margin="20,20,273,20">
+        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="3" Grid.ColumnSpan="2"  />
+
+        <Grid Margin="56,10,0,0" Width="486" HorizontalAlignment="Left" VerticalAlignment="Top">
             <!-- Album cover and song details section -->
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="900"/>
             </Grid.ColumnDefinitions>
 
-            <Border BorderBrush="#FF707070" BorderThickness="1" Width="200" Height="200" CornerRadius="10">
-                <Image Stretch="UniformToFill"/>
+            <Border BorderThickness="1" CornerRadius="10" Margin="29,37,475,215" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Maroon" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White" Offset="0"/>
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FFE0E0E0" Offset="0.28"/>
+                        <GradientStop Color="#FED2D2D2" Offset="0.361"/>
+                        <GradientStop Color="#FEAFAFAF" Offset="0.466"/>
+                        <GradientStop Color="#FFFAFAFA" Offset="0.155"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="10" Margin="55,19,55,193" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Image Stretch="Fill" Margin="9,9,9,9" Source="/UserControls/FoodMusic.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+
+                </Border>
+
+
             </Border>
 
-            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20">
-                <TextBlock Text="Song Title" FontSize="24" Foreground="White"/>
-                <TextBlock Text="Artist" FontSize="18" Foreground="#BDBDBD"/>
+            <StackPanel Margin="42,0,0,234" VerticalAlignment="Bottom" Height="86" HorizontalAlignment="Left" Width="368">
+                <TextBlock Text="Song Title" FontSize="24" Foreground="White" HorizontalAlignment="Left" Width="290"/>
+                <TextBlock Text="Artist" FontSize="18" Foreground="DarkRed" HorizontalAlignment="Left" Width="288"/>
                 <!-- Add more song details like album name, duration, etc. -->
             </StackPanel>
+            <Grid Margin="98,258,544,338">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="63*"/>
+                    <ColumnDefinition Width="63*"/>
+                    <ColumnDefinition Width="63*"/>
+                    <ColumnDefinition Width="63*"/>
+                </Grid.ColumnDefinitions>
+                <Button  x:Name="btnPlay_Copy1" Style="{StaticResource MyPreviousButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Height="44" Width="43">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="0.409"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-0.093"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button  x:Name="btnPlay_Copy" Style="{StaticResource MyPauseButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center"  HorizontalAlignment="Center" Width="44" Height="44" Grid.Column="1" >
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="0.409"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-0.093"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button  x:Name="btnPlay" Margin="16,0,0,0" Style="{StaticResource MyPlayButtonStyle}" RenderTransformOrigin="0.703,0.56" VerticalAlignment="Center" HorizontalAlignment="Left" Height="44" Width="43" Grid.Column="2">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="0.409"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-0.036"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button  x:Name="btnPlay_Copy2" Style="{StaticResource MyNextButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Height="44" Width="43" Grid.Column="3">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="0.409"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-0.093"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+            </Grid>
         </Grid>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20">
-            <!-- Playback controls section -->
-            <Button Content="Previous" Width="100" Height="40" Margin="0,0,20,0" Background="#212121" Foreground="White"/>
-            <Button Content="Play" Width="100" Height="40" Margin="0,0,20,0" Background="#212121" Foreground="White"/>
-            <Button Content="Next" Width="100" Height="40" Background="#212121" Foreground="White"/>
-        </StackPanel>
-
-        <ScrollViewer Grid.Row="1" Margin="532,50,10,0" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Margin="10,43,27,149" VerticalScrollBarVisibility="Auto" Grid.Column="1" RenderTransformOrigin="0.5,0.5" FontSize="18">
+            <ScrollViewer.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0"/>
+                </TransformGroup>
+            </ScrollViewer.RenderTransform>
             <!-- Song list section -->
-            <StackPanel x:Name="songList" Margin="0,0,0,20">
+            <StackPanel x:Name="songList" Margin="0,0,0,20" HorizontalAlignment="Right">
                 <TextBlock Text="Bon Jovi - It's My Life" Foreground="White" Margin="0,0,0,10"/>
                 <TextBlock Text="Bryan Adams - Summer of 69" Foreground="White" Margin="0,0,0,10"/>
                 <TextBlock Text="Cat Stevens - Morning Has Broken" Foreground="White" Margin="0,0,0,10"/>

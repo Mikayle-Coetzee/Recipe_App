@@ -12,7 +12,7 @@
                     Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid7" Background="#FF2E2C2C">
+    <Grid x:Name="MainGrid7" Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>

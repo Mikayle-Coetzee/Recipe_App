@@ -234,5 +234,50 @@
   <ItemGroup>
     <Resource Include="UserControls\TableView.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\friends.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\cat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\FoodQuote1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\FoodQuote2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\FoodQuote3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\FoodQuote5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\FoodQuote4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\FoodQuote6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\FoodMusic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\Play.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MusicBtn1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MusicBtn2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MusicBtn3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MusicBtn4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserControls\MusicBack.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -51,7 +51,222 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style x:Key="MyPlayButtonStyle" 
+            TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="myBorder" 
+                        BorderThickness="2" 
+                        CornerRadius="20"
+                        Background="White"
+                        >
+                        <Border.BorderBrush>
+                            <LinearGradientBrush 
+                            EndPoint="0.5,1" 
+                            StartPoint="0.5,0">
+                                <GradientStop 
+                                Color="DarkRed" 
+                                Offset="0.4"/>
+                                <GradientStop 
+                                Color="DarkSlateGray" 
+                                Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
 
+                        <Grid>
+                            <Image Stretch="Uniform" Source="/MusicBtn1.png"  />
+                            <ContentPresenter 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center"/>
+                        </Grid>
+
+                        <Border.Effect>
+                            <DropShadowEffect/>
+                        </Border.Effect>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsMouseOver" 
+                             Value="True">
+                            <Setter Property="Background" 
+                                TargetName="myBorder" 
+                                Value="DarkSlateGray"/>
+                        </Trigger>
+                        <Trigger Property="Button.IsPressed" 
+                             Value="True">
+                            <Setter Property="Background" 
+                                TargetName="myBorder" 
+                                Value="Maroon"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MyPauseButtonStyle" 
+            TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="myBorder" 
+                        BorderThickness="2" 
+                        CornerRadius="20"
+                        Background="White"
+                        >
+                        <Border.BorderBrush>
+                            <LinearGradientBrush 
+                            EndPoint="0.5,1" 
+                            StartPoint="0.5,0">
+                                <GradientStop 
+                                Color="DarkRed" 
+                                Offset="0.4"/>
+                                <GradientStop 
+                                Color="DarkSlateGray" 
+                                Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+
+                        <Grid>
+                            <Image Stretch="Uniform" Source="/MusicBtn2.png"   />
+                            <ContentPresenter 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center"/>
+                        </Grid>
+
+                        <Border.Effect>
+                            <DropShadowEffect/>
+                        </Border.Effect>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsMouseOver" 
+                             Value="True">
+                            <Setter Property="Background" 
+                                TargetName="myBorder" 
+                                Value="DarkSlateGray"/>
+                        </Trigger>
+                        <Trigger Property="Button.IsPressed" 
+                             Value="True">
+                            <Setter Property="Background" 
+                                TargetName="myBorder" 
+                                Value="Maroon"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MyPreviousButtonStyle" 
+            TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="myBorder" 
+                        BorderThickness="2" 
+                        CornerRadius="20"
+                        Background="White"
+                        >
+                        <Border.BorderBrush>
+                            <LinearGradientBrush 
+                            EndPoint="0.5,1" 
+                            StartPoint="0.5,0">
+                                <GradientStop 
+                                Color="DarkRed" 
+                                Offset="0.4"/>
+                                <GradientStop 
+                                Color="DarkSlateGray" 
+                                Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+
+                        <Grid>
+                            <Image Stretch="Uniform" Source="/MusicBtn3.png"  />
+                            <ContentPresenter 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center"/>
+                        </Grid>
+
+                        <Border.Effect>
+                            <DropShadowEffect/>
+                        </Border.Effect>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsMouseOver" 
+                             Value="True">
+                            <Setter Property="Background" 
+                                TargetName="myBorder" 
+                                Value="DarkSlateGray"/>
+                        </Trigger>
+                        <Trigger Property="Button.IsPressed" 
+                             Value="True">
+                            <Setter Property="Background" 
+                                TargetName="myBorder" 
+                                Value="Maroon"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MyNextButtonStyle" 
+            TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="myBorder" 
+                        BorderThickness="2" 
+                        CornerRadius="20"
+                        Background="White"
+                        >
+                        <Border.BorderBrush>
+                            <LinearGradientBrush 
+                            EndPoint="0.5,1" 
+                            StartPoint="0.5,0">
+                                <GradientStop 
+                                Color="DarkRed" 
+                                Offset="0.4"/>
+                                <GradientStop 
+                                Color="DarkSlateGray" 
+                                Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+
+                        <Grid>
+                            <Image Stretch="Uniform" Source="/MusicBtn4.png"   />
+                            <ContentPresenter 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center"/>
+                        </Grid>
+
+                        <Border.Effect>
+                            <DropShadowEffect/>
+                        </Border.Effect>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsMouseOver" 
+                             Value="True">
+                            <Setter Property="Background" 
+                                TargetName="myBorder" 
+                                Value="DarkSlateGray"/>
+                        </Trigger>
+                        <Trigger Property="Button.IsPressed" 
+                             Value="True">
+                            <Setter Property="Background" 
+                                TargetName="myBorder" 
+                                Value="Maroon"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style x:Key="MyButtonStyleNote" 
            TargetType="Button">
 

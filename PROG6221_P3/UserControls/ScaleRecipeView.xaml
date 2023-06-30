@@ -12,7 +12,7 @@
                     Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid4" Background="#FF2E2C2C">
+    <Grid x:Name="MainGrid4" Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="40"/>
@@ -56,12 +56,12 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <Grid Grid.Row="5" Margin="0,0,0,337" Grid.RowSpan="2">
+        <Grid Grid.Row="5" Grid.RowSpan="2">
             <TextBlock Text="Steps:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" FontSize="16" Margin="15,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White"/>
 
         </Grid>
-        <Grid Grid.Row="5" Grid.RowSpan="2">
-            <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="15,44,10,24" SelectionChanged="lstRecipeSteps_SelectionChanged" Background="Transparent" Foreground="White" FontFamily="Segoe Print" BorderBrush="White">
+        <Grid Grid.Row="6" Margin="0,14,0,0">
+            <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="15,10,10,24" SelectionChanged="lstRecipeSteps_SelectionChanged" Background="Transparent" Foreground="White" FontFamily="Segoe Print" BorderBrush="White">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

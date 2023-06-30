@@ -12,81 +12,89 @@
                     Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid8" Background="#FF2E2C2C">
+    <Grid x:Name="MainGrid8" Background="Black">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="360*"/>
+            <ColumnDefinition Width="163*"/>
+            <ColumnDefinition Width="377*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2"  >
+
+        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.ColumnSpan="3"  >
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
         </Grid>
 
-        <Grid>
+        <Grid Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
-                <RowDefinition Height="33*"/>
-                <RowDefinition Height="292*"/>
+                <RowDefinition Height="203*"/>
+                <RowDefinition Height="447*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <TextBlock Text="View Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="15,10,21,14" Foreground="White"/>
+
+
+            <ComboBox x:Name="cmbFilter" Margin="169,132,16,0" Height="30" VerticalAlignment="Top" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
+                <ComboBoxItem Content="The name of an ingredient that must be in the recipe"  IsSelected="True"/>
+                <ComboBoxItem Content="A food group that must be in the recipe"/>
+                <ComboBoxItem Content="The maximum number of calories"/>
+                <ComboBoxItem Content="Nothing"/>
+            </ComboBox>
+
+
+            <TextBox x:Name="txtIngredientFilterName" Margin="169,185,134,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center" Visibility="Hidden" Grid.RowSpan="2"/>
+
+
+            <TextBox x:Name="txtCaloriesFilterMax" Margin="169,185,134,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center" Visibility="Hidden" Grid.RowSpan="2"/>
+
+
+            <ComboBox x:Name="cmbFoodGroupFilter" Margin="169,185,134,0" Height="30" VerticalAlignment="Top" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Visibility="Hidden" Grid.RowSpan="2" >
+                <ComboBoxItem Content="Starchy foods" IsSelected="True"/>
+                <ComboBoxItem Content="Vegetables and fruits" />
+                <ComboBoxItem Content="Dry beans, peas, lentils and soya"/>
+                <ComboBoxItem Content="Chicken, fish, meat and eggs"/>
+                <ComboBoxItem Content="Milk and dairy products"/>
+                <ComboBoxItem Content="Fats and oil"/>
+                <ComboBoxItem Content="Water"/>
+            </ComboBox>
+
+
+            <TextBlock Text="View Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="15,16,0,0" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+            <Grid Grid.RowSpan="2">
+                <Label Content="Recipe name: " HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="147" Height="31"/>
+                <ComboBox Margin="169,80,15,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="30"/>
             </Grid>
-            <Grid Grid.Row="3">
-                <ComboBox Margin="168,110,16,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="30"/>
-                <Label Content="Recipe name: " HorizontalAlignment="Left" Margin="8,109,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="147" Height="31"/>
-            </Grid>
-
-            <Grid Grid.Row="1">
-                <Label Content="Filter recipe by: " HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="145" Height="31" Grid.Row="1"/>
-                <ComboBox x:Name="cmbFilter" Margin="169,2,16,0" Height="30" VerticalAlignment="Top" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
-                    <ComboBoxItem Content="The name of an ingredient that must be in the recipe"  IsSelected="True"/>
-                    <ComboBoxItem Content="A food group that must be in the recipe"/>
-                    <ComboBoxItem Content="The maximum number of calories"/>
-                    <ComboBoxItem Content="Nothing"/>
-                </ComboBox>
-                <Label Content="Tngredient name" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="145" Height="31" Visibility="Visible"/>
-                <TextBox x:Name="txtIngredientFilterName" Margin="169,56,134,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="26" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center"/>
-                <TextBox x:Name="txtCaloriesFilterMax" Margin="169,56,16,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="26" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center" Visibility="Visible"/>
-                <ComboBox x:Name="cmbFoodGroupFilter" Margin="169,53,16,0" Height="30" VerticalAlignment="Top" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Visibility="Visible" >
-                    <ComboBoxItem Content="Starchy foods" IsSelected="True"/>
-                    <ComboBoxItem Content="Vegetables and fruits" />
-                    <ComboBoxItem Content="Dry beans, peas, lentils and soya"/>
-                    <ComboBoxItem Content="Chicken, fish, meat and eggs"/>
-                    <ComboBoxItem Content="Milk and dairy products"/>
-                    <ComboBoxItem Content="Fats and oil"/>
-                    <ComboBoxItem Content="Water"/>
-                </ComboBox>
 
 
+            <Label Content="Filter recipe by: " HorizontalAlignment="Left" Margin="10,132,0,0" FontFamily="Segoe Print" Foreground="White" Width="145" VerticalAlignment="Top"/>
+            <Label x:Name="lblFilter" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="145" Height="30" Visibility="Hidden" Grid.RowSpan="2"/>
+            <Button Content="Filter"  FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="94" VerticalAlignment="Top" Margin="0,185,16,0" Height="30" Visibility="Hidden" Grid.RowSpan="2"/>
 
-            </Grid>
+
 
 
         </Grid>
 
-        <StackPanel Orientation="Horizontal" Margin="15,230,21,10">
-            <StackPanel Height="372">
-                <TextBlock Text="Ingredients" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,0,5" Foreground="White"/>
-                <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0" Height="259" Width="339" Background ="Transparent" Foreground="White" BorderBrush="White" FontFamily="Segoe Print"/>
-            </StackPanel>
+        <TextBlock Text="Steps" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,232,0,0"  Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" Width="377" Grid.Column="2" Height="26"/>
 
-            <StackPanel Margin="20,0,0,0" Height="374">
-                <TextBlock Text="Steps" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="0,0,0,5"  Foreground="White"/>
-                <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0" Height="260" Width="335" SelectionChanged="lstRecipeSteps_SelectionChanged"  Background ="Transparent" Foreground="White" BorderBrush="White" FontFamily="Segoe Print">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox IsChecked="{Binding IsCompleted}" />
-                                <TextBlock Text="{Binding StepText}" Margin="5 0" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
-        </StackPanel>
-        <Canvas Margin="0,0,0,545"/>
-        <Button Content="Filter"  FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="93" VerticalAlignment="Top" Margin="0,121,16,0" Height="28" Visibility="Visible"/>
+        <TextBlock Text="Ingredients" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="10,232,0,0" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" Height="26" Width="84"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,279,5,21" Background ="Transparent" Foreground="White" BorderBrush="White" FontFamily="Segoe Print"/>
+        <Image Source="/UserControls/FoodQuote2.png" Margin="0,274,0,11" Grid.Column="1"/>
 
+        <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="1,279,16,21" SelectionChanged="lstRecipeSteps_SelectionChanged"  Background ="Transparent" Foreground="White" BorderBrush="White" FontFamily="Segoe Print" Grid.Column="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsCompleted}" />
+                        <TextBlock Text="{Binding StepText}" Margin="5 0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Canvas Margin="0,0,0,545" Grid.ColumnSpan="3"/>
     </Grid>
 </UserControl>
 

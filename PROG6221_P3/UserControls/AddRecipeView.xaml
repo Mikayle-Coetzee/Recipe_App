@@ -13,7 +13,7 @@
                     Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid3" Background="#FF2E2C2C">
+    <Grid x:Name="MainGrid3" Background="Black">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -122,7 +122,6 @@
             <TextBox x:Name="txtStep" Margin="15,2,117,3" FontFamily="Segoe Print" Foreground="White" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center"/>
             <Button Content="Add" FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="93" VerticalAlignment="Center" Margin="0,0,10,0" Height="30"/>
         </Grid>
-
     </Grid>
 
 </UserControl>
