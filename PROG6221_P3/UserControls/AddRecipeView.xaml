@@ -99,7 +99,7 @@
             <TextBlock Text="Ingredients:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" FontSize="16" Margin="15,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>
         </Grid>
         <Grid Grid.Row="6">
-            <DataGrid x:Name="dgIngredients" AutoGenerateColumns="False"
+            <DataGrid x:Name="dgIngredients" AutoGenerateColumns="False" IsReadOnly="True"
                       CanUserAddRows="False" CanUserDeleteRows="False" Height="93" FontFamily="Segoe Print" Margin="15,4,10,3" BorderBrush="White" Background="White" Foreground="Black">
                 <DataGrid.Columns >
                     <DataGridTextColumn Header="Name"  Binding="{Binding Name}" Width="150"  FontFamily="Segoe Print" />
@@ -113,7 +113,13 @@
         <Grid Grid.Row="9">
             <Button x:Name="btnAddSteps" Content="Save Recipe" Height="30" FontFamily="Segoe Print" Foreground="Black" Background="White" VerticalAlignment="Bottom" Click="btnAddSteps_Click" Margin="0,0,10,10" HorizontalAlignment="Right" Width="104"/>
             <Button Content="Remove Ingredient" Width="173" Height="30"  FontFamily="Segoe Print" Foreground="Black" Background="White" Margin="15,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-            <ListBox x:Name="lstSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="15,10,10,58" BorderBrush="White" FontFamily="Segoe Print" Foreground="White" Background="Transparent"/>
+            <DataGrid x:Name="dgSteps" AutoGenerateColumns="False" IsReadOnly="True"
+                      CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Segoe Print" Margin="15,10,10,58" BorderBrush="White" Background="White" Foreground="Black">
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Number"  Binding="{Binding NumOfSteps}" Width="150"  FontFamily="Segoe Print" />
+                    <DataGridTextColumn Header="Step" Binding="{Binding Step}" FontFamily="Segoe Print" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
         <Grid Grid.Row="7">
             <TextBlock Text="Steps:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" FontSize="16" Margin="15,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>

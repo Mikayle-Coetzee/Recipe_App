@@ -28,6 +28,20 @@ namespace POE_PROG6221_ST10023767_GR01
         }
 
         /// <summary>
+        /// Holds the list of food groups.
+        /// </summary>
+        public List<string> FoodGroupList { get; set; } = new List<string>
+        {
+            "Starchy foods",
+            "Vegetables and fruits",
+            "Dry beans, peas, lentils and soya",
+            "Chicken, fish, meat and eggs",
+            "Milk and dairy products",
+            "Fats and oil",
+            "Water"
+        };
+
+        /// <summary>
         /// Private string array is used to convert numeric quantities into their word form for better user 
         /// readability. Each element represents a word form of a single-digit number, from "one" to "nine".
         /// </summary>
@@ -504,6 +518,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <returns>boolean True if the input is a valid unit of measurement, false otherwise</returns>
         public bool Validate_Unit_Of_Measurement(string userInput)
         {
+            userInput = userInput.ToLower();
             bool valid = Enum.IsDefined(typeof(Measurements), userInput);
             return valid;
         }
@@ -533,6 +548,18 @@ namespace POE_PROG6221_ST10023767_GR01
         public string GetUserInput()//add code so that when the user input is given I type in it should be a string and if it is a string it should validate the string
         {
             return Console.ReadLine();
+        }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method validates if a user input is a valid food group. It returns true if the 
+        /// input is found in the list, false otherwise. 
+        /// </summary>
+        /// <returns>boolean True if the input is a valid food group, false otherwise</returns>
+        public bool Validate_Food_Group(string userInput)
+        {
+            bool valid = FoodGroupList.Contains(userInput);
+            return valid;
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//
