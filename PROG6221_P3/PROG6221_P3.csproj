@@ -82,10 +82,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\AddStepView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\DeleteRecipeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -119,9 +115,6 @@
     </Compile>
     <Compile Include="UserControls\AddRecipeView.xaml.cs">
       <DependentUpon>AddRecipeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\AddStepView.xaml.cs">
-      <DependentUpon>AddStepView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\DeleteRecipeView.xaml.cs">
       <DependentUpon>DeleteRecipeView.xaml</DependentUpon>
@@ -197,87 +190,31 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\NoteBookFull.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\TableView.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\black_wood.jpg" />
+    <Resource Include="Images\FoodQuote2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\DeleteImage.jpg" />
+    <Resource Include="Images\FoodQuote6.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\tape.png" />
+    <Resource Include="Images\FoodMusic.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UserControls\fruit.jpg" />
+    <Resource Include="Images\MusicBtn1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UserControls\Footer.png" />
+    <Resource Include="Images\MusicBtn2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UserControls\Fun.png" />
+    <Resource Include="Images\MusicBtn3.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UserControls\Spice.jpg" />
+    <Resource Include="Images\MusicBtn4.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UserControls\BackGround.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\indian-condiments-with-copy-space-view.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\istockphoto-1169556647-612x612.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\TableView.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\friends.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\cat.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\FoodQuote1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\FoodQuote2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\FoodQuote3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\FoodQuote5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\FoodQuote4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\FoodQuote6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\FoodMusic.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\Play.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MusicBtn1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MusicBtn2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MusicBtn3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MusicBtn4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserControls\MusicBack.jpg" />
+    <Resource Include="Images\MusicBack.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

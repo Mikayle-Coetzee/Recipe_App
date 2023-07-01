@@ -76,7 +76,7 @@
                         </Border.BorderBrush>
 
                         <Grid>
-                            <Image Stretch="Uniform" Source="/MusicBtn1.png"  />
+                            <Image Stretch="Uniform" Source="/Images/MusicBtn1.png"  />
                             <ContentPresenter 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Center"/>
@@ -130,7 +130,7 @@
                         </Border.BorderBrush>
 
                         <Grid>
-                            <Image Stretch="Uniform" Source="/MusicBtn2.png"   />
+                            <Image Stretch="Uniform" Source="/Images/MusicBtn2.png"   />
                             <ContentPresenter 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Center"/>
@@ -184,7 +184,7 @@
                         </Border.BorderBrush>
 
                         <Grid>
-                            <Image Stretch="Uniform" Source="/MusicBtn3.png"  />
+                            <Image Stretch="Uniform" Source="/Images/MusicBtn3.png"  />
                             <ContentPresenter 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Center"/>
@@ -238,7 +238,7 @@
                         </Border.BorderBrush>
 
                         <Grid>
-                            <Image Stretch="Uniform" Source="/MusicBtn4.png"   />
+                            <Image Stretch="Uniform" Source="/Images/MusicBtn4.png"   />
                             <ContentPresenter 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Center"/>

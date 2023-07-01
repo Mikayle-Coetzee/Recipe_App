@@ -10,11 +10,11 @@ xmlns:local="clr-namespace:PROG6221_P3"
 
         <ImageBrush x:Key="Food"
               
-                    Stretch="Fill" ImageSource="/UserControls/FoodQuote6.png"  />
+                    Stretch="Fill" ImageSource="/Images/FoodQuote6.png"  />
 
             <ImageBrush x:Key="BackgroundBrush"
                     
-                    Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
+                    Stretch="Fill" ImageSource="/Images/TableView.jpg"     />
         </UserControl.Resources>
 
     <Grid x:Name="MainGrid3" Background="Black">

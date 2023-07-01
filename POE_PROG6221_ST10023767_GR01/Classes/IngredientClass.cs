@@ -21,22 +21,22 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Holds the name of the ingredient 
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
         /// <summary>
         /// Holds the quantity of the ingredient.
         /// </summary>
-        public double Quantity { get; set; } = (double)0.0;
+        public double Quantity { get; set; } 
 
         /// <summary>
         /// Holds the unit of measurement
         /// </summary>
-        public string Unit { get; set; } = string.Empty;
+        public string Unit { get; set; } 
 
         /// <summary>
         /// Holds the number of ingredients 
         /// </summary>
-        public int NumOfIngredients { get; set; } = 0;
+        public int NumOfIngredients { get; set; } 
 
         /// <summary>
         /// Holds the number of calories
@@ -46,7 +46,7 @@ namespace POE_PROG6221_ST10023767_GR01
         /// <summary>
         /// Holds the selected food group
         /// </summary>
-        public string FoodGroup { get; set; } = string.Empty;
+        public string FoodGroup { get; set; } 
 
         /// <summary>
         /// Holds the list of food groups.

@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
                     
-                    Stretch="UniformToFill" ImageSource="/UserControls/MusicBack.jpg"  />
+                    Stretch="UniformToFill" ImageSource="/Images/MusicBack.jpg"  />
     </UserControl.Resources>
 
     <Grid x:Name="MainGridMusic" Background="Black">
@@ -46,7 +46,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="10" Margin="55,19,55,193" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image Stretch="Fill" Margin="9,9,9,9" Source="/UserControls/FoodMusic.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Image Stretch="Fill" Margin="9,9,9,9" Source="/Images/FoodMusic.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
 
                 </Border>

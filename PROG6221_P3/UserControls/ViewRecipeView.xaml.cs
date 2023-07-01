@@ -24,6 +24,8 @@ namespace PROG6221_P3.UserControls
         public ViewRecipeView()
         {
             InitializeComponent();
+
+
         }
 
         public void UpdateRecipe(RecipeClass recipe)

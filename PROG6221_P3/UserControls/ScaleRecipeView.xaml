@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
                     
-                    Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
+                    Stretch="Fill" ImageSource="/Images/TableView.jpg"     />
     </UserControl.Resources>
 
     <Grid x:Name="MainGrid4" Background="Black">
@@ -33,7 +33,7 @@
         </Grid>
         <Grid Margin="0,1,0,0" Grid.RowSpan="1" Grid.Row="1">
             <TextBlock Text="Recipe Name:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmbFoodGroup" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="cmbRecipeName" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
         </Grid>
         <Grid Grid.Row="2" Margin="0,6,0,0">
             <TextBlock Text="Scale Factor:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>

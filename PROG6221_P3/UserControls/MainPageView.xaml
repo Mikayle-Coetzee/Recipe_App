@@ -72,7 +72,6 @@
                     <local:MusicPlayerView />
                 </TabItem>
                 <TabItem Header="Sign Out">
-                    <!--<local:MainPageView Visibility="Hidden"></local:MainPageView>-->
                 </TabItem>
             </TabControl>
 

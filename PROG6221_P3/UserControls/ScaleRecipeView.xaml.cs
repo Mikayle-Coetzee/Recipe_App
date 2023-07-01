@@ -20,19 +20,25 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class ScaleRecipeView : UserControl
     {
+        private POE_PROG6221_ST10023767_GR01.RecipeClass recipeClass = new POE_PROG6221_ST10023767_GR01.RecipeClass();
+
         public ScaleRecipeView()
         {
             InitializeComponent();
+         
+            //// Populate the ComboBox
+            cmbRecipeName.ItemsSource = recipeClass.RecipeList;
         }
+
 
         private void lstRecipeSteps_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ////////////
+            
         }
 
         private void cmbFoodGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ///////////
+            
         }
     }
 }

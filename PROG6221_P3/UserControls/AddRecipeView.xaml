@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
                     
-                    Stretch="Fill" ImageSource="/UserControls/TableView.jpg"     />
+                    Stretch="Fill" ImageSource="/Images/TableView.jpg"     />
     </UserControl.Resources>
 
     <Grid x:Name="MainGrid3" Background="Black">
@@ -28,7 +28,7 @@
 
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="10"  />
+        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="10" Cursor=""  />
 
         <Grid Grid.Row="0">
             <TextBlock Text="Add Recipe" FontSize="24" FontWeight="Bold" Margin="15,4,0,0" FontFamily="Segoe Print" Width="775" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White"/>
@@ -113,14 +113,14 @@
         <Grid Grid.Row="9">
             <Button x:Name="btnAddSteps" Content="Save Recipe" Height="30" FontFamily="Segoe Print" Foreground="Black" Background="White" VerticalAlignment="Bottom" Click="btnAddSteps_Click" Margin="0,0,10,10" HorizontalAlignment="Right" Width="104"/>
             <Button Content="Remove Ingredient" Width="173" Height="30"  FontFamily="Segoe Print" Foreground="Black" Background="White" Margin="15,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-            <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="15,10,10,58" BorderBrush="White" FontFamily="Segoe Print" Foreground="White" Background="Transparent"/>
+            <ListBox x:Name="lstSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="15,10,10,58" BorderBrush="White" FontFamily="Segoe Print" Foreground="White" Background="Transparent"/>
         </Grid>
         <Grid Grid.Row="7">
             <TextBlock Text="Steps:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" FontSize="16" Margin="15,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>
         </Grid>
         <Grid Grid.Row="8">
             <TextBox x:Name="txtStep" Margin="15,2,117,3" FontFamily="Segoe Print" Foreground="White" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center"/>
-            <Button Content="Add" FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="93" VerticalAlignment="Center" Margin="0,0,10,0" Height="30"/>
+            <Button x:Name="btnAddStep" Content="Add" FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Left" Width="93" Margin="797,0,0,0" Height="30" VerticalAlignment="Center" Click="btnAddStep_Click"/>
         </Grid>
     </Grid>
 
