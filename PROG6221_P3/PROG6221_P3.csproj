@@ -113,7 +113,7 @@
     <Compile Include="Classes\IngredientClassP3.cs" />
     <Compile Include="Classes\MainViewModel.cs" />
     <Compile Include="Classes\RecipeClassP3.cs" />
-    <Compile Include="Classes\RecipeListClassP3.cs" />
+    <Compile Include="Classes\WorkerClassP3.cs" />
     <Compile Include="Classes\ServiceLocator.cs" />
     <Compile Include="Classes\StepClassP3.cs" />
     <Compile Include="UserControls\AccountCreationView.xaml.cs">

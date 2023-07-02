@@ -33,13 +33,13 @@
         </Grid>
         <Grid Margin="0,1,0,0" Grid.RowSpan="1" Grid.Row="1">
             <TextBlock Text="Recipe Name:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmbRecipeName" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="cmbRecipeName" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" SelectionChanged="cmbRecipeName_SelectionChanged" />
         </Grid>
         <Grid Grid.Row="2" Margin="0,6,0,0">
             <TextBlock Text="Scale Factor:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmbFactor" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
+            <ComboBox x:Name="cmbFactor" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" SelectionChanged="cmbFactor_SelectionChanged" >
                 <ComboBoxItem Content="Half" />
-                <ComboBoxItem Content="Double" IsSelected="True"/>
+                <ComboBoxItem Content="Double" />
                 <ComboBoxItem Content="Triple"/>
                 <ComboBoxItem Content="Reset"/>
             </ComboBox>
@@ -51,7 +51,7 @@
                     <DataGridTextColumn Header="Name"  Binding="{Binding Name}" Width="150"  FontFamily="Segoe Print" />
                     <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="150" FontFamily="Segoe Print"/>
                     <DataGridTextColumn Header="Unit" Binding="{Binding Unit}" Width="150" FontFamily="Segoe Print" />
-                    <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="150" FontFamily="Segoe Print"/>
+                    <DataGridTextColumn Header="Calories" Binding="{Binding IngredientCalories}" Width="150" FontFamily="Segoe Print"/>
                     <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="*" FontFamily="Segoe Print"/>
                 </DataGrid.Columns>
             </DataGrid>
@@ -66,7 +66,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox IsChecked="{Binding IsCompleted}" Height="16" />
-                            <TextBlock Text="{Binding StepText}" Margin="5 0" Height="23"  />
+                            <TextBlock Text="{Binding Step}" Margin="5 0" Height="23"  />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

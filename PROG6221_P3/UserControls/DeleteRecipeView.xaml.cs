@@ -28,6 +28,9 @@ namespace PROG6221_P3.UserControls
 
             cmbRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
             cmbRecipeNames.DisplayMemberPath = "RecipeName";
+
+            lstRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
+            lstRecipeNames.DisplayMemberPath = "RecipeName";
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -37,7 +40,27 @@ namespace PROG6221_P3.UserControls
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ///
+            
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = ServiceLocator.MainViewModel;
+            
+            RecipeClassP3 selectedRecipe = cmbRecipeNames.SelectedItem as RecipeClassP3;
+            if (selectedRecipe != null)
+            {
+                // Delete the recipe from the MainViewModel
+                ServiceLocator.MainViewModel.Recipies.Remove(selectedRecipe);
+
+                // Clear the selection in the ComboBox
+                cmbRecipeNames.SelectedItem = null;
+            }
+
+            cmbRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
+            cmbRecipeNames.DisplayMemberPath = "RecipeName";
+            lstRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
+            lstRecipeNames.DisplayMemberPath = "RecipeName";
         }
     }
 }

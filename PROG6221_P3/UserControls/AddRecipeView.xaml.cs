@@ -336,9 +336,6 @@ namespace PROG6221_P3.UserControls
         public void StoreRecipes(List<List<string>> stepCollections,
             List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
         {
-            //RecipeNames = GetRecipeNames();
-            //recipeList.Clear();
-
             for (int i = 0; i < RecipeNames.Count; i++)
             {
                 RecipeClassP3 recipe = new RecipeClassP3

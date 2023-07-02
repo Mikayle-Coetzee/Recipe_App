@@ -116,7 +116,7 @@
             <DataGrid x:Name="dgSteps" AutoGenerateColumns="False" IsReadOnly="True"
                       CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Segoe Print" Margin="15,10,10,58" BorderBrush="White" Background="White" Foreground="Black">
                 <DataGrid.Columns >
-                    <DataGridTextColumn Header="Number"  Binding="{Binding NumOfSteps}" Width="150"  FontFamily="Segoe Print" />
+                    <DataGridTextColumn Header="Number"  Binding="{Binding NumOfSteps}" Width="Auto"  FontFamily="Segoe Print" />
                     <DataGridTextColumn Header="Step" Binding="{Binding Step}" FontFamily="Segoe Print" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
@@ -126,7 +126,7 @@
         </Grid>
         <Grid Grid.Row="8">
             <TextBox x:Name="txtStep" Margin="15,2,117,3" FontFamily="Segoe Print" Foreground="White" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center"/>
-            <Button x:Name="btnAddStep" Content="Add" FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Left" Width="93" Margin="797,0,0,0" Height="30" VerticalAlignment="Center" Click="btnAddStep_Click"/>
+            <Button x:Name="btnAddStep" Content="Add" FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="93" Margin="798,0,10,0" Height="30" VerticalAlignment="Center" Click="btnAddStep_Click"/>
         </Grid>
     </Grid>
 
