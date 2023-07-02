@@ -17,7 +17,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Microsoft.VisualBasic;
+using System.Xml.Linq;
+using System.Windows.Markup;
 
 namespace PROG6221_P3.UserControls
 {
@@ -94,8 +96,7 @@ namespace PROG6221_P3.UserControls
 
                 if (!valid1 || !valid2)
                 {
-                    //pop up message and have them enter in the pop up message 
-                    //Unit = new InputBinding from message
+                    foodGroup = ShowInputDialog("Enter a valid food group:", "Food Group");
                 }
             } while (!valid1 || !valid2);
 
@@ -120,8 +121,7 @@ namespace PROG6221_P3.UserControls
 
                 if (!valid1 || !valid2)
                 {
-                    //pop up message and have them enter in the pop up message 
-                    //calories = new InputBinding from message
+                    userInput = ShowInputDialog("Enter a valid number for calories:", "Calories");
                 }
 
             } while (!valid1 || !valid2);
@@ -147,8 +147,7 @@ namespace PROG6221_P3.UserControls
 
                 if (!valid1 || !valid2)
                 {
-                    //pop up message and have them enter in the pop up message 
-                    //Quantity = new InputBinding from message
+                    userInput = ShowInputDialog("Enter a valid number for quantities:", "Quantities");
                 }
 
             } while (!valid1 || !valid2);
@@ -174,8 +173,7 @@ namespace PROG6221_P3.UserControls
 
                 if (!valid1 || !valid2)
                 {
-                    //pop up message and have them enter in the pop up message 
-                    //Unit = new InputBinding from message
+                    unit = ShowInputDialog("Enter a valid number unit of measurement:", "Unit");
                 }
             } while (!valid1 || !valid2);
 
@@ -191,8 +189,8 @@ namespace PROG6221_P3.UserControls
                 valid = validation.Validate_String(name);
                 if (!valid)
                 {
-                    //pop up message and have them enter in the pop up message 
-                    //Name = new InputBinding from message
+                    name = ShowInputDialog("Enter a valid ingredient name:", "Name");
+
                 }
 
             } while (!valid);
@@ -285,8 +283,8 @@ namespace PROG6221_P3.UserControls
                 valid = validation.Validate_String(step);
                 if (!valid)
                 {
-                    //pop up message and have them enter in the pop up message 
-                    //Name = new InputBinding from message
+                    step = ShowInputDialog("Enter a valid step:", "Step");
+
                 }
 
             } while (!valid);
@@ -306,9 +304,26 @@ namespace PROG6221_P3.UserControls
             dgSteps.DataContext = stepList;
         }
 
+        private string GetRecipeName()
+        {
+            string name = txtRecipeName.Text;
+            bool valid;
+            do
+            {
+                valid = validation.Validate_String(name);
+                if (!valid)
+                {
+                    name = ShowInputDialog("Enter a valid recipe name:", "Name");
+                }
+
+            } while (!valid);
+
+            return name;
+        }
+
         public void AddRecipe()
         {
-            string newRecipeName = txtRecipeName.Text;
+            string newRecipeName = GetRecipeName();
 
             // Write the steps and ingredients to the lists
             WriteStepsToList();
@@ -391,5 +406,75 @@ namespace PROG6221_P3.UserControls
                 mvm?.Add(recipe);
             }
         }
+
+        private string ShowInputDialog(string message, string title)
+        {
+            var inputBox = new TextBox();
+            inputBox.FontSize = 18;
+            inputBox.FontFamily = new FontFamily("Segoe Print");
+            inputBox.Foreground = Brushes.White;
+            inputBox.BorderBrush = Brushes.White;
+            inputBox.BorderThickness = new Thickness(1);
+            inputBox.Background = Brushes.Black;
+
+            var window = new Window()
+            {
+                Title = title,
+                Width = 400,
+                Height = 200,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStyle = WindowStyle.SingleBorderWindow,
+                Background = Brushes.Black,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = Application.Current.MainWindow
+            };
+
+            var okButton = new Button()
+            {
+                Content = "OK",
+                Width = window.Width,
+                FontSize = 18,
+                FontFamily = new FontFamily("Segoe Print"),
+                Foreground = Brushes.Black,
+                Background = Brushes.White
+            };
+
+            okButton.Click += (sender, e) =>
+            {
+                window.DialogResult = true;
+                window.Close();
+            };
+
+            var buttonPanel = new StackPanel()
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Bottom
+            };
+
+            buttonPanel.Children.Add(okButton);
+
+            window.Content = new StackPanel()
+            {
+                Children =
+        {
+            new TextBlock() { Text = message, FontSize = 18, FontFamily = new FontFamily("Segoe Print"), Foreground = Brushes.White },
+            inputBox,
+            buttonPanel
+        }
+            };
+
+            window.SizeToContent = SizeToContent.WidthAndHeight;
+
+            window.ShowDialog();
+
+            return window.DialogResult == true ? inputBox.Text : "Exit";
+        }
+
+
+
+
+
+
+
     }
 }

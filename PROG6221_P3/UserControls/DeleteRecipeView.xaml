@@ -31,7 +31,7 @@ xmlns:local="clr-namespace:PROG6221_P3"
         <TextBlock Text="Delete Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="15,25,0,0" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <ListBox x:Name="lstRecipeNames" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="11,182,21,10" SelectionChanged="ListBox_SelectionChanged" Foreground="White" BorderBrush="White" Background="Transparent" FontFamily="Segoe Print" Grid.RowSpan="2" Grid.Column="1"/>
         <TextBlock Text="Recipies" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="12,130,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="281" Grid.Column="1"/>
-        <ComboBox x:Name ="cmbRecipeNames" Margin="157,86,146,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name ="cmbRecipeNames" Margin="157,83,146,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="30" Grid.ColumnSpan="2" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
         <Button x:Name="btnDelete"  Content="Delete" FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="93" VerticalAlignment="Top" Margin="0,83,10,0" Height="30" Grid.Column="1" Click="btnDelete_Click"/>
 
         <Label Content="Recipe name: " HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="147"/>

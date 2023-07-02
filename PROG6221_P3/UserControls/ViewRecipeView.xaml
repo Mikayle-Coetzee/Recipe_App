@@ -65,7 +65,7 @@
 
             <Grid Grid.RowSpan="2">
                 <Label Content="Recipe name: " HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="147" Height="31"/>
-                <ComboBox x:Name="cmbRecipeNames" Margin="169,80,15,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="30"/>
+                <ComboBox x:Name="cmbRecipeNames" Margin="169,80,15,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="30" Grid.ColumnSpan="2" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
             </Grid>
 
 
@@ -83,7 +83,7 @@
 
         <TextBlock Text="Ingredients" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="10,232,0,0" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" Height="26" Width="84"/>
         <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,279,5,21" Background ="Transparent" Foreground="White" BorderBrush="White" FontFamily="Segoe Print"/>
-        <Image Source="/Images/FoodQuote2.png" Margin="0,274,0,142" Grid.Column="1"/>
+        <Image Source="/Images/FoodQuote2.png" Margin="0,274,0,23" Grid.Column="1"/>
 
         <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="1,279,16,21" SelectionChanged="lstRecipeSteps_SelectionChanged"  Background ="Transparent" Foreground="White" BorderBrush="White" FontFamily="Segoe Print" Grid.Column="2">
             <ListBox.ItemTemplate>

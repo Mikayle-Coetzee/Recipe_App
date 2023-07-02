@@ -19,6 +19,7 @@ namespace PROG6221_P3.Classes
         {
             // Initialize the Recipes collection as a new instance of ObservableCollection
             Recipies = new ObservableCollection<RecipeClassP3>();
+            Recipies.Clear();
         }
 
         /// <summary>
@@ -27,8 +28,6 @@ namespace PROG6221_P3.Classes
         /// <param name="recipe"></param>
         public void Add(RecipeClassP3 recipe)
         {
-            Recipies.Clear();
-
             // Add the recipe to the Recipes collection
             Recipies.Add(recipe);
 
