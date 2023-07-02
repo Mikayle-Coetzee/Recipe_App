@@ -55,8 +55,8 @@
             </Border>
 
             <StackPanel Margin="42,0,0,234" VerticalAlignment="Bottom" Height="86" HorizontalAlignment="Left" Width="368">
-                <TextBlock Text="Song Title" FontSize="24" Foreground="White" HorizontalAlignment="Left" Width="290"/>
-                <TextBlock Text="Artist" FontSize="18" Foreground="DarkRed" HorizontalAlignment="Left" Width="288"/>
+                <TextBlock x:Name ="txtSongTitle" Text="Song Title" FontSize="24" Foreground="White" HorizontalAlignment="Left" Width="290"/>
+                <TextBlock x:Name ="txtArtits" Text="Artist" FontSize="18" Foreground="DarkRed" HorizontalAlignment="Left" Width="288"/>
                 <!-- Add more song details like album name, duration, etc. -->
             </StackPanel>
             <Grid Margin="98,258,544,338">
@@ -66,7 +66,7 @@
                     <ColumnDefinition Width="63*"/>
                     <ColumnDefinition Width="63*"/>
                 </Grid.ColumnDefinitions>
-                <Button  x:Name="btnPlay_Copy1" Style="{StaticResource MyPreviousButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Height="44" Width="43">
+                <Button  x:Name="btnPrevious" Style="{StaticResource MyPreviousButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Height="44" Width="43" Click="btnPrevious_Click_1">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -76,7 +76,7 @@
                         </TransformGroup>
                     </Button.RenderTransform>
                 </Button>
-                <Button  x:Name="btnPlay_Copy" Style="{StaticResource MyPauseButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center"  HorizontalAlignment="Center" Width="44" Height="44" Grid.Column="1" >
+                <Button  x:Name="btnPause" Style="{StaticResource MyPauseButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center"  HorizontalAlignment="Center" Width="44" Height="44" Grid.Column="1" Click="btnPause_Click_1" >
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -86,17 +86,17 @@
                         </TransformGroup>
                     </Button.RenderTransform>
                 </Button>
-                <Button  x:Name="btnPlay" Margin="16,0,0,0" Style="{StaticResource MyPlayButtonStyle}" RenderTransformOrigin="0.703,0.56" VerticalAlignment="Center" HorizontalAlignment="Left" Height="44" Width="43" Grid.Column="2">
+                <Button  x:Name="btnPlay" Margin="16,0,0,0" Style="{StaticResource MyPlayButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Left" Height="44" Width="43" Grid.Column="2" Click="btnPlay_Click_1">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
                             <SkewTransform AngleY="0.409"/>
                             <RotateTransform/>
-                            <TranslateTransform Y="-0.036"/>
+                            <TranslateTransform Y="-0.098"/>
                         </TransformGroup>
                     </Button.RenderTransform>
                 </Button>
-                <Button  x:Name="btnPlay_Copy2" Style="{StaticResource MyNextButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Height="44" Width="43" Grid.Column="3">
+                <Button  x:Name="btnNext" Style="{StaticResource MyNextButtonStyle}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Height="44" Width="43" Grid.Column="3" Click="btnNext_Click_1">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -120,18 +120,6 @@
             </ScrollViewer.RenderTransform>
             <!-- Song list section -->
             <StackPanel x:Name="songList" Margin="0,0,0,20" HorizontalAlignment="Right">
-                <TextBlock Text="Bon Jovi - It's My Life" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Bryan Adams - Summer of 69" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Cat Stevens - Morning Has Broken" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Demi Lee Moore - Coat Of Many Colors" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Dire Straits - Walk Of Life" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Kenny Loggins - Footloose" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Nightbirde – It’s Okay" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Bellamy Brothers - Old Hippie" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Bellamy Brothers - We Dared The Lightning" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Smokie - Living next door to Alice" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Sia - Madilyn Paige - The Greatest" Foreground="White" Margin="0,0,0,10"/>
-                <TextBlock Text="Piano background song" Foreground="White" Margin="0,0,0,10"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

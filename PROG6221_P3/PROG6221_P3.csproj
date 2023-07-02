@@ -209,9 +209,6 @@
     <Resource Include="Images\MusicBtn1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\MusicBtn2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\MusicBtn3.png" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +217,11 @@
   <ItemGroup>
     <Resource Include="Images\MusicBack.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Songs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MusicBtn5.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

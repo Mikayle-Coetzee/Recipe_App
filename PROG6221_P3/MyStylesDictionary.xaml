@@ -130,7 +130,7 @@
                         </Border.BorderBrush>
 
                         <Grid>
-                            <Image Stretch="Uniform" Source="/Images/MusicBtn2.png"   />
+                            <Image Stretch="Uniform" Source="/Images/MusicBtn5.png"    />
                             <ContentPresenter 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Center"/>
