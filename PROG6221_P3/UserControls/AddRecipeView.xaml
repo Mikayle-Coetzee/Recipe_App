@@ -111,7 +111,7 @@
             </DataGrid>
         </Grid>
         <Grid Grid.Row="9">
-            <Button x:Name="btnAddSteps" Content="Save Recipe" Height="30" FontFamily="Segoe Print" Foreground="Black" Background="White" VerticalAlignment="Bottom" Click="btnAddSteps_Click" Margin="0,0,10,10" HorizontalAlignment="Right" Width="104"/>
+            <Button x:Name="btnAddRecipe" Content="Save Recipe" FontFamily="Segoe Print" Foreground="Black" Background="White" Margin="0,224,10,10" HorizontalAlignment="Right" Width="104" Click="btnAddRecipe_Click" VerticalAlignment="Bottom"/>
             <Button Content="Remove Ingredient" Width="173" Height="30"  FontFamily="Segoe Print" Foreground="Black" Background="White" Margin="15,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
             <DataGrid x:Name="dgSteps" AutoGenerateColumns="False" IsReadOnly="True"
                       CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Segoe Print" Margin="15,10,10,58" BorderBrush="White" Background="White" Foreground="Black">

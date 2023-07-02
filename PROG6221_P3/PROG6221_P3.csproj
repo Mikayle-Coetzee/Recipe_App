@@ -111,6 +111,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\IngredientClassP3.cs" />
+    <Compile Include="Classes\RecipeClassP3.cs" />
+    <Compile Include="Classes\RecipeListClassP3.cs" />
     <Compile Include="Classes\StepClassP3.cs" />
     <Compile Include="UserControls\AccountCreationView.xaml.cs">
       <DependentUpon>AccountCreationView.xaml</DependentUpon>

@@ -1,4 +1,5 @@
 ﻿using POE_PROG6221_ST10023767_GR01;
+using PROG6221_P3.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,31 +22,63 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class ViewRecipeView : UserControl
     {
+        public List<RecipeClassP3> RecipeList { get; set; }
+
         public ViewRecipeView()
         {
             InitializeComponent();
 
 
-        }
-
-        public void UpdateRecipe(RecipeClass recipe)
-        {
-            //lstRecipeSteps.ItemsSource = recipe.Steps;
+            
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ////
+            
+            
+            // Handle ComboBox selection change
+            string selectedRecipeName = cmbRecipeNames.SelectedItem as string;
+            if (selectedRecipeName != null)
+            {
+                ////Find the selected recipe by name
+                ////RecipeClassP3 selectedRecipe = RecipeList.FirstOrDefault(r => r.Name == selectedRecipeName);
+                ////if (selectedRecipe != null)
+                ////{
+                ////    Display recipe ingredients and steps
+                ////    lstRecipeSteps.ItemsSource = selectedRecipe.steps;
+                ////}
+            }
         }
 
         private void lstRecipeSteps_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ///
+            
         }
 
         private void cmbFoodGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ////
+           
         }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            RecipeList = GetRecipes();
+
+            // Update ComboBox with recipe names
+            cmbRecipeNames.ItemsSource = RecipeList;
+        }
+
+        private List<RecipeClassP3> GetRecipes()
+        {
+            List<RecipeClassP3> recipes = new List<RecipeClassP3>();
+
+            foreach (RecipeClassP3 recipe in RecipeList)
+            {
+                recipes.Add(recipe);
+            }
+
+            return recipes;
+        }
+
     }
 }
