@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PROG6221_P3.Classes;
 
 namespace PROG6221_P3.UserControls
 {

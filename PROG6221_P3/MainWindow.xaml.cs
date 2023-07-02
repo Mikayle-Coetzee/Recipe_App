@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PROG6221_P3.Classes;
 
 namespace PROG6221_P3
 {
@@ -22,20 +23,35 @@ namespace PROG6221_P3
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        /// <summary>
+        /// Instance of the AccountCreationView
+        /// </summary>
         private AccountCreationView accountCreationView;
-      
+
+        /// <summary>
+        /// SharedViewModel property of type MainViewModel
+        /// </summary>
+        public MainViewModel SharedViewModel { get; set; }
+
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // Instantiate the AccountCreationView and set its visibility to collapsed
             accountCreationView = new AccountCreationView();
             accountCreationView.Visibility = Visibility.Collapsed;
+
+            // Add the AccountCreationView to the MainGrid
             MainGrid.Children.Add(accountCreationView);
+
+            // Set the DataContext of the MainWindow to a new instance of MainViewModel
+            DataContext = new MainViewModel();
         }
 
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
+            // Set the visibility of the accountCreationView to visible
             accountCreationView.Visibility = Visibility.Visible;
         }
 
@@ -43,10 +59,14 @@ namespace PROG6221_P3
         {
             // Navigate to the login view
             AccountCreationView loginView = new AccountCreationView();
+
             // Set the visibility of the create account section to collapsed
             loginView.CreateAccountStackPanel.Visibility = Visibility.Collapsed;
+
             // Set the visibility of the login section to visible
             loginView.LoginStackPanel.Visibility = Visibility.Visible;
+
+            // Navigate to the loginView using the MainFrame
             MainFrame.Navigate(loginView);
         }
 

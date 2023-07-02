@@ -26,8 +26,6 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class AddRecipeView : UserControl
     {
-
-        // Create a collection to hold the ingredients
         public List<IngredientClassP3> ingredientList = new List<IngredientClassP3>();
         public List<StepClassP3> stepList = new List<StepClassP3>();
 
@@ -43,8 +41,8 @@ namespace PROG6221_P3.UserControls
         /// <summary>
         /// Holds the list of collections of ingredients for each recipe.
         /// </summary>
-        private List<List<(string, double, string, double, string, double, double, string)>> IngredientCollections { get; set; } 
-            
+        private List<List<(string, double, string, double, string, double, double, string)>> IngredientCollections { get; set; }
+
 
         /// <summary>
         /// Holds the list of recipes.
@@ -59,6 +57,14 @@ namespace PROG6221_P3.UserControls
         public AddRecipeView()
         {
             InitializeComponent();
+
+            DataContext = ServiceLocator.MainViewModel;
+
+            RecipeNames = new List<string>();
+            StepCollections = new List<List<string>>();
+            IngredientCollections = new List<List<(string, double, string, double, string, double, double, string)>>();
+
+
             // Set the DataContext of the DataGrid to the ingredients collection
             dgIngredients.ItemsSource = ingredientList;
 
@@ -69,26 +75,7 @@ namespace PROG6221_P3.UserControls
         private void WriteIngredientsToList()
         {
             int number = this.numberOfIngredients;
-            
 
-
-            //ingredientList = new List<IngredientClassP3>();
-
-
-            //for (int i = 0; i < number; i++)
-            //{
-            //    var newIngredient = new IngredientClassP3
-            //    {
-            //        Name = GetIngredientName(),
-            //        Quantity = GetIngredientQuantity(),
-            //        Unit = GetIngredientUnit(),
-            //        IngredientCalories = GetIngredientCalories(),
-            //        FoodGroup = GetFoodGroup(),
-            //        NumOfIngredients = number
-            //    };
-
-            //    ingredientList.Add(newIngredient);
-            //}
         }
 
 
@@ -214,9 +201,6 @@ namespace PROG6221_P3.UserControls
         }
 
 
-
-
-
         private void AddIngredientButton_Click(object sender, RoutedEventArgs e)
         {
             numberOfIngredients++;
@@ -290,19 +274,6 @@ namespace PROG6221_P3.UserControls
         {
             // Initialize variables
             int number = this.numberOfSteps;
-
-            //stepList = new List<StepClassP3>();
-
-            //for (int i = 0; i < number; i++)
-            //{
-            //    StepClassP3 newStep = new StepClassP3
-            //    {
-            //        NumOfSteps = number,
-            //        Step = GetStep()
-            //    };
-
-            //    stepList.Add(newStep);
-            //}
         }
 
         private string GetStep()
@@ -325,17 +296,12 @@ namespace PROG6221_P3.UserControls
 
         private void btnAddRecipe_Click(object sender, RoutedEventArgs e)
         {
-
-            RecipeNames = new List<string>();
-            StepCollections = new List<List<string>>();
-            IngredientCollections = new List<List<(string, double, string, double, string, double, double, string)>>();
-
-
             AddRecipe();
 
             txtRecipeName.Text = string.Empty;
             ingredientList.Clear();
             dgIngredients.DataContext = ingredientList;
+            stepList.Clear();
             stepList.Clear();
             dgSteps.DataContext = stepList;
         }
@@ -364,6 +330,7 @@ namespace PROG6221_P3.UserControls
             //HandleRecipeExceedsCaloriesEvent(totalCalories);
 
             StoreRecipes(StepCollections, IngredientCollections);
+
         }
 
         public void StoreRecipes(List<List<string>> stepCollections,
@@ -413,17 +380,19 @@ namespace PROG6221_P3.UserControls
                 else
                 {
                     //pop up error message box
-                    StoreRecipes(stepCollections, ingredientCollections);
+                    //StoreRecipes(stepCollections, ingredientCollections);
                 }
 
                 // Add the recipe to the list
                 recipeList.Add(recipe);
-            }
 
-            RecipeClassP3 recipeClassP3 = new RecipeClassP3()
-            {
-                RecipeList = recipeList
-            };
+                // Attempt to retrieve the DataContext as an instance of MainViewModel
+                var mvm = DataContext as MainViewModel;
+
+                // If the DataContext is an instance of MainViewModel and not null, proceed to call the
+                // Add method on the MainViewModel object, passing the recipe object as an argument
+                mvm?.Add(recipe);
+            }
         }
     }
 }

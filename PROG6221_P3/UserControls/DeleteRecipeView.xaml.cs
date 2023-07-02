@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PROG6221_P3.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,10 @@ namespace PROG6221_P3.UserControls
         public DeleteRecipeView()
         {
             InitializeComponent();
+            DataContext = ServiceLocator.MainViewModel;
+
+            cmbRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
+            cmbRecipeNames.DisplayMemberPath = "RecipeName";
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

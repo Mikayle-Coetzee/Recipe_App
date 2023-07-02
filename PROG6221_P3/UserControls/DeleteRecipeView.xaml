@@ -30,7 +30,7 @@ xmlns:local="clr-namespace:PROG6221_P3"
         <TextBlock Text="Delete Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="15,25,0,0" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="11,182,21,10" SelectionChanged="ListBox_SelectionChanged" Foreground="White" BorderBrush="White" Background="Transparent" FontFamily="Segoe Print" Grid.RowSpan="2" Grid.Column="1"/>
         <TextBlock Text="Recipies" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="12,130,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="281" Grid.Column="1"/>
-        <ComboBox Margin="157,86,21,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name ="cmbRecipeNames" Margin="157,86,21,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2"/>
         <Label Content="Recipe name: " HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="147"/>
 
         <Grid Margin="0,182,0,0" Grid.RowSpan="2">

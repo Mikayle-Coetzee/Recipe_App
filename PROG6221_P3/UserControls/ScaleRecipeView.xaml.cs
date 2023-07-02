@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PROG6221_P3.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +21,23 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class ScaleRecipeView : UserControl
     {
-        private POE_PROG6221_ST10023767_GR01.RecipeClass recipeClass = new POE_PROG6221_ST10023767_GR01.RecipeClass();
+       private POE_PROG6221_ST10023767_GR01.RecipeClass recipeClass = new POE_PROG6221_ST10023767_GR01.RecipeClass();
 
         public ScaleRecipeView()
         {
             InitializeComponent();
-         
-            //// Populate the ComboBox
-            cmbRecipeName.ItemsSource = recipeClass.RecipeList;
+
+            //DataContext = ServiceLocator.MainViewModel;
+
+            //cmbRecipeName.ItemsSource = (DataContext as MainViewModel).Recipies;
+            //cmbRecipeName.ItemsSource = (DataContext as MainViewModel).Recipies.Select(Recipe => Recipe.RecipeName).ToList();
+
+            DataContext = ServiceLocator.MainViewModel;
+
+            cmbRecipeName.ItemsSource = (DataContext as MainViewModel).Recipies;
+            cmbRecipeName.DisplayMemberPath = "RecipeName";
+
+
         }
 
 

@@ -28,36 +28,25 @@ namespace PROG6221_P3.UserControls
         {
             InitializeComponent();
 
+            DataContext = ServiceLocator.MainViewModel;
 
-            
+            cmbRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
+            cmbRecipeNames.DisplayMemberPath = "RecipeName";
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            
-            // Handle ComboBox selection change
-            string selectedRecipeName = cmbRecipeNames.SelectedItem as string;
-            if (selectedRecipeName != null)
-            {
-                ////Find the selected recipe by name
-                ////RecipeClassP3 selectedRecipe = RecipeList.FirstOrDefault(r => r.Name == selectedRecipeName);
-                ////if (selectedRecipe != null)
-                ////{
-                ////    Display recipe ingredients and steps
-                ////    lstRecipeSteps.ItemsSource = selectedRecipe.steps;
-                ////}
-            }
+
         }
 
         private void lstRecipeSteps_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
 
         private void cmbFoodGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
