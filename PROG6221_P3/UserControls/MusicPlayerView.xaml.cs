@@ -95,8 +95,8 @@ namespace PROG6221_P3.UserControls
             if (File.Exists(songPath))
             {
                 // Update the song title and artist text
-                txtSongTitle.Text = songTitle;
-                txtArtits.Text = artist;
+                txtSongTitle1.Text = songTitle;
+                txtArtits1.Text = artist;
 
                 // Load and play the song
                 mediaPlayer.Open(new Uri(songPath));
