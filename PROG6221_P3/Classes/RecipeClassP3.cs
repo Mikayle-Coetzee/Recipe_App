@@ -29,6 +29,8 @@ namespace PROG6221_P3.Classes
         /// </summary>
         public List<RecipeClassP3> RecipeList { get; set; }
 
+        public List<double> TotalCalories { get; set; }
+
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
@@ -39,6 +41,7 @@ namespace PROG6221_P3.Classes
             StepListIn = new List<StepClassP3>();
             IngredientListIn = new List<IngredientClassP3>();
             RecipeList = new List<RecipeClassP3>();
+            TotalCalories = new List<double>();
         }
     }
 }

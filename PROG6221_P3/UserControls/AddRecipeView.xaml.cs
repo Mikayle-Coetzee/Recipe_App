@@ -22,7 +22,11 @@ using System.Xml.Linq;
 using System.Windows.Markup;
 
 namespace PROG6221_P3.UserControls
-{
+{/// <summary>
+ /// Delegate for notifying the user about the calories of a recipe.
+ /// </summary>
+ /// <param name="recipeName">The name of the recipe.</param>
+    public delegate void RecipeNotificationDelegate(double calories);
     /// <summary>
     /// Interaction logic for AddRecipeView.xaml
     /// </summary>
@@ -30,7 +34,7 @@ namespace PROG6221_P3.UserControls
     {
         public List<IngredientClassP3> ingredientList = new List<IngredientClassP3>();
         public List<StepClassP3> stepList = new List<StepClassP3>();
-
+        public List<double> TotalCalories = new List<double>();
         /// <summary>
         /// Holds the list of names of the recipes.
         /// </summary>
@@ -44,7 +48,10 @@ namespace PROG6221_P3.UserControls
         /// Holds the list of collections of ingredients for each recipe.
         /// </summary>
         private List<List<(string, double, string, double, string, double, double, string)>> IngredientCollections { get; set; }
-
+        /// <summary>
+        /// Event that is triggered when a recipe exceeds the calorie limit.
+        /// </summary>
+        public event RecipeNotificationDelegate RecipeExceedsCaloriesEvent;
 
         /// <summary>
         /// Holds the list of recipes.
@@ -65,7 +72,7 @@ namespace PROG6221_P3.UserControls
             RecipeNames = new List<string>();
             StepCollections = new List<List<string>>();
             IngredientCollections = new List<List<(string, double, string, double, string, double, double, string)>>();
-
+            TotalCalories = new List<double>();
 
             // Set the DataContext of the DataGrid to the ingredients collection
             dgIngredients.ItemsSource = ingredientList;
@@ -83,24 +90,9 @@ namespace PROG6221_P3.UserControls
 
         private string GetFoodGroup()
         {
-            // Initialize variables
-            bool valid1, valid2;
-
             string foodGroup = ((ComboBoxItem)cmbFoodGroup.SelectedItem).Content.ToString();
 
-            // Validate the user's input
-            do
-            {
-                valid1 = validation.Validate_String(foodGroup);
-                valid2 = validation.Validate_Food_Group(foodGroup);//this must be checked if the user enter it in the message box, not the combo box
-
-                if (!valid1 || !valid2)
-                {
-                    foodGroup = ShowInputDialog("Enter a valid food group:", "Food Group");
-                }
-            } while (!valid1 || !valid2);
-
-            // Return the string of the entered ingredient unit
+            // Return the foodGroup string 
             return foodGroup;
         }
 
@@ -121,7 +113,7 @@ namespace PROG6221_P3.UserControls
 
                 if (!valid1 || !valid2)
                 {
-                    userInput = ShowInputDialog("Enter a valid number for calories:", "Calories");
+                    userInput = ShowInputDialog("Enter a valid number for calories, please use a comma if it is a decimal value:", "Calories");
                 }
 
             } while (!valid1 || !valid2);
@@ -147,7 +139,7 @@ namespace PROG6221_P3.UserControls
 
                 if (!valid1 || !valid2)
                 {
-                    userInput = ShowInputDialog("Enter a valid number for quantities:", "Quantities");
+                    userInput = ShowInputDialog("Enter a valid number for quantities, please use a comma if it is a decimal value:", "Quantities");
                 }
 
             } while (!valid1 || !valid2);
@@ -160,22 +152,7 @@ namespace PROG6221_P3.UserControls
 
         private String GetIngredientUnit()
         {
-            // Initialize variables
-            bool valid1, valid2;
-
             string unit = ((ComboBoxItem)cmdUnits.SelectedItem).Content.ToString();
-
-            // Validate the user's input
-            do
-            {
-                valid1 = validation.Validate_String(unit);
-                valid2 = validation.Validate_Unit_Of_Measurement(unit);//this must be checked if the user enter it in the message box, not the combo box
-
-                if (!valid1 || !valid2)
-                {
-                    unit = ShowInputDialog("Enter a valid number unit of measurement:", "Unit");
-                }
-            } while (!valid1 || !valid2);
 
             // Return the string of the entered ingredient unit
             return unit;
@@ -189,7 +166,7 @@ namespace PROG6221_P3.UserControls
                 valid = validation.Validate_String(name);
                 if (!valid)
                 {
-                    name = ShowInputDialog("Enter a valid ingredient name:", "Name");
+                    name = ShowInputDialog("Enter a valid ingredient name: ", "Name");
 
                 }
 
@@ -341,16 +318,96 @@ namespace PROG6221_P3.UserControls
                 (ingredient.Name, ingredient.Quantity, ingredient.Unit, ingredient.IngredientCalories,
                 ingredient.FoodGroup, ingredient.Quantity, ingredient.IngredientCalories, ingredient.Unit)).ToList());
 
-            //TotalCaloriesList = CalculateTotalCalories(IngredientCollections);
+            TotalCalories = CalculateTotalCalories(IngredientCollections);
 
-            //double totalCalories = TotalCaloriesList.LastOrDefault(); // Get the total calories of the last added recipe
+            double totalCalories = TotalCalories.LastOrDefault(); // Get the total calories of the last added recipe
 
             // Handle the event
-            //HandleRecipeExceedsCaloriesEvent(totalCalories);
+            HandleRecipeExceedsCaloriesEvent(totalCalories);
 
             StoreRecipes(StepCollections, IngredientCollections);
 
         }
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Subscribes the event handler to the RecipeExceedsCaloriesEvent.
+        /// </summary>
+        private void SubscribeToRecipeExceedsCaloriesEvent()
+        {
+            RecipeExceedsCaloriesEvent += HandleRecipeExceedsCalories;
+        }
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Handles the event when a recipe exceeds the calorie limit.
+        /// </summary>
+        /// <param name="calories">The calories of the recipe.</param>
+        private void HandleRecipeExceedsCalories(double calories)
+        {
+            if (calories > 300)
+            {
+                ShowNotificationBox($"The recipe exceeds 300 calories. Total calories are {calories}", "Recipe Notification");
+            }
+        }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Unsubscribes the event handler from the RecipeExceedsCaloriesEvent.
+        /// </summary>
+        private void UnsubscribeFromRecipeExceedsCaloriesEvent()
+        {
+            RecipeExceedsCaloriesEvent -= HandleRecipeExceedsCalories;
+        }
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Notifies the user about a recipe.
+        /// </summary>
+        /// <param name="calories">The calories of the recipe.</param>
+        protected virtual void NotifyUser(double calories)
+        {
+            if (calories > 300)
+            {
+                // Raise the event to notify the user
+                RecipeExceedsCaloriesEvent?.Invoke(calories);
+            }
+        }
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Handles the event when a recipe exceeds the calorie limit by subscribing, notifying the user,
+        /// and unsubscribing from the event.
+        /// </summary>
+        /// <param name="totalCalories">The total calories of the recipe.</param>
+        private void HandleRecipeExceedsCaloriesEvent(double totalCalories)
+        {
+            SubscribeToRecipeExceedsCaloriesEvent(); // Subscribe to the event
+            NotifyUser(totalCalories); // Notify the user
+            UnsubscribeFromRecipeExceedsCaloriesEvent(); // Unsubscribe from the event
+        }
+        public List<double> CalculateTotalCalories(List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
+        {
+            if (ingredientCollections == null)
+            {
+                return new List<double>();
+            }
+
+            List<double> recipeCalories = new List<double>();
+
+            foreach (var ingredientList in ingredientCollections)
+            {
+                double recipeTotalCalories = 0.0;
+
+                foreach (var ingredient in ingredientList)
+                {
+                    // Ensure the ingredient's calorie value is non-negative
+                    double ingredientCalories = Math.Max(ingredient.Item4, 0);
+                    recipeTotalCalories += ingredientCalories;
+                }
+
+                recipeCalories.Add(recipeTotalCalories);
+            }
+
+            return recipeCalories;
+        }
+
 
         public void StoreRecipes(List<List<string>> stepCollections,
             List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
@@ -436,7 +493,7 @@ namespace PROG6221_P3.UserControls
             var okButton = new Button()
             {
                 Content = "OK",
-                Width = window.Width,
+                Width = double.NaN,  // Stretch button width
                 FontSize = 18,
                 FontFamily = new FontFamily("Segoe Print"),
                 Foreground = Brushes.Black,
@@ -473,5 +530,59 @@ namespace PROG6221_P3.UserControls
 
             return window.DialogResult == true ? inputBox.Text : "Exit";
         }
+
+
+        private void ShowNotificationBox(string message, string title)
+        {
+            var window = new Window()
+            {
+                Title = title,
+                Width = 400,
+                Height = 200,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStyle = WindowStyle.SingleBorderWindow,
+                Background = Brushes.Black,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = Application.Current.MainWindow
+            };
+
+            var okButton = new Button()
+            {
+                Content = "OK",
+                Width = double.NaN,  // Stretch button width
+                FontSize = 18,
+                FontFamily = new FontFamily("Segoe Print"),
+                Foreground = Brushes.Black,
+                Background = Brushes.White
+            };
+
+            okButton.Click += (sender, e) =>
+            {
+                window.Close();
+            };
+
+            var buttonPanel = new StackPanel()
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Bottom
+            };
+
+            buttonPanel.Children.Add(okButton);
+
+            window.Content = new StackPanel()
+            {
+                Children =
+        {
+            new TextBlock() { Text = message, FontSize = 18, FontFamily = new FontFamily("Segoe Print"), Foreground = Brushes.White },
+            buttonPanel
+        }
+            };
+
+            window.SizeToContent = SizeToContent.WidthAndHeight;
+
+            window.ShowDialog();
+        }
+
+
     }
 }

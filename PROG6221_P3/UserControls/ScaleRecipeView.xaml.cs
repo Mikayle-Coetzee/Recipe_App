@@ -23,7 +23,7 @@ namespace PROG6221_P3.UserControls
     {
        // private POE_PROG6221_ST10023767_GR01.RecipeClass recipeClass = new POE_PROG6221_ST10023767_GR01.RecipeClass();
         private RecipeClassP3 selectedRecipe;
-
+        private double numTotalCalories = 0 ; 
         public ScaleRecipeView()
         {
             InitializeComponent();
@@ -43,8 +43,11 @@ namespace PROG6221_P3.UserControls
         private void cmbRecipeName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedRecipe = cmbRecipeName.SelectedItem as RecipeClassP3;
-            //UpdateIngredientDataGrid();
-            //UpdateStepList();
+            dgIngredients.ItemsSource = null;
+            dgIngredients.Items.Refresh();
+
+            lstRecipeSteps.ItemsSource = null;
+            lstRecipeSteps.Items.Refresh();
         }
 
         private void cmbFactor_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -52,6 +55,7 @@ namespace PROG6221_P3.UserControls
             UpdateIngredientDataGrid();
             UpdateStepList();
         }
+
 
         private void UpdateIngredientDataGrid()
         {
@@ -64,10 +68,13 @@ namespace PROG6221_P3.UserControls
                 return;
 
             List<IngredientClassP3> scaledIngredients;
+ 
 
             if (selectedFactor == "Reset")
             {
                 scaledIngredients = selectedRecipe.IngredientListIn;
+                numTotalCalories = scaledIngredients.Sum(ingredient => ingredient.IngredientCalories);
+                txtTotalCalories.Text = "Total Calories: " + numTotalCalories.ToString();
             }
             else
             {
@@ -90,8 +97,11 @@ namespace PROG6221_P3.UserControls
                         FoodGroup = ingredient.FoodGroup
                     })
                     .ToList();
+
+                numTotalCalories = scaledIngredients.Sum(ingredient => ingredient.IngredientCalories);
+                txtTotalCalories.Text = "Total Calories: " + numTotalCalories.ToString();
             }
-            
+
             dgIngredients.ItemsSource = scaledIngredients;
         }
 
@@ -270,13 +280,6 @@ namespace PROG6221_P3.UserControls
         {
             if (selectedRecipe == null)
                 return;
-
-           // lstRecipeSteps.ItemsSource = selectedRecipe.StepListIn;
-
-            //DataContext = ServiceLocator.MainViewModel;
-
-            //lstRecipeSteps.ItemsSource = (DataContext as MainViewModel).Recipies;
-            //lstRecipeSteps.DisplayMemberPath = "RecipeName";
 
             List<StepClassP3> scaledIngredients;
 

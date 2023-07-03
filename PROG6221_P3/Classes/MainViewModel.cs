@@ -15,6 +15,7 @@ namespace PROG6221_P3.Classes
         /// </summary>
         public ObservableCollection<RecipeClassP3> Recipies { get; set; }
 
+
         public MainViewModel()
         {
             // Initialize the Recipes collection as a new instance of ObservableCollection

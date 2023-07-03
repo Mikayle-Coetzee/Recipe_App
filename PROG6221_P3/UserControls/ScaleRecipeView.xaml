@@ -57,7 +57,8 @@
             </DataGrid>
         </Grid>
         <Grid Grid.Row="5" Grid.RowSpan="2">
-            <TextBlock Text="Steps:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" FontSize="16" Margin="15,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White"/>
+            <TextBlock Text="Steps:" FontWeight="Bold" FontFamily="Segoe Print" Width="552" FontSize="16" Margin="15,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White"/>
+            <TextBlock x:Name="txtTotalCalories" Text="Total Calories" FontWeight="Bold" FontFamily="Segoe Print" Width="308" FontSize="16" Margin="0,6,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Foreground="White" TextAlignment="Right"/>
 
         </Grid>
         <Grid Grid.Row="6" Margin="0,14,0,0">
