@@ -1,131 +1,117 @@
-﻿<UserControl x:Class="PROG6221_P3.UserControls.AccountCreationView"
+﻿<!-- Mikayle Coetzee - ST10023767 - PROG6221 - POE -->
+    
+<UserControl x:Class="PROG6221_P3.UserControls.AccountCreationView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:PROG6221_P3"
-             mc:Ignorable="d"
-             d:DesignHeight="650" d:DesignWidth="900">
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:local="clr-namespace:PROG6221_P3"
+            mc:Ignorable="d"
+            d:DesignHeight="650" d:DesignWidth="900">
 
+    <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+    <!-- Define/declare image brushes used as resources-->
     <UserControl.Resources>
-        <ImageBrush x:Key="BackgroundImageBrush" 
-                   
-                    Stretch="UniformToFill" ImageSource="/Images/AccountImage.jpg" />
-        <ImageBrush x:Key="BackgroundNote" ImageSource="/Images/Note.png" 
-                    />
+        <!-- Background image brush -->
+        <ImageBrush x:Key="BackgroundImageBrush" Stretch="UniformToFill" 
+                    ImageSource="/Images/AccountImage.jpg" />
 
-        <ImageBrush x:Key="gg"
-                    ></ImageBrush>
-
-
-
+        <!-- Background note image brush -->
+        <ImageBrush x:Key="BackgroundNote" ImageSource="/Images/Note.png" />
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid2" 
-          Background="{StaticResource BackgroundImageBrush}">
-        <StackPanel 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Margin="20">
+    <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+    <!-- Main grid to hold controls -->
+    <Grid x:Name="MainGrid2" Background="{StaticResource BackgroundImageBrush}">
 
-            <StackPanel x:Name="LoginStackPanel" 
-                        Visibility="Visible" 
-                        Background="{StaticResource BackgroundNote}" 
-                        Height="241" 
-                        Width="294">
+        <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- StackPanel to center and hold the login controls -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+            <!-- StackPanel for the login form -->
+            <StackPanel x:Name="LoginStackPanel" Visibility="Visible" 
+                        Background="{StaticResource BackgroundNote}" Height="241" Width="294">
+
+                <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+                <!-- TextBlock displaying "Login" -->
                 <Label Height="14"></Label>
-                <TextBlock x:Name="txtBlockLogin" 
-                           Text="Login" 
-                           FontSize="20" 
-                           FontWeight="Bold" 
-                           Margin="0 20" 
-                           Width="192" 
-                           RenderTransformOrigin="0.5,0.5" 
-                           FontFamily="Segoe Print" >
+                <TextBlock x:Name="txtBlockLogin" Text="Login" FontSize="20" FontWeight="Bold" 
+                           Margin="0 20" Width="192" RenderTransformOrigin="0.5,0.5" 
+                           FontFamily="Segoe Print">
+                    <!-- Transformations applied to the TextBlock -->
                     <TextBlock.RenderTransform>
                         <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform Angle="2" />
+                            <TranslateTransform />
                         </TransformGroup>
                     </TextBlock.RenderTransform>
                 </TextBlock>
 
-                <xctk:WatermarkTextBox x:Name="txtLoginName" 
-                                       Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" 
-                                       Width="198" 
-                                       Margin="0 0 0 10" 
-                                       Height="28" 
-                                       Watermark="First name" 
-                                       BorderBrush="Gray" 
-                                       RenderTransformOrigin="0.5,0.5" 
-                                       FontFamily="Segoe Print" 
-                                       FontSize="13" 
-                                       FontWeight="Bold">
+                <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+                <!-- TextBox for entering the first name -->
+                <xctk:WatermarkTextBox x:Name="txtLoginName" Text="{Binding Username,
+                    UpdateSourceTrigger=PropertyChanged}" Width="198" Margin="0 0 0 10" Height="28" 
+                                       Watermark="First name" BorderBrush="Gray" 
+                                       RenderTransformOrigin="0.5,0.5" FontFamily="Segoe Print"
+                                       FontSize="13" FontWeight="Bold">
+                    <!-- Transformations applied to the TextBox -->
                     <xctk:WatermarkTextBox.RenderTransform>
                         <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform Angle="2" />
+                            <TranslateTransform />
                         </TransformGroup>
                     </xctk:WatermarkTextBox.RenderTransform>
                 </xctk:WatermarkTextBox>
 
+                <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+                <!-- TextBox for entering the last name -->
                 <xctk:WatermarkTextBox x:Name="txtLoginSurname" 
                                        Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" 
-                                       Width="198" 
-                                       Margin="0 0 0 10" 
-                                       Height="28" 
-                                       Watermark="Last name" 
-                                       BorderBrush="Gray" 
-                                       RenderTransformOrigin="0.5,0.5" 
-                                       FontFamily="Segoe Print" 
-                                       FontSize="13" 
-                                       FontWeight="Bold">
+                                       Width="198" Margin="0 0 0 10" Height="28" Watermark="Last name"
+                                       BorderBrush="Gray" RenderTransformOrigin="0.5,0.5" 
+                                       FontFamily="Segoe Print" FontSize="13" FontWeight="Bold">
+                    <!-- Transformations applied to the TextBox -->
                     <xctk:WatermarkTextBox.RenderTransform>
                         <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform Angle="2" />
+                            <TranslateTransform />
                         </TransformGroup>
                     </xctk:WatermarkTextBox.RenderTransform>
                 </xctk:WatermarkTextBox>
 
-                <Button x:Name="btnLogin" 
-                        Content="Login" 
-                        Width="82" Height="30" 
-                        Click="btnLogin_Click" 
-                        Style="{StaticResource MyButtonStyleNote}" 
-                        Foreground="Black" 
-                        RenderTransformOrigin="0.5,0.5" 
-                        FontSize="13" 
-                        FontFamily="Segoe Print" 
-                        FontWeight="Bold" >
+                <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+                <!-- Button for login -->
+                <Button x:Name="btnLogin" Content="Login" Width="82" Height="30" Click="btnLogin_Click" 
+                        Style="{StaticResource MyButtonStyleNote}" Foreground="Black" 
+                        RenderTransformOrigin="0.5,0.5" FontSize="13" FontFamily="Segoe Print" 
+                        FontWeight="Bold">
+                    <!-- Transformations applied to the Button -->
                     <Button.RenderTransform>
                         <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform Angle="2" />
+                            <TranslateTransform />
                         </TransformGroup>
                     </Button.RenderTransform>
                 </Button>
             </StackPanel>
         </StackPanel>
 
-        <Button x:Name="btnBackToMainWindow" 
-                Content="Back" 
-                Width="82" 
-                Height="30" 
-                Style="{StaticResource MyButtonStyle}"        
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Bottom"        
-                Margin="10,0,0,10" 
-                Click="btnBackToMainWindow_Click" Foreground="WhiteSmoke"/>
-
+        <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Button to go back to the main window -->
+        <Button x:Name="btnBackToMainWindow" Content="Back" Width="82" Height="30" 
+                Style="{StaticResource MyButtonStyle}" HorizontalAlignment="Left"
+                VerticalAlignment="Bottom" Margin="10,0,0,10" Click="btnBackToMainWindow_Click" 
+                Foreground="WhiteSmoke"/>
     </Grid>
 </UserControl>
+<!--★♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫★・。。END OF FILE 。。・★♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫★-->

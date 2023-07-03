@@ -1,4 +1,6 @@
-﻿<UserControl x:Class="PROG6221_P3.UserControls.ScaleRecipeView"
+﻿<!-- Mikayle Coetzee - ST10023767 - PROG6221 - POE -->
+
+<UserControl x:Class="PROG6221_P3.UserControls.ScaleRecipeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,13 +8,20 @@
              xmlns:local="clr-namespace:PROG6221_P3"
              mc:Ignorable="d" 
             d:DesignHeight="650" d:DesignWidth="900">
+
+    <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+    <!-- Define/declare image brushes used as resources-->
     <UserControl.Resources>
+        <!-- Background image brush -->
         <ImageBrush x:Key="BackgroundBrush"
                     
                     Stretch="Fill" ImageSource="/Images/TableView.jpg"     />
     </UserControl.Resources>
 
+    <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+    <!-- Main grid to hold controls -->
     <Grid x:Name="MainGrid4" Background="Black">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="40"/>
@@ -21,60 +30,112 @@
             <RowDefinition Height="100" MinHeight="24"/>
             <RowDefinition Height="42"/>
             <RowDefinition/>
-
         </Grid.RowDefinitions>
-
-
+        
+        <!--・♫- - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Semi-transparent overlay grid with background image -->
         <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="7" />
 
-
+        <!--・♫- - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Title section -->
         <Grid Grid.Row="0">
-            <TextBlock Text="Scale Recipe" FontSize="24" FontWeight="Bold" Margin="15,4,0,0" FontFamily="Segoe Print" Width="775" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White"/>
+            <TextBlock Text="Scale Recipe" FontSize="24" FontWeight="Bold" Margin="15,4,0,0" 
+                       FontFamily="Segoe Print" Width="775" VerticalAlignment="Top" 
+                       HorizontalAlignment="Left" Foreground="White"/>
         </Grid>
+
+        <!--・♫- - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Recipe name selection section -->
         <Grid Margin="0,1,0,0" Grid.RowSpan="1" Grid.Row="1">
-            <TextBlock Text="Recipe Name:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmbRecipeName" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" SelectionChanged="cmbRecipeName_SelectionChanged" />
+            <TextBlock Text="Recipe Name:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" 
+                       Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmbRecipeName" Margin="256,0,130,0" Height="30" VerticalAlignment="Center" 
+                      FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" 
+                      VerticalContentAlignment="Center" SelectionChanged="cmbRecipeName_SelectionChanged"/>
         </Grid>
+
+        <!--・♫- - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Scale factor selection section -->
         <Grid Grid.Row="2" Margin="0,6,0,0">
-            <TextBlock Text="Scale Factor:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmbFactor" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" SelectionChanged="cmbFactor_SelectionChanged" >
+            <TextBlock Text="Scale Factor:" FontWeight="Bold" FontFamily="Segoe Print" Width="236" 
+                       Margin="15,0,0,0" Foreground="White" HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmbFactor" Margin="256,2,10,2" Height="30" VerticalAlignment="Center" 
+                      FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" 
+                      VerticalContentAlignment="Center" SelectionChanged="cmbFactor_SelectionChanged" >
                 <ComboBoxItem Content="Half" />
                 <ComboBoxItem Content="Double" />
                 <ComboBoxItem Content="Triple"/>
                 <ComboBoxItem Content="Reset"/>
             </ComboBox>
         </Grid>
+
+        <!--・♫- - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Ingredients data grid section -->
         <Grid Grid.Row="4">
             <DataGrid x:Name="dgIngredients" AutoGenerateColumns="False"
-                      CanUserAddRows="False" CanUserDeleteRows="False" Height="93" FontFamily="Segoe Print" Margin="15,4,10,3" BorderBrush="White" Background="White" Foreground="Black">
+                      CanUserAddRows="False" CanUserDeleteRows="False" Height="93" FontFamily="Segoe Print" 
+                      Margin="15,4,10,3" BorderBrush="White" Background="White" Foreground="Black">
                 <DataGrid.Columns >
-                    <DataGridTextColumn Header="Name"  Binding="{Binding Name}" Width="150"  FontFamily="Segoe Print" />
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="150" FontFamily="Segoe Print"/>
-                    <DataGridTextColumn Header="Unit" Binding="{Binding Unit}" Width="150" FontFamily="Segoe Print" />
-                    <DataGridTextColumn Header="Calories" Binding="{Binding IngredientCalories}" Width="150" FontFamily="Segoe Print"/>
-                    <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="*" FontFamily="Segoe Print"/>
+                    <DataGridTextColumn Header="Name"  Binding="{Binding Name}" Width="150"  
+                                        FontFamily="Segoe Print" />
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="150" 
+                                        FontFamily="Segoe Print"/>
+                    <DataGridTextColumn Header="Unit" Binding="{Binding Unit}" Width="150" 
+                                        FontFamily="Segoe Print" />
+                    <DataGridTextColumn Header="Calories" Binding="{Binding IngredientCalories}" Width="150" 
+                                        FontFamily="Segoe Print"/>
+                    <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="*"
+                                        FontFamily="Segoe Print"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <Grid Grid.Row="5" Grid.RowSpan="2">
-            <TextBlock Text="Steps:" FontWeight="Bold" FontFamily="Segoe Print" Width="552" FontSize="16" Margin="15,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White"/>
-            <TextBlock x:Name="txtTotalCalories" Text="Total Calories" FontWeight="Bold" FontFamily="Segoe Print" Width="308" FontSize="16" Margin="0,6,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Foreground="White" TextAlignment="Right"/>
 
+        <!--・♫- - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Steps section -->
+        <Grid Grid.Row="5" Grid.RowSpan="2">
+            <TextBlock Text="Steps:" FontWeight="Bold" FontFamily="Segoe Print" Width="552" FontSize="16" 
+                       Margin="15,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                       Foreground="White"/>
+            <TextBlock x:Name="txtTotalCalories" Text="Total Calories" FontWeight="Bold" 
+                       FontFamily="Segoe Print" Width="308" FontSize="16" Margin="0,6,10,0" 
+                       VerticalAlignment="Top" HorizontalAlignment="Right" Foreground="White" 
+                       TextAlignment="Right"/>
         </Grid>
+
+        <!--・♫- - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Recipe steps list section -->
         <Grid Grid.Row="6" Margin="0,14,0,0">
-            <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="15,10,10,24" SelectionChanged="lstRecipeSteps_SelectionChanged" Background="Transparent" Foreground="White" FontFamily="Segoe Print" BorderBrush="White">
+            <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="15,10,10,24"
+                     SelectionChanged="lstRecipeSteps_SelectionChanged" Background="Transparent"
+                     Foreground="White" FontFamily="Segoe Print" BorderBrush="White">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox IsChecked="{Binding IsCompleted}" Height="16" />
-                            <TextBlock Text="{Binding Step}" Margin="5 0" Height="23"  />
+                            <TextBlock Text="{Binding NumOfSteps}" Margin="5 0" Height="23" />
+                            <TextBlock Text=". " Margin="5 0" />
+                            <TextBlock Text="{Binding Step}" Margin="5 0" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
+
+        <!--・♫- - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Ingredient title section-->
         <Grid Grid.Row="3">
-            <TextBlock Text="Ingredients:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" FontSize="16" Margin="15,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>
+            <TextBlock Text="Ingredients:" FontWeight="Bold" FontFamily="Segoe Print" Width="762" 
+                       FontSize="16" Margin="15,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Foreground="White"/>
         </Grid>
+
+        <!--・♫- - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Sort button-->
+        <Button x:Name="btnSort"  Content="Sort Names" FontFamily="Segoe Print" Foreground="Black" 
+                Background="White" Width="105" VerticalAlignment="Center" Margin="785,0,0,0" Height="30"
+                Click="btnSort_Click" Grid.Row="1" HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>
+<!--★♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫★・。。END OF FILE 。。・★♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫★-->

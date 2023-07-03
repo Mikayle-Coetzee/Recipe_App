@@ -1,4 +1,11 @@
-﻿using POE_PROG6221_ST10023767_GR01;
+﻿#region
+// Mikayle Coetzee
+// ST10023767
+// PROG6221 POE 2023
+// Part 3
+#endregion
+
+using POE_PROG6221_ST10023767_GR01;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,4 +51,4 @@ namespace PROG6221_P3.Classes
             TotalCalories = new List<double>();
         }
     }
-}
+}//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

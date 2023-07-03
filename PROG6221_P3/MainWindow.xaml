@@ -1,4 +1,6 @@
-﻿<Window x:Class="PROG6221_P3.MainWindow"
+﻿<!-- Mikayle Coetzee - ST10023767 - PROG6221 - POE -->
+
+<Window x:Class="PROG6221_P3.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,35 +9,55 @@
         mc:Ignorable="d"
         Title="DishRecall" Height="650" Width="900">
 
+    <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+    <!-- Define/declare image brushes used as resources-->
     <Window.Resources>
-        <ImageBrush x:Key="BackgroundBrush" Stretch="UniformToFill" ImageSource="/Images/MainMenuImage.jpg"  />
+        <!-- Background image brush -->
+        <ImageBrush x:Key="BackgroundBrush" Stretch="UniformToFill" 
+                    ImageSource="/Images/MainMenuImage.jpg"  />
     </Window.Resources>
 
+    <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+    <!-- Main grid to hold controls -->
     <Grid x:Name="MainGrid" Background="{StaticResource BackgroundBrush}">
-
+        
+        <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- StackPanel for the main content -->
         <StackPanel x:Name="MainStackPanel" Margin="20,20,20,20">
 
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+            <!-- StackPanel for the application name and message -->
             <StackPanel x:Name="AppNameStackPanel" Height="227">
-                <Label x:Name="lblApplicationName" Content="DishRecall" FontSize="100" FontFamily="Agency FB" FontWeight="Bold" Width="370" Foreground="WhiteSmoke"/>
-                <Label x:Name="lblMessage" Content="Never forget a delicious dish again." Width="397" Height="58" FontSize="25" Foreground="WhiteSmoke"/>
+                <Label x:Name="lblApplicationName" Content="DishRecall" FontSize="100" 
+                       FontFamily="Agency FB" FontWeight="Bold" Width="370" Foreground="WhiteSmoke"/>
+                <Label x:Name="lblMessage" Content="Never forget a delicious dish again." Width="397" 
+                       Height="58" FontSize="25" Foreground="WhiteSmoke"/>
             </StackPanel>
 
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+            <!-- StackPanel for user buttons -->
             <StackPanel x:Name="UserBtnStackPanel">
-                <Button Name="btnLogIn" Content="Log in" FontSize="18" Height="44" Style="{StaticResource MyButtonStyle}"  Foreground="WhiteSmoke" HorizontalAlignment="Center" Width="720" Click="btnLogIn_Click_1"/>
-                <Label x:Name="lblOpenSpace1" Height="34" d:IsHidden="True"/>                
-                <Button Name="btnExit" Content="Exit" FontSize="18" Height="42" Style="{StaticResource MyButtonStyle}"  Foreground="WhiteSmoke" HorizontalAlignment="Center" Width="720" Click="btnExit_Click" />
-
+                <!-- Log in button -->
+                <Button Name="btnLogIn" Content="Log in" FontSize="18" Height="44" 
+                        Style="{StaticResource MyButtonStyle}"  Foreground="WhiteSmoke" 
+                        HorizontalAlignment="Center" Width="720" Click="btnLogIn_Click_1"/>
+                <Label x:Name="lblOpenSpace1" Height="34" d:IsHidden="True"/>
+                <!-- Exit button -->
+                <Button Name="btnExit" Content="Exit" FontSize="18" Height="42" 
+                        Style="{StaticResource MyButtonStyle}"  Foreground="WhiteSmoke"
+                        HorizontalAlignment="Center" Width="720" Click="btnExit_Click" />
             </StackPanel>
 
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
             <!-- Account Creation View -->
             <ContentControl x:Name="AccountCreationViewContainer" Visibility="Collapsed">
-                <!--<local:AccountCreationView/>-->
             </ContentControl>
 
         </StackPanel>
 
+        <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
         <!--Login View-->
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Navigated="MainFrame_Navigated"/>
-
     </Grid>
 </Window>
+<!--★♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫★・。。END OF FILE 。。・★♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫★-->

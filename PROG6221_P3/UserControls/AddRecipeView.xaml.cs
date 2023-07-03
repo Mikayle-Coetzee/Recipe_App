@@ -1,4 +1,11 @@
-﻿using POE_PROG6221_ST10023767_GR01;
+﻿#region
+// Mikayle Coetzee
+// ST10023767
+// PROG6221 POE 2023
+// Part 3
+#endregion
+
+using POE_PROG6221_ST10023767_GR01;
 using POE_PROG6221_ST10023767_GR01.Classes;
 using PROG6221_P3.Classes;
 using System;
@@ -22,23 +29,38 @@ using System.Xml.Linq;
 using System.Windows.Markup;
 
 namespace PROG6221_P3.UserControls
-{/// <summary>
- /// Delegate for notifying the user about the calories of a recipe.
- /// </summary>
- /// <param name="recipeName">The name of the recipe.</param>
+{
+    /// <summary>
+    /// Delegate for notifying the user about the calories of a recipe.
+    /// </summary>
+    /// <param name="recipeName">The name of the recipe.</param>
     public delegate void RecipeNotificationDelegate(double calories);
+
     /// <summary>
     /// Interaction logic for AddRecipeView.xaml
     /// </summary>
     public partial class AddRecipeView : UserControl
     {
+        /// <summary>
+        /// Holds the list of ingredients for the recipe.
+        /// </summary>
         public List<IngredientClassP3> ingredientList = new List<IngredientClassP3>();
+
+        /// <summary>
+        /// Holds the list of steps for the recipe
+        /// </summary>
         public List<StepClassP3> stepList = new List<StepClassP3>();
+
+        /// <summary>
+        /// Holds the list of the total calories for each recipe
+        /// </summary>
         public List<double> TotalCalories = new List<double>();
+
         /// <summary>
         /// Holds the list of names of the recipes.
         /// </summary>
         private List<string> RecipeNames { get; set; }
+
         /// <summary>
         /// Holds the list of collections of steps for each recipe.
         /// </summary>
@@ -48,6 +70,7 @@ namespace PROG6221_P3.UserControls
         /// Holds the list of collections of ingredients for each recipe.
         /// </summary>
         private List<List<(string, double, string, double, string, double, double, string)>> IngredientCollections { get; set; }
+
         /// <summary>
         /// Event that is triggered when a recipe exceeds the calorie limit.
         /// </summary>
@@ -58,11 +81,31 @@ namespace PROG6221_P3.UserControls
         /// </summary>
         private List<RecipeClassP3> recipeList = new List<RecipeClassP3>();
 
+        /// <summary>
+        /// Holds the number of steps added 
+        /// </summary>
         private int numberOfSteps = 0;
+
+        /// <summary>
+        /// Holds the number of ingredients added 
+        /// </summary>
         private int numberOfIngredients = 0;
 
-        POE_PROG6221_ST10023767_GR01.Validation validation = new POE_PROG6221_ST10023767_GR01.Validation();
+        /// <summary>
+        /// Instantiates a new instance of the Validation class thats in the part 2 project. The Validation class 
+        /// can now be used to perform validation tasks throughout the rest of the code.
+        /// /// </summary>
+        private POE_PROG6221_ST10023767_GR01.Validation validation = new POE_PROG6221_ST10023767_GR01.Validation();
 
+        /// <summary>
+        /// Instantiates a new instance of the Worker class.
+        /// /// </summary>
+        private WorkerClassP3 worker = new WorkerClassP3();
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Default constructor for AddRecipeView.
+        /// </summary>
         public AddRecipeView()
         {
             InitializeComponent();
@@ -77,17 +120,14 @@ namespace PROG6221_P3.UserControls
             // Set the DataContext of the DataGrid to the ingredients collection
             dgIngredients.ItemsSource = ingredientList;
 
-            // Set the ItemsSource and DisplayMemberPath of the ListBox
+            // Set the ItemsSource of the ListBox
             dgSteps.ItemsSource = stepList;
         }
 
-        private void WriteIngredientsToList()
-        {
-            int number = this.numberOfIngredients;
-
-        }
-
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method gets the food group selected by the user out of the combo box
+        /// </summary>
         private string GetFoodGroup()
         {
             string foodGroup = ((ComboBoxItem)cmbFoodGroup.SelectedItem).Content.ToString();
@@ -96,15 +136,18 @@ namespace PROG6221_P3.UserControls
             return foodGroup;
         }
 
-
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method gets the valid number of calories and if the calories is valid it will return the number 
+        /// of calories as a double but if it is not, it will show an input dialog that will require valid input 
+        /// in order to close 
+        /// </summary>
         private double GetIngredientCalories()
         {
             // Initialize variables
             bool valid1, valid2;
 
             string userInput = txtCalories.Text;
-
 
             do
             {
@@ -113,7 +156,8 @@ namespace PROG6221_P3.UserControls
 
                 if (!valid1 || !valid2)
                 {
-                    userInput = ShowInputDialog("Enter a valid number for calories, please use a comma if it is a decimal value:", "Calories");
+                    userInput = worker.ShowInputDialog("Enter a valid number for calories, please use a comma if" +
+                        " it is a decimal value:", "Calories");
                 }
 
             } while (!valid1 || !valid2);
@@ -123,14 +167,18 @@ namespace PROG6221_P3.UserControls
             return calories;
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method gets the valid ingredient quantity and if the quantity is valid it will return the ingredient 
+        /// quantity as a double but if it is not, it will show an input dialog that will require valid input 
+        /// in order to close 
+        /// </summary>
         public double GetIngredientQuantity()
         {
             // Initialize variables
             bool valid1, valid2;
 
             string userInput = txtQuantity.Text;
-
 
             do
             {
@@ -139,7 +187,8 @@ namespace PROG6221_P3.UserControls
 
                 if (!valid1 || !valid2)
                 {
-                    userInput = ShowInputDialog("Enter a valid number for quantities, please use a comma if it is a decimal value:", "Quantities");
+                    userInput = worker.ShowInputDialog("Enter a valid number for quantities, please use a comma" +
+                        " if it is a decimal value:", "Quantities");
                 }
 
             } while (!valid1 || !valid2);
@@ -150,6 +199,10 @@ namespace PROG6221_P3.UserControls
             return quantity;
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method gets the unit of measurement selected from the combobox
+        /// </summary>
         private String GetIngredientUnit()
         {
             string unit = ((ComboBoxItem)cmdUnits.SelectedItem).Content.ToString();
@@ -157,6 +210,11 @@ namespace PROG6221_P3.UserControls
             // Return the string of the entered ingredient unit
             return unit;
         }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method gets and validates the ingredient name 
+        /// </summary>
         private string GetIngredientName()
         {
             string name = txtIngredientName.Text;
@@ -166,8 +224,7 @@ namespace PROG6221_P3.UserControls
                 valid = validation.Validate_String(name);
                 if (!valid)
                 {
-                    name = ShowInputDialog("Enter a valid ingredient name: ", "Name");
-
+                    name = worker.ShowInputDialog("Enter a valid ingredient name: ", "Name");
                 }
 
             } while (!valid);
@@ -175,7 +232,13 @@ namespace PROG6221_P3.UserControls
             return name;
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This button will add a ingredient to the ingredient list, add the list to the datagrid and clear the 
+        /// input fields 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddIngredientButton_Click(object sender, RoutedEventArgs e)
         {
             numberOfIngredients++;
@@ -209,8 +272,6 @@ namespace PROG6221_P3.UserControls
             cmbFoodGroup.SelectedIndex = 0;
         }
 
-
-
         private void cmbFoodGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -221,6 +282,13 @@ namespace PROG6221_P3.UserControls
 
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This button will add a step to the step list, display the step list in the data grid and cleare the 
+        /// input field 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddStep_Click(object sender, RoutedEventArgs e)
         {
             numberOfSteps++;
@@ -242,15 +310,15 @@ namespace PROG6221_P3.UserControls
             dgSteps.SelectedItem = newStep;
             dgSteps.ScrollIntoView(newStep);
 
+            // Clear the input field
             txtStep.Text = string.Empty;
         }
 
-        private void WriteStepsToList()
-        {
-            // Initialize variables
-            int number = this.numberOfSteps;
-        }
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method will get the step description entered by the user
+        /// </summary>
+        /// <returns></returns>
         private string GetStep()
         {
             string step = txtStep.Text;
@@ -260,8 +328,7 @@ namespace PROG6221_P3.UserControls
                 valid = validation.Validate_String(step);
                 if (!valid)
                 {
-                    step = ShowInputDialog("Enter a valid step:", "Step");
-
+                    step = worker.ShowInputDialog("Enter a valid step:", "Step");
                 }
 
             } while (!valid);
@@ -269,22 +336,50 @@ namespace PROG6221_P3.UserControls
             return step;
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This button will add the recipe.
+        /// 
+        /// The reason why I cleared the recipeList, recipeNames,  StepCollections and IngredientCollections before 
+        /// a new recipe can be added is because when I added e.g. recipe 'Cake' it will populate the combobox with
+        /// 'Cake' but when I enter another recipe, e.g. 'Coffee' it will populate the combobox with ('Cake','Cake',
+        /// 'Coffee') and so on... 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddRecipe_Click(object sender, RoutedEventArgs e)
         {
+            recipeList.Clear();
+            RecipeNames.Clear();
+            StepCollections.Clear();
+            IngredientCollections.Clear();
+
             AddRecipe();
 
+            worker.ShowNotificationBox("The '" + GetRecipeName() + "' recipe was added successfully.",
+                "Added successfully");
+
+            // Reset values 
             this.numberOfIngredients = 0;
             this.numberOfSteps = 0;
+
+            // Clear the input fields
             txtRecipeName.Text = string.Empty;
             ingredientList.Clear();
             dgIngredients.DataContext = ingredientList;
             stepList.Clear();
             dgSteps.DataContext = stepList;
 
+            // Refresh the DataGrid to reflect the changes
             dgIngredients.Items.Refresh();
             dgSteps.Items.Refresh();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method will get and validate the recipe name
+        /// </summary>
+        /// <returns></returns>
         private string GetRecipeName()
         {
             string name = txtRecipeName.Text;
@@ -294,7 +389,7 @@ namespace PROG6221_P3.UserControls
                 valid = validation.Validate_String(name);
                 if (!valid)
                 {
-                    name = ShowInputDialog("Enter a valid recipe name:", "Name");
+                    name = worker.ShowInputDialog("Enter a valid recipe name:", "Name");
                 }
 
             } while (!valid);
@@ -302,13 +397,15 @@ namespace PROG6221_P3.UserControls
             return name;
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method will add the recipe name to the recipe list, add all the ingredients of that recipe to
+        /// ingredient collections and add the steps to step collections. It will then call the CalculateTotalCalories 
+        /// method, event and the StoreRecipe method
+        /// </summary>
         public void AddRecipe()
         {
             string newRecipeName = GetRecipeName();
-
-            // Write the steps and ingredients to the lists
-            WriteStepsToList();
-            WriteIngredientsToList();
 
             // Update the recipe data
             RecipeNames.Add(newRecipeName);
@@ -328,6 +425,7 @@ namespace PROG6221_P3.UserControls
             StoreRecipes(StepCollections, IngredientCollections);
 
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Subscribes the event handler to the RecipeExceedsCaloriesEvent.
@@ -336,6 +434,7 @@ namespace PROG6221_P3.UserControls
         {
             RecipeExceedsCaloriesEvent += HandleRecipeExceedsCalories;
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Handles the event when a recipe exceeds the calorie limit.
@@ -345,7 +444,8 @@ namespace PROG6221_P3.UserControls
         {
             if (calories > 300)
             {
-                ShowNotificationBox($"The recipe exceeds 300 calories. Total calories are {calories}", "Recipe Notification");
+                worker.ShowNotificationBox($"The recipe exceeds 300 calories. Total calories are {calories}",
+                    "Recipe Notification");
             }
         }
 
@@ -357,6 +457,7 @@ namespace PROG6221_P3.UserControls
         {
             RecipeExceedsCaloriesEvent -= HandleRecipeExceedsCalories;
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Notifies the user about a recipe.
@@ -370,6 +471,7 @@ namespace PROG6221_P3.UserControls
                 RecipeExceedsCaloriesEvent?.Invoke(calories);
             }
         }
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Handles the event when a recipe exceeds the calorie limit by subscribing, notifying the user,
@@ -382,7 +484,15 @@ namespace PROG6221_P3.UserControls
             NotifyUser(totalCalories); // Notify the user
             UnsubscribeFromRecipeExceedsCaloriesEvent(); // Unsubscribe from the event
         }
-        public List<double> CalculateTotalCalories(List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Calculates the total calories of a list of ingredients.
+        /// </summary>
+        /// <param name="IngredientList">The list of ingredients.</param>
+        /// <returns>The total calories.</returns>
+        public List<double> CalculateTotalCalories(
+            List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
         {
             if (ingredientCollections == null)
             {
@@ -408,7 +518,12 @@ namespace PROG6221_P3.UserControls
             return recipeCalories;
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method will store the recipe 
+        /// </summary>
+        /// <param name="stepCollections"></param>
+        /// <param name="ingredientCollections"></param>
         public void StoreRecipes(List<List<string>> stepCollections,
             List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
         {
@@ -419,41 +534,34 @@ namespace PROG6221_P3.UserControls
                     RecipeName = RecipeNames[i]
                 };
 
-                // Check if the stepCollections and ingredientCollections have elements at the current index
-                if (i < stepCollections.Count && i < ingredientCollections.Count)
+
+                List<string> steps = stepCollections[i];
+                List<(string, double, string, double, string, double, double, string)> ingredientTuples = 
+                    ingredientCollections[i];
+
+                // Add steps to the recipe
+                foreach (var step in steps)
                 {
-                    List<string> steps = stepCollections[i];
-                    List<(string, double, string, double, string, double, double, string)> ingredientTuples = ingredientCollections[i];
-
-                    // Add steps to the recipe
-                    foreach (var step in steps)
+                    StepClassP3 stepObj = new StepClassP3
                     {
-                        StepClassP3 stepObj = new StepClassP3
-                        {
-                            Step = step
-                        };
-                        recipe.StepListIn.Add(stepObj);
-                    }
-
-                    // Add ingredients to the recipe
-                    foreach ((string name, double quantity, string unit, double calories, string foodgroup, double originalQuantity,
-                        double originalCalories, string originalUnit) in ingredientTuples)
-                    {
-                        IngredientClassP3 ingredientObj = new IngredientClassP3
-                        {
-                            Name = name,
-                            Quantity = quantity,
-                            Unit = unit,
-                            IngredientCalories = calories,
-                            FoodGroup = foodgroup
-                        };
-                        recipe.IngredientListIn.Add(ingredientObj);
-                    }
+                        Step = step
+                    };
+                    recipe.StepListIn.Add(stepObj);
                 }
-                else
+
+                // Add ingredients to the recipe
+                foreach ((string name, double quantity, string unit, double calories, string foodgroup, 
+                    double originalQuantity, double originalCalories, string originalUnit) in ingredientTuples)
                 {
-                    //pop up error message box
-                    //StoreRecipes(stepCollections, ingredientCollections);
+                    IngredientClassP3 ingredientObj = new IngredientClassP3
+                    {
+                        Name = name,
+                        Quantity = quantity,
+                        Unit = unit,
+                        IngredientCalories = calories,
+                        FoodGroup = foodgroup
+                    };
+                    recipe.IngredientListIn.Add(ingredientObj);
                 }
 
                 // Add the recipe to the list
@@ -467,122 +575,5 @@ namespace PROG6221_P3.UserControls
                 mvm?.Add(recipe);
             }
         }
-
-        private string ShowInputDialog(string message, string title)
-        {
-            var inputBox = new TextBox();
-            inputBox.FontSize = 18;
-            inputBox.FontFamily = new FontFamily("Segoe Print");
-            inputBox.Foreground = Brushes.White;
-            inputBox.BorderBrush = Brushes.White;
-            inputBox.BorderThickness = new Thickness(1);
-            inputBox.Background = Brushes.Black;
-
-            var window = new Window()
-            {
-                Title = title,
-                Width = 400,
-                Height = 200,
-                ResizeMode = ResizeMode.NoResize,
-                WindowStyle = WindowStyle.SingleBorderWindow,
-                Background = Brushes.Black,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Owner = Application.Current.MainWindow
-            };
-
-            var okButton = new Button()
-            {
-                Content = "OK",
-                Width = double.NaN,  // Stretch button width
-                FontSize = 18,
-                FontFamily = new FontFamily("Segoe Print"),
-                Foreground = Brushes.Black,
-                Background = Brushes.White
-            };
-
-            okButton.Click += (sender, e) =>
-            {
-                window.DialogResult = true;
-                window.Close();
-            };
-
-            var buttonPanel = new StackPanel()
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Bottom
-            };
-
-            buttonPanel.Children.Add(okButton);
-
-            window.Content = new StackPanel()
-            {
-                Children =
-        {
-            new TextBlock() { Text = message, FontSize = 18, FontFamily = new FontFamily("Segoe Print"), Foreground = Brushes.White },
-            inputBox,
-            buttonPanel
-        }
-            };
-
-            window.SizeToContent = SizeToContent.WidthAndHeight;
-
-            window.ShowDialog();
-
-            return window.DialogResult == true ? inputBox.Text : "Exit";
-        }
-
-
-        private void ShowNotificationBox(string message, string title)
-        {
-            var window = new Window()
-            {
-                Title = title,
-                Width = 400,
-                Height = 200,
-                ResizeMode = ResizeMode.NoResize,
-                WindowStyle = WindowStyle.SingleBorderWindow,
-                Background = Brushes.Black,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Owner = Application.Current.MainWindow
-            };
-
-            var okButton = new Button()
-            {
-                Content = "OK",
-                Width = double.NaN,  // Stretch button width
-                FontSize = 18,
-                FontFamily = new FontFamily("Segoe Print"),
-                Foreground = Brushes.Black,
-                Background = Brushes.White
-            };
-
-            okButton.Click += (sender, e) =>
-            {
-                window.Close();
-            };
-
-            var buttonPanel = new StackPanel()
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Bottom
-            };
-
-            buttonPanel.Children.Add(okButton);
-
-            window.Content = new StackPanel()
-            {
-                Children =
-        {
-            new TextBlock() { Text = message, FontSize = 18, FontFamily = new FontFamily("Segoe Print"), Foreground = Brushes.White },
-            buttonPanel
-        }
-            };
-
-            window.SizeToContent = SizeToContent.WidthAndHeight;
-
-            window.ShowDialog();
-        }
-
-
     }
-}
+}//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

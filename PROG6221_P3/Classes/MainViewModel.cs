@@ -1,4 +1,11 @@
-﻿using System;
+﻿#region
+// Mikayle Coetzee
+// ST10023767
+// PROG6221 POE 2023
+// Part 3
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -51,4 +58,4 @@ namespace PROG6221_P3.Classes
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-}
+}//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

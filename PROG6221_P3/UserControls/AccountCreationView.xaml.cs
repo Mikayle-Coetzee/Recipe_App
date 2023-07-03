@@ -1,4 +1,11 @@
-﻿using System;
+﻿#region
+// Mikayle Coetzee
+// ST10023767
+// PROG6221 POE 2023
+// Part 3
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,30 +27,45 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class AccountCreationView : UserControl
     {
-        POE_PROG6221_ST10023767_GR01.Validation validation = new POE_PROG6221_ST10023767_GR01.Validation();
+        /// <summary>
+        /// Instantiates a new instance of the Validation class thats in the part 2 project. The Validation class 
+        /// can now be used to perform validation tasks throughout the rest of the code.
+        /// /// </summary>
+        private POE_PROG6221_ST10023767_GR01.Validation validation = new POE_PROG6221_ST10023767_GR01.Validation();
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Default constructor for AccountCreationView.
+        /// </summary>
         public AccountCreationView()
         {
             InitializeComponent();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This button will redirect to the main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBackToMainWindow_Click(object sender, RoutedEventArgs e)
         {
-            // Hide the AccountCreationView and show the main view (MainWindow)
+            // Collapse the AccountCreationView and show the main view 
             Visibility = Visibility.Collapsed;
             MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
             mainWindow.Show();
         }
 
-        private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This button will get and validate the user name and surname and if it is both a valid string it will
+        /// redirect to the main page view and empty the text boxes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            // Retrieve the entered username and password
+            // Retrieve the entered user name and user surname
             string name = txtLoginName.Text;
             string surname = txtLoginSurname.Text;
 
@@ -60,7 +82,6 @@ namespace PROG6221_P3.UserControls
                 txtLoginName.Text = string.Empty;
                 txtLoginSurname.Text = string.Empty;
             }
-
         }
     }
-}
+}//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//
