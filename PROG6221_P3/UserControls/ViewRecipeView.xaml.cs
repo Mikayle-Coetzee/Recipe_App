@@ -51,23 +51,7 @@ namespace PROG6221_P3.UserControls
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            RecipeList = GetRecipes();
-
-            // Update ComboBox with recipe names
-            cmbRecipeNames.ItemsSource = RecipeList;
+         
         }
-
-        private List<RecipeClassP3> GetRecipes()
-        {
-            List<RecipeClassP3> recipes = new List<RecipeClassP3>();
-
-            foreach (RecipeClassP3 recipe in RecipeList)
-            {
-                recipes.Add(recipe);
-            }
-
-            return recipes;
-        }
-
     }
 }

@@ -20,6 +20,9 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class AccountCreationView : UserControl
     {
+        POE_PROG6221_ST10023767_GR01.Validation validation = new POE_PROG6221_ST10023767_GR01.Validation();
+
+
         public AccountCreationView()
         {
             InitializeComponent();
@@ -35,56 +38,29 @@ namespace PROG6221_P3.UserControls
 
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
-            string username = UsernameTextBox.Text;
-            string email = EmailTextBox.Text;
-            string password = PasswordBox.Password;
-            string confirmPassword = ConfirmPasswordBox.Password;
-
-            // Validate the input and perform necessary actions
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword))
-            {
-                MessageBox.Show("Please fill in all the fields.");
-            }
-            else if (password != confirmPassword)
-            {
-                MessageBox.Show("Passwords do not match.");
-            }
-            else
-            {
-                MessageBox.Show("Account created successfully!");
-
-                // Clear the input fields
-                UsernameTextBox.Text = string.Empty;
-                EmailTextBox.Text = string.Empty;
-                PasswordBox.Password = string.Empty;
-                ConfirmPasswordBox.Password = string.Empty;
-
-                ///go to the main page view
-                MainPageView mainPageView = new MainPageView();
-                //MainPageView.SetWelcomeMessage(username);
-
-                Window.GetWindow(this).Content = mainPageView;
-            }
+             
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             // Retrieve the entered username and password
-            string username = LoginUsernameTextBox.Text;
-            string password = LoginPasswordBox.Password;
+            string name = txtLoginName.Text;
+            string surname = txtLoginSurname.Text;
 
-            // code validation and login logic
+            if (validation.Validate_String(name) ==  true||validation.Validate_String(surname) == true) 
+            { 
+                //if it is valid login then redirect to the main page view
+                MainPageView mainPageView = new MainPageView(name,surname);
 
-            // Clear the input fields
-            LoginUsernameTextBox.Text = string.Empty;
-            LoginPasswordBox.Password = string.Empty;
+                Window.GetWindow(this).Content = mainPageView;
+            }
+            else
+            {
+                // Clear the input fields
+                txtLoginName.Text = string.Empty;
+                txtLoginSurname.Text = string.Empty;
+            }
 
-            //if it is valid login then redirect to the main page view
-            MainPageView mainPageView = new MainPageView();
-            //MainPageView.SetWelcomeMessage(username);
-
-            Window.GetWindow(this).Content = mainPageView;
         }
-
     }
 }

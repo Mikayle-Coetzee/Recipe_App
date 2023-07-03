@@ -21,9 +21,27 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class MainPageView : UserControl
     {
-        public MainPageView()
+        public MainPageView(string name, string surname)
         {
             InitializeComponent();
+            WelcomeTextBlock.Text = "Welcome aboard "+name +" "+surname+"!";
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is TabItem selectedTab)
+            {
+                if (selectedTab.Header.ToString() == "Sign Out")
+                {
+                    // Close the user control
+                    MainWindow window = new MainWindow();
+                    WindowState windowState = Window.GetWindow(this) ?.WindowState ?? WindowState.Normal;
+                    window.WindowState = windowState;
+                    Application.Current.MainWindow = window;
+                    Window.GetWindow(this).Close();
+                    window.Show();
+                }
+            }
         }
     }
 }

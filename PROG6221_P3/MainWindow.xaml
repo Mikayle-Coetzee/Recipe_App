@@ -21,9 +21,10 @@
             </StackPanel>
 
             <StackPanel x:Name="UserBtnStackPanel">
-                <Button Name="btnCreateAccount" Content="Create Account" FontSize="18" Height="42" Style="{StaticResource MyButtonStyle}"  Foreground="WhiteSmoke" HorizontalAlignment="Center" Width="720" Click="btnCreateAccount_Click" />
-                <Label x:Name="lblOpenSpace1" Height="34" d:IsHidden="True"/>
                 <Button Name="btnLogIn" Content="Log in" FontSize="18" Height="44" Style="{StaticResource MyButtonStyle}"  Foreground="WhiteSmoke" HorizontalAlignment="Center" Width="720" Click="btnLogIn_Click_1"/>
+                <Label x:Name="lblOpenSpace1" Height="34" d:IsHidden="True"/>                
+                <Button Name="btnExit" Content="Exit" FontSize="18" Height="42" Style="{StaticResource MyButtonStyle}"  Foreground="WhiteSmoke" HorizontalAlignment="Center" Width="720" Click="btnExit_Click" />
+
             </StackPanel>
 
             <!-- Account Creation View -->

@@ -296,12 +296,16 @@ namespace PROG6221_P3.UserControls
         {
             AddRecipe();
 
+            this.numberOfIngredients = 0;
+            this.numberOfSteps = 0;
             txtRecipeName.Text = string.Empty;
             ingredientList.Clear();
             dgIngredients.DataContext = ingredientList;
             stepList.Clear();
-            stepList.Clear();
             dgSteps.DataContext = stepList;
+
+            dgIngredients.Items.Refresh();
+            dgSteps.Items.Refresh();
         }
 
         private string GetRecipeName()
@@ -469,12 +473,5 @@ namespace PROG6221_P3.UserControls
 
             return window.DialogResult == true ? inputBox.Text : "Exit";
         }
-
-
-
-
-
-
-
     }
 }

@@ -28,142 +28,9 @@
             HorizontalAlignment="Center" 
             VerticalAlignment="Center" 
             Margin="20">
-            <StackPanel x:Name="CreateAccountStackPanel" 
-                        Margin="0 0 0 20" 
-                        Background="{StaticResource BackgroundNote}" 
-                        Height="333" 
-                        Width="333">
-                <Label Height="46"></Label>
-                <TextBlock x:Name="txtBlockMessage" 
-                           Text="Create Account" 
-                           FontSize="20" 
-                           FontWeight="Bold" 
-                           Margin="0 0 0 20" 
-                           Width="199" 
-                           RenderTransformOrigin="0.5,0.5" 
-                           FontFamily="Segoe Print" >
-                    <TextBlock.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </TextBlock.RenderTransform>
-                </TextBlock>
-
-                <xctk:WatermarkTextBox x:Name="UsernameTextBox" 
-                                       Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" 
-                                       Foreground="Black" 
-                                       Width="198" 
-                                       Margin="0 0 0 10" 
-                                       Height="28" 
-                                       Watermark="Username" 
-                                       BorderBrush="Black" 
-                                       RenderTransformOrigin="0.5,0.5"
-                                       FontFamily="Segoe Print" 
-                                       FontSize="13" FontWeight="Bold" >
-                    <xctk:WatermarkTextBox.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </xctk:WatermarkTextBox.RenderTransform>
-                </xctk:WatermarkTextBox>
-
-                <xctk:WatermarkTextBox x:Name="EmailTextBox" 
-                                       Foreground="Black" 
-                                       Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
-                                       Width="200" 
-                                       Height="28" 
-                                       Margin="0 0 0 10" 
-                                       BorderThickness="1" 
-                                       BorderBrush="Black" 
-                                       Watermark="Email" 
-                                       RenderTransformOrigin="0.5,0.5" 
-                                       FontSize="13" 
-                                       FontFamily="Segoe Print" 
-                                       FontWeight="Bold" >
-                    <xctk:WatermarkTextBox.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </xctk:WatermarkTextBox.RenderTransform>
-                </xctk:WatermarkTextBox>
-
-                <xctk:WatermarkPasswordBox x:Name="PasswordBox" 
-                                           Width="200" Foreground="Black" 
-                                           Height="28" Margin="0 0 0 10" 
-                                           Watermark="Password" 
-                                           Password="" 
-                                           RenderTransformOrigin="0.5,0.5" 
-                                           FontFamily="Segoe Print" 
-                                           FontSize="13" 
-                                           PasswordChar="*" 
-                                           BorderBrush="Black" 
-                                           FontWeight="Bold">
-                    <xctk:WatermarkPasswordBox.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </xctk:WatermarkPasswordBox.RenderTransform>
-                </xctk:WatermarkPasswordBox>
-
-                <xctk:WatermarkPasswordBox x:Name="ConfirmPasswordBox" 
-                                           Foreground="Black"  
-                                           Width="200" 
-                                           Height="28" 
-                                           Margin="0 0 0 10" 
-                                           Watermark="Confirm Password" 
-                                           Password="" 
-                                           RenderTransformOrigin="0.5,0.5" 
-                                           FontSize="13" 
-                                           FontFamily="Segoe Print" 
-                                           PasswordChar="*" 
-                                           BorderBrush="Black" 
-                                           FontWeight="Bold">
-                    <xctk:WatermarkPasswordBox.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </xctk:WatermarkPasswordBox.RenderTransform>
-                </xctk:WatermarkPasswordBox>
-
-                <Button x:Name="btnCreateAccount" 
-                        Content="Create" 
-                        Width="74" 
-                        Height="30" 
-                        Click="btnCreateAccount_Click" 
-                        Style="{StaticResource MyButtonStyleNote}" 
-                        Foreground="Black" 
-                        RenderTransformOrigin="0.5,0.5" 
-                        FontSize="13" 
-                        FontFamily="Segoe Print" 
-                        FontWeight="Bold">
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="2"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                </Button>
-            </StackPanel>
 
             <StackPanel x:Name="LoginStackPanel" 
-                        Visibility="Collapsed" 
+                        Visibility="Visible" 
                         Background="{StaticResource BackgroundNote}" 
                         Height="241" 
                         Width="294">
@@ -186,12 +53,12 @@
                     </TextBlock.RenderTransform>
                 </TextBlock>
 
-                <xctk:WatermarkTextBox x:Name="LoginUsernameTextBox" 
+                <xctk:WatermarkTextBox x:Name="txtLoginName" 
                                        Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" 
                                        Width="198" 
                                        Margin="0 0 0 10" 
                                        Height="28" 
-                                       Watermark="Username" 
+                                       Watermark="First name" 
                                        BorderBrush="Gray" 
                                        RenderTransformOrigin="0.5,0.5" 
                                        FontFamily="Segoe Print" 
@@ -207,25 +74,26 @@
                     </xctk:WatermarkTextBox.RenderTransform>
                 </xctk:WatermarkTextBox>
 
-                <xctk:WatermarkPasswordBox x:Name="LoginPasswordBox" 
-                                           Width="200" Height="28" 
-                                           Margin="0 0 0 10" 
-                                           Watermark="Password" 
-                                           Password="" 
-                                           RenderTransformOrigin="0.5,0.5" 
-                                           FontFamily="Segoe Print" 
-                                           FontSize="13" 
-                                           FontWeight="Bold"  
-                                           PasswordChar="*" >
-                    <xctk:WatermarkPasswordBox.RenderTransform>
+                <xctk:WatermarkTextBox x:Name="txtLoginSurname" 
+                                       Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" 
+                                       Width="198" 
+                                       Margin="0 0 0 10" 
+                                       Height="28" 
+                                       Watermark="Last name" 
+                                       BorderBrush="Gray" 
+                                       RenderTransformOrigin="0.5,0.5" 
+                                       FontFamily="Segoe Print" 
+                                       FontSize="13" 
+                                       FontWeight="Bold">
+                    <xctk:WatermarkTextBox.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
                             <SkewTransform/>
                             <RotateTransform Angle="2"/>
                             <TranslateTransform/>
                         </TransformGroup>
-                    </xctk:WatermarkPasswordBox.RenderTransform>
-                </xctk:WatermarkPasswordBox>
+                    </xctk:WatermarkTextBox.RenderTransform>
+                </xctk:WatermarkTextBox>
 
                 <Button x:Name="btnLogin" 
                         Content="Login" 

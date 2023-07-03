@@ -49,19 +49,15 @@ namespace PROG6221_P3
             DataContext = new MainViewModel();
         }
 
-        private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
+        private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            // Set the visibility of the accountCreationView to visible
-            accountCreationView.Visibility = Visibility.Visible;
+            Application.Current.Shutdown();
         }
 
         private void btnLogIn_Click_1(object sender, RoutedEventArgs e)
         {
             // Navigate to the login view
             AccountCreationView loginView = new AccountCreationView();
-
-            // Set the visibility of the create account section to collapsed
-            loginView.CreateAccountStackPanel.Visibility = Visibility.Collapsed;
 
             // Set the visibility of the login section to visible
             loginView.LoginStackPanel.Visibility = Visibility.Visible;
