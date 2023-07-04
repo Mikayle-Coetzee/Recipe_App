@@ -83,6 +83,7 @@ namespace PROG6221_P3.UserControls
 
             // Initialize the filteredRecipes list
             filteredRecipes = ServiceLocator.MainViewModel.Recipies.ToList();
+
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
