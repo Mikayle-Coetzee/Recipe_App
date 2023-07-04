@@ -8,7 +8,7 @@
              xmlns:local="clr-namespace:PROG6221_P3"
              mc:Ignorable="d" 
             d:DesignHeight="650" d:DesignWidth="900">
-    
+
     <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
     <!-- Define/declare image brushes used as resources-->
     <UserControl.Resources>
@@ -46,7 +46,7 @@
                        FontFamily="Segoe Print" Width="775" VerticalAlignment="Top" 
                        HorizontalAlignment="Left" Foreground="White"/>
         </Grid>
-        
+
         <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
         <!-- Recipe Name -->
         <Grid Grid.Row="1">
@@ -57,7 +57,7 @@
                      Foreground="White" VerticalAlignment="Center" Height="25" BorderBrush="White" 
                      Background="Transparent" VerticalContentAlignment="Center"/>
         </Grid>
-        
+
         <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
         <!-- Ingredient Name -->
         <Grid Grid.Row="2">
@@ -189,8 +189,8 @@
                      Height="30" BorderBrush="White" Background="Transparent" 
                      VerticalContentAlignment="Center"/>
             <Button x:Name="btnAddStep" Content="Add" FontFamily="Segoe Print" Foreground="Black" 
-                    Background="White" HorizontalAlignment="Right" Width="93" Margin="798,0,10,0" 
-                    Height="30" VerticalAlignment="Center" Click="btnAddStep_Click"/>
+                    Background="White" Width="92" Margin="0,2,10,0" 
+                    Height="30" VerticalAlignment="Top" Click="btnAddStep_Click" HorizontalAlignment="Right"/>
         </Grid>
 
         <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->

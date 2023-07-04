@@ -6,6 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PROG6221_P3"
+             xmlns:vm="clr-namespace:PROG6221_P3.Classes"
              mc:Ignorable="d" 
             d:DesignHeight="650" d:DesignWidth="900">
 
@@ -21,7 +22,7 @@
     <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
     <!-- Main grid to hold controls -->
     <Grid x:Name="MainGrid8" Background="Black">
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="11*"/>
             <ColumnDefinition Width="49*"/>
@@ -33,7 +34,7 @@
             <RowDefinition Height="9*"/>
             <RowDefinition Height="34*"/>
         </Grid.RowDefinitions>
-        
+
         <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
         <!-- Background grid -->
         <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="5" 
@@ -42,7 +43,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
         </Grid>
-        
+
         <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
         <!-- Grid for main controls -->
         <Grid Grid.RowSpan="5" Grid.ColumnSpan="2">
@@ -65,15 +66,15 @@
 
             <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
             <!-- Text box for ingredient filtering -->
-            <TextBox x:Name="txtIngredientFilterName" Margin="165,125,135,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txtIngredientFilterName" Margin="165,125,135,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center" TextChanged="TxtIngredientFilterName_OnTextChanged" Visibility="Hidden"/>
 
             <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
             <!-- Text box for calories filtering -->
-            <TextBox x:Name="txtCaloriesFilterMax" Margin="165,125,135,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txtCaloriesFilterMax" Margin="165,125,135,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center" TextChanged="TxtCaloriesFilterMax_OnTextChanged" Visibility="Hidden"/>
 
             <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
             <!-- ComboBox for food group filtering -->
-            <ComboBox x:Name="cmbFoodGroupFilter" Margin="165,125,135,0" Height="30" VerticalAlignment="Top" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
+            <ComboBox x:Name="cmbFoodGroupFilter" Margin="165,125,135,0" Height="30" VerticalAlignment="Top" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Visibility="Hidden">
                 <ComboBoxItem Content="Starchy foods" IsSelected="True"/>
                 <ComboBoxItem Content="Vegetables and fruits" />
                 <ComboBoxItem Content="Dry beans, peas, lentils and soya"/>
@@ -89,12 +90,13 @@
 
             <Grid>
                 <Label x:Name="lblRecipeName" Content="Recipe name: " HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="147" Height="31"/>
-                <ComboBox x:Name="cmbRecipeNames" Margin="164,168,135,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="30" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                <ComboBox x:Name="cmbRecipeNames" Margin="164,168,135,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="30" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                          ItemsSource="{Binding Source={x:Static vm:ServiceLocator.MainViewModel}, Path=Recipies}"/>
             </Grid>
 
             <Label Content="Filter recipe by: " HorizontalAlignment="Left" Margin="10,79,0,0" FontFamily="Segoe Print" Foreground="White" Width="145" VerticalAlignment="Top"/>
-            <Label x:Name="lblFilter" HorizontalAlignment="Left" Margin="15,127,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="145" Height="30"/>
-            <Button x:Name="btnFilter" Content="Filter"  FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="94" VerticalAlignment="Top" Margin="0,124,20,0" Height="30" Click="Button_Click"/>
+            <Label x:Name="lblFilter" HorizontalAlignment="Left" Margin="11,127,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="145" Height="30"/>
+            <Button x:Name="btnFilter" Content="Filter"  FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="94" VerticalAlignment="Top" Margin="0,124,20,0" Height="30" Click="Button_Click" Visibility="Hidden"/>
         </Grid>
 
         <TextBlock Text="Steps" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="10,0,0,0"  Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Width="377" Height="26" Grid.Row="3" Grid.Column="1"/>
@@ -129,7 +131,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Canvas Margin="0,0,0,115" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="txtTotalCalories" Text="Total Calories" FontWeight="Bold" FontFamily="Segoe Print" Width="308" FontSize="16" Margin="407,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White" TextAlignment="Right" Grid.Row="3" Grid.Column="1"/>
     </Grid>
 </UserControl>
 <!--★♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫★・。。END OF FILE 。。・★♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫★-->

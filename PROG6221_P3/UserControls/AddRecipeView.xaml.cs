@@ -356,8 +356,7 @@ namespace PROG6221_P3.UserControls
 
             AddRecipe();
 
-            worker.ShowNotificationBox("The '" + GetRecipeName() + "' recipe was added successfully.",
-                "Added successfully");
+            
 
             // Reset values 
             this.numberOfIngredients = 0;
@@ -422,7 +421,18 @@ namespace PROG6221_P3.UserControls
             // Handle the event
             HandleRecipeExceedsCaloriesEvent(totalCalories);
 
+            if (IngredientCollections != null && StepCollections != null)
+            {
+                
             StoreRecipes(StepCollections, IngredientCollections);
+
+               
+            }
+            else
+            {
+worker.ShowNotificationBox("The '" + GetRecipeName() + "' recipe was not added.",
+                "Not Added");
+            }
 
         }
 
@@ -527,6 +537,8 @@ namespace PROG6221_P3.UserControls
         public void StoreRecipes(List<List<string>> stepCollections,
             List<List<(string, double, string, double, string, double, double, string)>> ingredientCollections)
         {
+            
+
             for (int i = 0; i < RecipeNames.Count; i++)
             {
                 RecipeClassP3 recipe = new RecipeClassP3
@@ -573,6 +585,9 @@ namespace PROG6221_P3.UserControls
                 // If the DataContext is an instance of MainViewModel and not null, proceed to call the
                 // Add method on the MainViewModel object, passing the recipe object as an argument
                 mvm?.Add(recipe);
+
+                worker.ShowNotificationBox("The '" + GetRecipeName() + "' recipe was added successfully.",
+                "Added successfully");
             }
         }
     }

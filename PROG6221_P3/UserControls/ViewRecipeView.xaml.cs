@@ -9,6 +9,7 @@ using POE_PROG6221_ST10023767_GR01;
 using PROG6221_P3.Classes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -56,9 +57,17 @@ namespace PROG6221_P3.UserControls
         private List<RecipeClassP3> sortedRecipe = new List<RecipeClassP3>();
 
         /// <summary>
-        /// Holds the number of calories
-        /// </summary>
-        private double numTotalCalories = 0;
+        /// Instantiates a new instance of the Validation class thats in the part 2 project. The Validation class 
+        /// can now be used to perform validation tasks throughout the rest of the code.
+        /// /// </summary>
+        private POE_PROG6221_ST10023767_GR01.Validation validation = new POE_PROG6221_ST10023767_GR01.Validation();
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+
+        // I apologize, Sir, for any shortcomings in the code. I devoted my utmost effort within the given time
+        // constraints to make it functional. However, I acknowledge that there is still faults and room for
+        // improvement.         
+
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Default constructor for ViewRecipeView.
@@ -67,13 +76,13 @@ namespace PROG6221_P3.UserControls
         {
             InitializeComponent();
 
-            DataContext = ServiceLocator.MainViewModel;
+            //DataContext = ServiceLocator.MainViewModel;
 
-            cmbRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
+            //cmbRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
             cmbRecipeNames.DisplayMemberPath = "RecipeName";
 
             // Initialize the filteredRecipes list
-            filteredRecipes = new List<RecipeClassP3>((DataContext as MainViewModel).Recipies);
+            filteredRecipes = ServiceLocator.MainViewModel.Recipies.ToList();
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -95,11 +104,6 @@ namespace PROG6221_P3.UserControls
 
             UpdateStepList();
             UpdateIngredientDataGrid();
-            List<IngredientClassP3> ingredients;
-
-            ingredients = selectedRecipe.IngredientListIn;
-            numTotalCalories = ingredients.Sum(ingredient => ingredient.IngredientCalories);
-            txtTotalCalories.Text = "Total Calories: " + numTotalCalories.ToString();
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -160,7 +164,7 @@ namespace PROG6221_P3.UserControls
         private void cmbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-             btnFilter.Visibility = Visibility.Visible;
+            btnFilter.Visibility = Visibility.Visible;
 
             if (cmbFilter.SelectedItem is ComboBoxItem selectedFilter)
             {
@@ -173,8 +177,8 @@ namespace PROG6221_P3.UserControls
                         txtIngredientFilterName.Visibility = Visibility.Visible;
                         cmbFoodGroupFilter.Visibility = Visibility.Hidden;
                         txtCaloriesFilterMax.Visibility = Visibility.Hidden;
-                        lblRecipeName.Visibility = Visibility.Hidden;
-                        cmbRecipeNames.Visibility = Visibility.Hidden;
+                        //lblRecipeName.Visibility = Visibility.Hidden;
+                        //cmbRecipeNames.Visibility = Visibility.Hidden;
                         break;
                     case "A food group that must be in the recipe":
                         lblFilter.Content = "Food group";
@@ -182,8 +186,8 @@ namespace PROG6221_P3.UserControls
                         cmbFoodGroupFilter.Visibility = Visibility.Visible;
                         txtIngredientFilterName.Visibility = Visibility.Hidden;
                         txtCaloriesFilterMax.Visibility = Visibility.Hidden;
-                        lblRecipeName.Visibility = Visibility.Hidden;
-                        cmbRecipeNames.Visibility = Visibility.Hidden;
+                        //lblRecipeName.Visibility = Visibility.Hidden;
+                        //cmbRecipeNames.Visibility = Visibility.Hidden;
                         break;
                     case "The maximum number of calories":
                         lblFilter.Content = "Max calories: ";
@@ -191,8 +195,8 @@ namespace PROG6221_P3.UserControls
                         txtCaloriesFilterMax.Visibility = Visibility.Visible;
                         cmbFoodGroupFilter.Visibility = Visibility.Hidden;
                         txtIngredientFilterName.Visibility = Visibility.Hidden;
-                        lblRecipeName.Visibility = Visibility.Hidden;
-                        cmbRecipeNames.Visibility = Visibility.Hidden;
+                        //lblRecipeName.Visibility = Visibility.Hidden;
+                        //cmbRecipeNames.Visibility = Visibility.Hidden;
                         break;
                     case "Nothing"://normal display
                         lblFilter.Content = string.Empty;
@@ -201,12 +205,13 @@ namespace PROG6221_P3.UserControls
                         cmbFoodGroupFilter.Visibility = Visibility.Hidden;
                         txtIngredientFilterName.Visibility = Visibility.Hidden;
                         btnFilter.Visibility = Visibility.Hidden;
-                        lblRecipeName.Visibility = Visibility.Visible;
-                        cmbRecipeNames.Visibility = Visibility.Visible;
+                        cmbRecipeNames.ItemsSource = ServiceLocator.MainViewModel.Recipies;
+                        //lblRecipeName.Visibility = Visibility.Visible;
+                        //cmbRecipeNames.Visibility = Visibility.Visible;
                         break;
                     default:
-                        lblFilter.Content=string.Empty;
-                        lblFilter.Visibility= Visibility.Hidden;
+                        lblFilter.Content = string.Empty;
+                        lblFilter.Visibility = Visibility.Hidden;
                         txtCaloriesFilterMax.Visibility = Visibility.Hidden;
                         cmbFoodGroupFilter.Visibility = Visibility.Hidden;
                         txtIngredientFilterName.Visibility = Visibility.Hidden;
@@ -218,13 +223,18 @@ namespace PROG6221_P3.UserControls
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-         
+
         }
         //・♫-------------------------------------------------------------------------------------------------♫・//
-
-
+        /// <summary>
+        /// This button will filter the recipes and update the combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            RecipeList = sortedRecipe;
+
             if (RecipeList == null)
             {
                 // Handle the case when RecipeList is null
@@ -235,8 +245,8 @@ namespace PROG6221_P3.UserControls
 
             if (txtIngredientFilterName.Visibility == Visibility.Visible && !string.IsNullOrEmpty(txtIngredientFilterName.Text))
             {
-                string selectedIngredient = txtIngredientFilterName.Text.ToLower();
-                filteredRecipes = filteredRecipes.Where(r => r.IngredientListIn.Any(i => i.Name.ToLower().Contains(selectedIngredient))).ToList();
+                string selectedIngredient = txtIngredientFilterName.Text.Trim();
+                filteredRecipes = filteredRecipes.Where(r => r.IngredientListIn.Any(i => i.Name.Contains(selectedIngredient))).ToList();
             }
 
             if (txtCaloriesFilterMax.Visibility == Visibility.Visible && double.TryParse(txtCaloriesFilterMax.Text, out double selectedMaxCalories))
@@ -250,15 +260,32 @@ namespace PROG6221_P3.UserControls
                 filteredRecipes = filteredRecipes?.Where(r => r.IngredientListIn.Any(i => i.FoodGroup == selectedGroup)).ToList();
             }
 
-            cmbRecipeNames.ItemsSource = filteredRecipes?.Select(r => r.RecipeName).OrderBy(r => r).ToList();
+            cmbRecipeNames.ItemsSource = filteredRecipes;
+            cmbRecipeNames.DisplayMemberPath = "RecipeName";
+
             cmbRecipeNames.SelectedItem = null;
             cmbRecipeNames.Visibility = Visibility.Visible;
             lblRecipeName.Visibility = Visibility.Visible;
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbFoodGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            ComboBox comboBox = sender as ComboBox;
+            if (comboBox != null && ServiceLocator.MainViewModel.Recipies != null && ServiceLocator.MainViewModel.Recipies.Any())
+            {
+                string text = comboBox.Text;
+
+                var recipes = ServiceLocator.MainViewModel.Recipies.Where(x => x.IngredientListIn.Any(y => y.FoodGroup == text));
+
+                cmbRecipeNames.ItemsSource = recipes;
+                sortedRecipe = recipes.ToList();
+            }
         }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
@@ -271,10 +298,56 @@ namespace PROG6221_P3.UserControls
         {
             DataContext = ServiceLocator.MainViewModel;
 
-            sortedRecipe = (DataContext as MainViewModel).Recipies.OrderBy(r => r.RecipeName).ToList();
+            ServiceLocator.MainViewModel.Recipies =
+                new ObservableCollection<RecipeClassP3>(ServiceLocator.MainViewModel.Recipies.OrderBy(r => r.RecipeName));
 
-            cmbRecipeNames.ItemsSource = sortedRecipe;
+            //cmbRecipeNames.ItemsSource = sortedRecipe;
             cmbRecipeNames.DisplayMemberPath = "RecipeName";
+        }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method is called when the text in the ingredient filter textbox is changed.
+        /// It filters the recipes based on the ingredient name and updates the combo box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtIngredientFilterName_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string text = textBox.Text;
+                var recipes = ServiceLocator.MainViewModel.Recipies.Where(x => x.IngredientListIn.Any(z => z.Name.ToLowerInvariant().StartsWith(text.ToLowerInvariant())));
+                cmbRecipeNames.ItemsSource = recipes;
+                sortedRecipe = recipes.ToList();
+
+            }
+
+        }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method is called when the text in the maximum calories filter textbox is changed.
+        /// It filters the recipes based on the maximum calories and updates the combo box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtCaloriesFilterMax_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string text = textBox.Text;
+                if (validation.Validate_Float(text) == true)
+                {
+                    double selectedMaxCalories = Convert.ToDouble(text);
+                    var recipes = ServiceLocator.MainViewModel.Recipies.Where(r => r.TotalCalories != null && 
+                    r.TotalCalories.Any(c => c <= selectedMaxCalories)).ToList();
+                    cmbRecipeNames.ItemsSource = recipes;
+
+                }
+            }
         }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//
