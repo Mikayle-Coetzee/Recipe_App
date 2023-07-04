@@ -27,13 +27,13 @@ namespace PROG6221_P3.Classes
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Default constructor for StepClass.
+        /// Default constructor for StepClassP3.
         /// </summary>
         public StepClassP3() { }
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Constructor for StepClass that initializes the object with the provided step and number of steps.
+        /// Constructor for StepClassP3 that initializes the object with the provided step and number of steps.
         /// </summary>
         public StepClassP3(string step, int numOfSteps)
         {

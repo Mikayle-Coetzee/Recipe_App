@@ -28,17 +28,33 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class ScaleRecipeView : UserControl
     {
-       // private POE_PROG6221_ST10023767_GR01.RecipeClass recipeClass = new POE_PROG6221_ST10023767_GR01.RecipeClass();
+        /// <summary>
+        /// Holds the currently selected recipe from the cmbRecipeName ComboBox. 
+        /// </summary>
         private RecipeClassP3 selectedRecipe;
-        private double numTotalCalories = 0 ;
+
+        /// <summary>
+        /// Holds the total number of calories calculated for the scaled ingredients. 
+        /// </summary>
+        private double numTotalCalories = 0;
+
+        /// <summary>
+        /// Holds the list of recipes sorted by recipe name
+        /// </summary>
         private List<RecipeClassP3> sortedRecipe = new List<RecipeClassP3>();
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Default constructor for ScaleRecipeView.
+        /// </summary>
         public ScaleRecipeView()
         {
             InitializeComponent();
 
+            // Set the data context to the MainViewModel
             DataContext = ServiceLocator.MainViewModel;
 
+            // Populate the cmbRecipeName ComboBox with recipe names from the MainViewModel
             cmbRecipeName.ItemsSource = (DataContext as MainViewModel).Recipies;
             cmbRecipeName.DisplayMemberPath = "RecipeName";
         }
@@ -46,12 +62,22 @@ namespace PROG6221_P3.UserControls
 
         private void lstRecipeSteps_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method updates the selectedRecipe with the currently selected recipe and clears the 
+        /// ingredient and step lists.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbRecipeName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Get the selected recipe from the cmbRecipeName ComboBox
             selectedRecipe = cmbRecipeName.SelectedItem as RecipeClassP3;
+
+            // Clear and refresh the ingredient and step lists
             dgIngredients.ItemsSource = null;
             dgIngredients.Items.Refresh();
 
@@ -59,34 +85,47 @@ namespace PROG6221_P3.UserControls
             lstRecipeSteps.Items.Refresh();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method calls two methods, UpdateIngredientDataGrid and UpdateStepList, to update the displayed 
+        /// ingredients and steps based on the selected scaling factor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbFactor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateIngredientDataGrid();
             UpdateStepList();
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method that updates the dgIngredients DataGrid based on the selected recipe and scaling factor.
+        /// It calculates the scaled quantities of ingredients and displays it.
+        /// </summary>
         private void UpdateIngredientDataGrid()
         {
             if (selectedRecipe == null)
                 return;
 
-            string selectedFactor = ((ComboBoxItem)cmbFactor.SelectedItem).Content.ToString(); 
+            string selectedFactor = ((ComboBoxItem)cmbFactor.SelectedItem).Content.ToString();
 
             if (selectedFactor == null)
                 return;
 
             List<IngredientClassP3> scaledIngredients;
- 
+
 
             if (selectedFactor == "Reset")
             {
+                // Reset the ingredients to its original quantities
                 scaledIngredients = selectedRecipe.IngredientListIn;
                 numTotalCalories = scaledIngredients.Sum(ingredient => ingredient.IngredientCalories);
                 txtTotalCalories.Text = "Total Calories: " + numTotalCalories.ToString();
             }
             else
             {
+                // Calculate the scaled quantities of ingredients based on the selected scaling factor
                 double factor = 1.0;
 
                 if (selectedFactor == "Half")
@@ -101,8 +140,8 @@ namespace PROG6221_P3.UserControls
                     {
                         Name = ingredient.Name,
                         Quantity = GetUnit(ingredient.Unit, ingredient.Quantity, factor).Item2,
-                        Unit = GetUnit(ingredient.Unit, ingredient.Quantity,factor).Item1,
-                        IngredientCalories = Math.Round(ingredient.IngredientCalories * factor,2),
+                        Unit = GetUnit(ingredient.Unit, ingredient.Quantity, factor).Item1,
+                        IngredientCalories = Math.Round(ingredient.IngredientCalories * factor, 2),
                         FoodGroup = ingredient.FoodGroup
                     })
                     .ToList();
@@ -111,9 +150,18 @@ namespace PROG6221_P3.UserControls
                 txtTotalCalories.Text = "Total Calories: " + numTotalCalories.ToString();
             }
 
+            // Update the ingredient data grid with the scaled ingredients
             dgIngredients.ItemsSource = scaledIngredients;
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method calculates the scaled unit and quantity of an ingredient based on the selected scaling factor.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="quantity"></param>
+        /// <param name="factor"></param>
+        /// <returns></returns>
         private (string, double) GetUnit(string unit, double quantity, double factor)
         {
             double quantityFactor = Math.Round(quantity * factor, 2);
@@ -126,7 +174,7 @@ namespace PROG6221_P3.UserControls
                         if (quantityFactor >= 3)
                         {
                             quantityFactor = Math.Round((quantityFactor / 3), 2);
-                            if(quantityFactor <= 1 && quantityFactor > 0)
+                            if (quantityFactor <= 1 && quantityFactor > 0)
                             {
                                 unit = "Tablespoon";
                             }
@@ -134,11 +182,10 @@ namespace PROG6221_P3.UserControls
                             {
                                 unit = "Tablespoons";
                             }
-
                         }
                         else if (quantityFactor > (double)0.0)
                         {
-                            if(quantityFactor <= 1 )
+                            if (quantityFactor <= 1)
                             {
                                 unit = "Teaspoon";
                             }
@@ -156,14 +203,12 @@ namespace PROG6221_P3.UserControls
                                 }
                             }
                         }
-
                         continue;
 
                     case "tablespoon":
                     case "tablespoons":
                         if (quantityFactor >= 16)
                         {
-
                             quantityFactor = Math.Round((quantityFactor / 16), 2);
                             if (quantityFactor <= 1 && quantityFactor > 0)
                             {
@@ -175,14 +220,14 @@ namespace PROG6221_P3.UserControls
                             }
                         }
                         else if (quantityFactor <= 1)
-                            {
-                               unit = "Tablespoon";
-                            }
-                            else
-                            {
+                        {
+                            unit = "Tablespoon";
+                        }
+                        else
+                        {
                             unit = "Tablespoons";
                         }
-                        
+
                         continue;
 
                     case "ounce":
@@ -251,11 +296,7 @@ namespace PROG6221_P3.UserControls
                                 unit = "Cups";
                             }
                         }
-                        //else
-                        //{
-                        //    quantityFactor = Math.Round((quantityFactor * 48), 2);
-                        //    unit = "Teaspoons";
-                        //}
+
                         continue;
 
                     case "gallon":
@@ -288,9 +329,13 @@ namespace PROG6221_P3.UserControls
                         break;
                 }
             }
-            return (unit,quantityFactor);
+            return (unit, quantityFactor);
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method updates the lstRecipeSteps ListBox with the steps of the selected recipe.
+        /// </summary>
         private void UpdateStepList()
         {
             if (selectedRecipe == null)
@@ -307,6 +352,12 @@ namespace PROG6221_P3.UserControls
             lstRecipeSteps.ItemsSource = steps;
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method sorts the recipes in the cmbRecipeName ComboBox alphabetically and updates the data context.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSort_Click(object sender, RoutedEventArgs e)
         {
             DataContext = ServiceLocator.MainViewModel;

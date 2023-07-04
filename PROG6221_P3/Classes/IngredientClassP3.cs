@@ -56,7 +56,8 @@ namespace PROG6221_P3.Classes
         /// <param name="numOfIngredients">The number of ingredients.</param>
         /// <param name="calories">The calorie content of the ingredient.</param>
         /// <param name="foodgroup">The food group of the ingredient.</param>
-        public IngredientClassP3(string name, double quantity, string unit, int numOfIngredients, double calories, string foodgroup)
+        public IngredientClassP3(string name, double quantity, string unit, int numOfIngredients, double calories,
+            string foodgroup)
         {
             this.Name = name;
             this.Quantity = quantity;
@@ -70,7 +71,8 @@ namespace PROG6221_P3.Classes
         /// <summary>
         /// Default constructor for IngredientClassP3.
         /// </summary>
-        public IngredientClassP3() { }
-
+        public IngredientClassP3() 
+        { 
+        }
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

@@ -28,15 +28,31 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class DeleteRecipeView : UserControl
     {
-        WorkerClassP3 worker = new WorkerClassP3 ();
+        /// <summary>
+        /// Instantiates a new instance of the Worker class.
+        /// </summary>
+        private WorkerClassP3 worker = new WorkerClassP3 ();
+
+        /// <summary>
+        /// Store the currently selected recipe
+        /// </summary>
         private RecipeClassP3 selectedRecipe;
+
+        /// <summary>
+        /// Store a sorted list of recipes
+        /// </summary>
         private List<RecipeClassP3> sortedRecipe = new List<RecipeClassP3> ();
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Default constructor for DeleteRecipeView.
+        /// </summary>
         public DeleteRecipeView()
         {
             InitializeComponent();
             DataContext = ServiceLocator.MainViewModel;
 
+            // Set up the ComboBox and ListBox data sources
             cmbRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
             cmbRecipeNames.DisplayMemberPath = "RecipeName";
 
@@ -44,9 +60,18 @@ namespace PROG6221_P3.UserControls
             lstRecipeNames.DisplayMemberPath = "RecipeName";
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This handles the selection change event of the ComboBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Update the selected recipe
             selectedRecipe = cmbRecipeNames.SelectedItem as RecipeClassP3;
+
+            // Refresh the DataGrid to reflect the changes
             dgIngredients.ItemsSource = null;
             dgIngredients.Items.Refresh();
 
@@ -56,6 +81,11 @@ namespace PROG6221_P3.UserControls
             UpdateStepList();
             UpdateIngredientDataGrid();
         }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method updates the list of steps for the selected recipe
+        /// </summary>
         private void UpdateStepList()
         {
             if (selectedRecipe == null)
@@ -72,7 +102,10 @@ namespace PROG6221_P3.UserControls
             lstRecipeSteps.ItemsSource = steps;
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method updates the data grid with the list of ingredients for the selected recipe
+        /// </summary>
         private void UpdateIngredientDataGrid()
         {
             if (selectedRecipe == null)
@@ -94,13 +127,23 @@ namespace PROG6221_P3.UserControls
 
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This button will delete the selected recipe if the user confirms that they would like to delete the 
+        /// recipe 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            string confirm = worker.ShowInputDialog("Enter 'yes' to confirm that you want to delete the selected recipe.","Confirm Delete");
+            // asks for confirmation before deleting the selected recipe
+            string confirm = worker.ShowInputDialog("Enter 'yes' to confirm that you want to delete the selected " +
+                "recipe.","Confirm Delete");
             
             if (confirm.ToLower().Equals("yes"))
             {
-            DataContext = ServiceLocator.MainViewModel;
+                // Remove the selected recipe from the MainViewModel
+                DataContext = ServiceLocator.MainViewModel;
 
                 if (cmbRecipeNames.SelectedItem is RecipeClassP3 selectedRecipe)
                 {
@@ -111,6 +154,7 @@ namespace PROG6221_P3.UserControls
                     cmbRecipeNames.SelectedItem = null;
                 }
 
+                // Update the ComboBox and ListBox with the sorted recipe list
                 sortedRecipe = (DataContext as MainViewModel).Recipies.OrderBy(r => r.RecipeName).ToList();
 
                 cmbRecipeNames.ItemsSource = sortedRecipe;
@@ -125,12 +169,20 @@ namespace PROG6221_P3.UserControls
             }  
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This button will sort the recipes in alphabetical order and update the comboboxes 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSort_Click(object sender, RoutedEventArgs e)
         {
             DataContext = ServiceLocator.MainViewModel;
 
+            // Sort the recipe list
             sortedRecipe = (DataContext as MainViewModel).Recipies.OrderBy(r => r.RecipeName).ToList();
 
+            // Update the ComboBox and ListBox data sources
             cmbRecipeNames.ItemsSource = sortedRecipe;
             cmbRecipeNames.DisplayMemberPath = "RecipeName";
 

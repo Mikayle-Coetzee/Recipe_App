@@ -17,7 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-//using System.Windows.Media;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -31,7 +31,7 @@ namespace PROG6221_P3
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// Instance of the AccountCreationView
+        /// Instantiates a new instance of the accountCreationView.
         /// </summary>
         private AccountCreationView accountCreationView;
 
@@ -40,7 +40,10 @@ namespace PROG6221_P3
         /// </summary>
         public MainViewModel SharedViewModel { get; set; }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Default constructor for MainWindow.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -56,11 +59,23 @@ namespace PROG6221_P3
             DataContext = new MainViewModel();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Exits the application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This button will navigate to the login view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogIn_Click_1(object sender, RoutedEventArgs e)
         {
             // Navigate to the login view

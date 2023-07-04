@@ -21,6 +21,7 @@
     <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
     <!-- Main grid to hold controls -->
     <Grid x:Name="MainGrid8" Background="Black">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="11*"/>
             <ColumnDefinition Width="49*"/>
@@ -32,21 +33,29 @@
             <RowDefinition Height="9*"/>
             <RowDefinition Height="34*"/>
         </Grid.RowDefinitions>
-
-
-        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="5" Grid.ColumnSpan="2"  >
+        
+        <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Background grid -->
+        <Grid Background="{StaticResource BackgroundBrush}" Opacity="0.2" Grid.RowSpan="5" 
+              Grid.ColumnSpan="2"  >
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
         </Grid>
-
+        
+        <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- Grid for main controls -->
         <Grid Grid.RowSpan="5" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="650"/>
             </Grid.RowDefinitions>
 
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+            <!-- Sort button -->
             <Button x:Name="btnSort"  Content="Sort Names" FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="93" VerticalAlignment="Top" Margin="0,167,20,0" Height="30" Click="btnSort_Click"/>
 
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+            <!-- ComboBox for filtering -->
             <ComboBox x:Name="cmbFilter" Margin="165,80,20,0" Height="30" VerticalAlignment="Top" SelectionChanged="cmbFilter_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
                 <ComboBoxItem Content="The name of an ingredient that must be in the recipe"  />
                 <ComboBoxItem Content="A food group that must be in the recipe"/>
@@ -54,13 +63,16 @@
                 <ComboBoxItem Content="Nothing"/>
             </ComboBox>
 
-
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+            <!-- Text box for ingredient filtering -->
             <TextBox x:Name="txtIngredientFilterName" Margin="165,125,135,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center"/>
 
-
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+            <!-- Text box for calories filtering -->
             <TextBox x:Name="txtCaloriesFilterMax" Margin="165,125,135,0" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Top" Height="30" BorderBrush="White" Background="Transparent" VerticalContentAlignment="Center"/>
 
-
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+            <!-- ComboBox for food group filtering -->
             <ComboBox x:Name="cmbFoodGroupFilter" Margin="165,125,135,0" Height="30" VerticalAlignment="Top" SelectionChanged="cmbFoodGroup_SelectionChanged" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
                 <ComboBoxItem Content="Starchy foods" IsSelected="True"/>
                 <ComboBoxItem Content="Vegetables and fruits" />
@@ -71,7 +83,8 @@
                 <ComboBoxItem Content="Water"/>
             </ComboBox>
 
-
+            <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+            <!-- Labels and buttons -->
             <TextBlock Text="View Recipe" FontSize="24" FontWeight="Bold" FontFamily="Segoe Print" Margin="15,16,0,0" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
             <Grid>
@@ -79,20 +92,17 @@
                 <ComboBox x:Name="cmbRecipeNames" Margin="164,168,135,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="30" FontFamily="Segoe Print" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
             </Grid>
 
-
             <Label Content="Filter recipe by: " HorizontalAlignment="Left" Margin="10,79,0,0" FontFamily="Segoe Print" Foreground="White" Width="145" VerticalAlignment="Top"/>
             <Label x:Name="lblFilter" HorizontalAlignment="Left" Margin="15,127,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" Foreground="White" Width="145" Height="30"/>
             <Button x:Name="btnFilter" Content="Filter"  FontFamily="Segoe Print" Foreground="Black" Background="White" HorizontalAlignment="Right" Width="94" VerticalAlignment="Top" Margin="0,124,20,0" Height="30" Click="Button_Click"/>
-
-
-
-
         </Grid>
 
         <TextBlock Text="Steps" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Margin="10,0,0,0"  Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Width="377" Height="26" Grid.Row="3" Grid.Column="1"/>
-
         <TextBlock Text="Ingredients" FontSize="15" FontWeight="Bold" FontFamily="Segoe Print" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="84" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0"/>
         <Image Source="/Images/FoodQuote2.png" Margin="0,39,0,38" Grid.Row="1" Grid.RowSpan="4"/>
+
+        <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- DataGrid for displaying ingredients -->
         <DataGrid x:Name="dgIngredients" AutoGenerateColumns="False"
                 CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Segoe Print" Margin="0,0,20,0" BorderBrush="White" Background="White" Foreground="Black" Grid.Column="1" Grid.Row="2">
             <DataGrid.Columns >
@@ -103,6 +113,9 @@
                 <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="*" FontFamily="Segoe Print"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <!--・♫- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ♫・-->
+        <!-- ListBox for displaying recipe steps -->
         <ListBox x:Name="lstRecipeSteps" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,20,10" SelectionChanged="lstRecipeSteps_SelectionChanged"  Background ="Transparent" Foreground="White" BorderBrush="White" FontFamily="Segoe Print" Grid.Row="4" Grid.Column="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -117,7 +130,6 @@
         </ListBox>
         <Canvas Margin="0,0,0,115" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="txtTotalCalories" Text="Total Calories" FontWeight="Bold" FontFamily="Segoe Print" Width="308" FontSize="16" Margin="407,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White" TextAlignment="Right" Grid.Row="3" Grid.Column="1"/>
-
     </Grid>
 </UserControl>
 <!--★♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫★・。。END OF FILE 。。・★♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫★-->

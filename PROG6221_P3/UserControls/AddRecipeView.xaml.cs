@@ -99,7 +99,7 @@ namespace PROG6221_P3.UserControls
 
         /// <summary>
         /// Instantiates a new instance of the Worker class.
-        /// /// </summary>
+        /// </summary>
         private WorkerClassP3 worker = new WorkerClassP3();
 
         //・♫-------------------------------------------------------------------------------------------------♫・//

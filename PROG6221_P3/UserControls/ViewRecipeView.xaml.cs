@@ -30,13 +30,39 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class ViewRecipeView : UserControl
     {
-       public List<RecipeClassP3> RecipeList { get; set; }
-        private RecipeClassP3 selectedRecipe;
-        private List<RecipeClassP3> filteredRecipes; 
-        private WorkerClassP3 worker = new WorkerClassP3();
-        private List<RecipeClassP3> sortedRecipe = new List<RecipeClassP3>();
-        private double numTotalCalories = 0;
+        /// <summary>
+        /// Gets or sets a list of recipes
+        /// </summary>
+        public List<RecipeClassP3> RecipeList { get; set; }
 
+        /// <summary>
+        /// Holds the currently selected recipe
+        /// </summary>
+        private RecipeClassP3 selectedRecipe;
+
+        /// <summary>
+        /// Holds the list of filtered recipes
+        /// </summary>
+        private List<RecipeClassP3> filteredRecipes;
+
+        /// <summary>
+        /// Instantiates a new instance of the Worker class.
+        /// </summary>
+        private WorkerClassP3 worker = new WorkerClassP3();
+
+        /// <summary>
+        /// Holds the list of recipes sorted by recipe name
+        /// </summary>
+        private List<RecipeClassP3> sortedRecipe = new List<RecipeClassP3>();
+
+        /// <summary>
+        /// Holds the number of calories
+        /// </summary>
+        private double numTotalCalories = 0;
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Default constructor for ViewRecipeView.
+        /// </summary>
         public ViewRecipeView()
         {
             InitializeComponent();
@@ -50,7 +76,14 @@ namespace PROG6221_P3.UserControls
             filteredRecipes = new List<RecipeClassP3>((DataContext as MainViewModel).Recipies);
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method is called when the selection in the recipe names combo box is changed. 
+        /// It updates the selected recipe, refreshes the data grid and step list, and calculates
+        /// the total calories.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedRecipe = cmbRecipeNames.SelectedItem as RecipeClassP3;
@@ -68,6 +101,11 @@ namespace PROG6221_P3.UserControls
             numTotalCalories = ingredients.Sum(ingredient => ingredient.IngredientCalories);
             txtTotalCalories.Text = "Total Calories: " + numTotalCalories.ToString();
         }
+
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method updates the list of steps based on the selected recipe..
+        /// </summary>
         private void UpdateStepList()
         {
             if (selectedRecipe == null)
@@ -84,6 +122,10 @@ namespace PROG6221_P3.UserControls
             lstRecipeSteps.ItemsSource = steps;
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method updates the data grid with the ingredients of the selected recipe.
+        /// </summary>
         private void UpdateIngredientDataGrid()
         {
             if (selectedRecipe == null)
@@ -104,44 +146,21 @@ namespace PROG6221_P3.UserControls
             dgIngredients.ItemsSource = ingredients;
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            string confirm = worker.ShowInputDialog("Enter 'yes' to confirm that you want to delete the selected recipe.", "Confirm Delete");
-
-            if (confirm.ToLower().Equals("yes"))
-            {
-                DataContext = ServiceLocator.MainViewModel;
-
-                RecipeClassP3 selectedRecipe = cmbRecipeNames.SelectedItem as RecipeClassP3;
-                if (selectedRecipe != null)
-                {
-                    // Delete the recipe from the MainViewModel
-                    ServiceLocator.MainViewModel.Recipies.Remove(selectedRecipe);
-                    filteredRecipes.Remove(selectedRecipe); // Remove from the filtered list as well
-
-                    // Clear the selection in the ComboBox
-                    cmbRecipeNames.SelectedItem = null;
-                }
-
-                cmbRecipeNames.ItemsSource = (DataContext as MainViewModel).Recipies;
-                cmbRecipeNames.DisplayMemberPath = "RecipeName";
-            }
-            else
-            {
-                worker.ShowNotificationBox("Request to delete the selected recipe was canceled", "Cancel Delete Request");
-            }
-        }
-
         private void lstRecipeSteps_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method updates the visibility and content of various controls based on the selected filter.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
              btnFilter.Visibility = Visibility.Visible;
-            
 
             if (cmbFilter.SelectedItem is ComboBoxItem selectedFilter)
             {
@@ -201,37 +220,53 @@ namespace PROG6221_P3.UserControls
         {
          
         }
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            lblRecipeName.Visibility=Visibility.Visible;
-            cmbRecipeNames.Visibility=Visibility.Visible;
-
-            if (RecipeList != null)
+            if (RecipeList == null)
             {
-                string ingredientName = txtIngredientFilterName.Text;
-
-                List<RecipeClassP3> recipesWithIngredient = RecipeList.Where(recipe => recipe.IngredientListIn.Any(ingredient => ingredient.Name == ingredientName)).ToList();
-
-                if (recipesWithIngredient.Count > 0)
-                {
-                    // Display the recipes that contain the specified ingredient
-                    dgIngredients.ItemsSource = recipesWithIngredient;
-                }
-                else
-                {
-                    // No recipes contain the specified ingredient
-                    dgIngredients.ItemsSource = null;
-                }
+                // Handle the case when RecipeList is null
+                return;
             }
+
+            List<RecipeClassP3> filteredRecipes = RecipeList;
+
+            if (txtIngredientFilterName.Visibility == Visibility.Visible && !string.IsNullOrEmpty(txtIngredientFilterName.Text))
+            {
+                string selectedIngredient = txtIngredientFilterName.Text.ToLower();
+                filteredRecipes = filteredRecipes.Where(r => r.IngredientListIn.Any(i => i.Name.ToLower().Contains(selectedIngredient))).ToList();
+            }
+
+            if (txtCaloriesFilterMax.Visibility == Visibility.Visible && double.TryParse(txtCaloriesFilterMax.Text, out double selectedMaxCalories))
+            {
+                filteredRecipes = filteredRecipes?.Where(r => r.TotalCalories != null && r.TotalCalories.Any(c => c <= selectedMaxCalories)).ToList();
+            }
+
+            if (cmbFoodGroupFilter.Visibility == Visibility.Visible && cmbFoodGroupFilter.SelectedItem is ComboBoxItem selectedGroupItem)
+            {
+                string selectedGroup = selectedGroupItem.Content.ToString();
+                filteredRecipes = filteredRecipes?.Where(r => r.IngredientListIn.Any(i => i.FoodGroup == selectedGroup)).ToList();
+            }
+
+            cmbRecipeNames.ItemsSource = filteredRecipes?.Select(r => r.RecipeName).OrderBy(r => r).ToList();
+            cmbRecipeNames.SelectedItem = null;
+            cmbRecipeNames.Visibility = Visibility.Visible;
+            lblRecipeName.Visibility = Visibility.Visible;
         }
 
         private void cmbFoodGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ///
+            
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method sorts the recipes alphabetically and updates the combo box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSort_Click(object sender, RoutedEventArgs e)
         {
             DataContext = ServiceLocator.MainViewModel;

@@ -36,12 +36,15 @@ namespace PROG6221_P3.Classes
         /// </summary>
         public List<RecipeClassP3> RecipeList { get; set; }
 
+        /// <summary>
+        /// Holds the list of total calories
+        /// </summary>
         public List<double> TotalCalories { get; set; }
-
 
         //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
-        /// Default constructor for the RecipeClass. Initializes the step list, ingredient list, and recipe list.
+        /// Default constructor for the RecipeClass. Initializes the step list, ingredient list, recipe list, 
+        /// and total calories list.
         /// </summary>
         public RecipeClassP3()
         {

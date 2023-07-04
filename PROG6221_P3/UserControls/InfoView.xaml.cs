@@ -27,17 +27,28 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class InfoView : UserControl
     {
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Default constructor for InfoView.
+        /// </summary>
         public InfoView()
         {
             InitializeComponent();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This handles the selection change event of the cmbInfo ComboBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmbInfo.SelectedItem is ComboBoxItem selectedItem)
             {
                 if (selectedItem.Content.ToString() == "Calories")
                 {
+                    // Show information related to calories
                     FoodGroupComboBox.Visibility = Visibility.Collapsed;
                     txtFoodGroup.Visibility = Visibility.Collapsed;
                     txtInfo.Text = "Calories are a measure of energy. In the context of nutrition, calories refer to the energy content of food and drinks that our bodies can utilize for various physiological functions and activities. Example: Let's consider an example of a medium-sized apple. It contains approximately 52 calories. When we consume this apple, our bodies extract and utilize the energy stored in those calories. This energy is then used for essential functions such as maintaining body temperature, powering physical activities, and supporting bodily processes like digestion and cellular metabolism. It's important to note that the calorie content of foods can vary based on factors such as serving size, cooking methods, and specific varieties.";
@@ -47,14 +58,15 @@ namespace PROG6221_P3.UserControls
                 {
                     if (selectedItem.Content.ToString() == "Food Group")
                     {
+                        // Show information related to food groups
                         txtInfo.Text = string.Empty;
                         infoImage.Source = new BitmapImage(new Uri("", UriKind.Relative));
-
                         FoodGroupComboBox.Visibility = Visibility.Visible;
                         txtFoodGroup.Visibility = Visibility.Visible;
                     }
                     else
                     {
+                        // Hide food group controls
                         FoodGroupComboBox.Visibility = Visibility.Collapsed;
                         txtFoodGroup.Visibility = Visibility.Collapsed;
                     }
@@ -62,6 +74,12 @@ namespace PROG6221_P3.UserControls
             }
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This handles the selection change event of the FoodGroupComboBox ComboBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FoodGroupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (FoodGroupComboBox.SelectedItem is ComboBoxItem selectedFoodGroup)
@@ -104,6 +122,5 @@ namespace PROG6221_P3.UserControls
                 }
             }
         }
-
     }
 }//★---♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫---★・。。END OF FILE 。。・★---♫ ♬:;;;:♬ ♫:;;;: ♫ ♬:;;;:♬ ♫:;;;: ♫---★//

@@ -23,6 +23,7 @@ namespace PROG6221_P3.Classes
         /// </summary>
         private static MainViewModel _mainViewModel;
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Public static property to access the MainViewModel instance
         /// </summary>

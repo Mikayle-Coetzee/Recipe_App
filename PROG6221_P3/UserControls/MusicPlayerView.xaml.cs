@@ -21,10 +21,26 @@ namespace PROG6221_P3.UserControls
     /// </summary>
     public partial class MusicPlayerView : UserControl
     {
+        /// <summary>
+        /// An instance of the MediaPlayer class, which is used to play audio files.
+        /// </summary>
         private MediaPlayer mediaPlayer;
+
+        /// <summary>
+        /// A list of strings representing the names of the songs available in the 'Songs' folder. It will 
+        /// be populated with the names of the available songs when the LoadSongs method is called.
+        /// </summary>
         private List<string> songs;
+
+        /// <summary>
+        /// Holds the index of the currently playing song in the songs list.
+        /// </summary>
         private int currentSongIndex = -1;
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Default constructor for MusicPlayerView.
+        /// </summary>
         public MusicPlayerView()
         {
             InitializeComponent();
@@ -32,6 +48,10 @@ namespace PROG6221_P3.UserControls
             LoadSongs();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method loads the songs from the 'Songs' folder and populates the song list.
+        /// </summary>
         private void LoadSongs()
         {
             string songsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Songs");
@@ -60,7 +80,11 @@ namespace PROG6221_P3.UserControls
             }
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method handles the mouse left button up event on a song item in the song list.
+        /// Updates the current song index and applies bold styling to the selected song.
+        /// </summary>
         private void SongItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (sender is TextBlock textBlock)
@@ -81,12 +105,19 @@ namespace PROG6221_P3.UserControls
             }
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method will play the next song in the music player.
+        /// </summary>
         private void MediaPlayer_MediaEnded(object sender, EventArgs e)
         {
             PlayNextSong();
         }
 
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method plays the current song in the music player.
+        /// </summary>
         private void PlayCurrentSong()
         {
             string currentSong = songs[currentSongIndex];
@@ -96,7 +127,7 @@ namespace PROG6221_P3.UserControls
             string artist = songParts[0];
             string songTitle = songParts[1];
 
-            // Get the path to the song file (assuming it's in the "Songs" folder)
+            // Get the path to the song file 
             string songPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Songs", $"{currentSong}.mp3");
 
             if (File.Exists(songPath))
@@ -115,9 +146,10 @@ namespace PROG6221_P3.UserControls
             }
         }
 
-
-
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method plays the next song in the music player.
+        /// </summary>
         private void PlayNextSong()
         {
             currentSongIndex++;
@@ -127,6 +159,10 @@ namespace PROG6221_P3.UserControls
             PlayCurrentSong();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method plays the previous song in the music player.
+        /// </summary>
         private void PlayPreviousSong()
         {
             currentSongIndex--;
@@ -136,21 +172,37 @@ namespace PROG6221_P3.UserControls
             PlayCurrentSong();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method plays the next song.
+        /// </summary>
         private void btnNext_Click_1(object sender, RoutedEventArgs e)
         {
             PlayNextSong();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method plays the current song.
+        /// </summary>
         private void btnPlay_Click_1(object sender, RoutedEventArgs e)
         {
             PlayCurrentSong();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method stops the currently playing song.
+        /// </summary>
         private void btnPause_Click_1(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Pause();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// This method plays the previous song.
+        /// </summary>
         private void btnPrevious_Click_1(object sender, RoutedEventArgs e)
         {
             PlayPreviousSong();

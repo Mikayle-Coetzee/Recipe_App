@@ -22,7 +22,15 @@ namespace PROG6221_P3.Classes
         /// </summary>
         public ObservableCollection<RecipeClassP3> Recipies { get; set; }
 
+        /// <summary>
+        /// INotifyPropertyChanged event
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
+        /// <summary>
+        /// Default constructor for MainViewModel.
+        /// </summary>
         public MainViewModel()
         {
             // Initialize the Recipes collection as a new instance of ObservableCollection
@@ -30,6 +38,7 @@ namespace PROG6221_P3.Classes
             Recipies.Clear();
         }
 
+        //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method to add a recipe to the Recipes collection
         /// </summary>
@@ -43,11 +52,7 @@ namespace PROG6221_P3.Classes
             OnPropertyChanged("Recipies");
         }
 
-        /// <summary>
-        /// INotifyPropertyChanged event
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        //・♫-------------------------------------------------------------------------------------------------♫・//
         /// <summary>
         /// Method to raise the PropertyChanged event
         /// </summary>
