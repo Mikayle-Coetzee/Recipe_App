@@ -1,4 +1,4 @@
-# POE_PROG6221_ST10023767_GR01
+# Recipe App
 
 This C# application allows users to enter an unlimited number of recipes, scale the recipe (including the ingredients quantities, total calories and the unit of measurement will change accordingly), Print A Specific Recipe, Enter Another Recipe , Clear Recipe, Filter a recipe,or Quit. The project is designed to be user-friendly and intuitive, making it accessible to anyone who wants to enter and scale their recipes.
 
